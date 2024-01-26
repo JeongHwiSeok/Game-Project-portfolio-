@@ -29,11 +29,11 @@ public class ButtonManager : Singleton<ButtonManager>
 
         if(SceneManager.GetActiveScene().name == "Character Select")
         {
-            button = new GameObject[3];
+            button = new GameObject[5];
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
-                button[i] = GameObject.Find("Canvas").transform.GetChild(8).GetChild(i).gameObject;
+                button[i] = GameObject.Find("Canvas").transform.GetChild(7).GetChild(i).gameObject;
             }
         }
 
@@ -78,6 +78,11 @@ public class ButtonManager : Singleton<ButtonManager>
     {
 
     }
+
+    public void Next()
+    {
+        SceneManager.LoadScene("PlayScene");
+    }
     #endregion
 
     private void ButtonMove()
@@ -95,6 +100,11 @@ public class ButtonManager : Singleton<ButtonManager>
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 button[buttonNumber].GetComponent<Button>().Select();
+            }
+            else if(Input.GetKeyDown(KeyCode.Return)) // 수정 필요 (엔터 입력하면 다시 작동됨) - 버튼에 이벤트 함수로 등록
+            {
+                Debug.Log("Enter");
+                button[3].GetComponent<Button>().Select();
             }
         }
     }

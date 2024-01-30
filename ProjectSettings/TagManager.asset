@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Character
+    uniqueID: 1998606699
+    locked: 0
+  - name: fence
+    uniqueID: 2093125303
+    locked: 0
+  - name: map
+    uniqueID: 1826859395
+    locked: 0

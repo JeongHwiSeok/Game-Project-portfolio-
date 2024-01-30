@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] public SpriteRenderer renderer;
     public Vector3 direction;
     public float speed = 10f;
 
@@ -11,7 +12,8 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //renderer = GetComponent<SpriteRenderer>();
+        //renderer.sortingOrder = -1; 레이어 렌더링 순서 조정하는법
     }
 
     // Update is called once per frame

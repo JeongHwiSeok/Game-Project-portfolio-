@@ -5,34 +5,40 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] public SpriteRenderer renderer;
-    public Vector3 direction;
-    public float speed = 10f;
+    [SerializeField] public Animator animator;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
+        // InputManager.instance.keyAction += Move;
+    }
+
+    private void Start()
+    {
+        InputManager.instance.keyAction += Move;
         //renderer = GetComponent<SpriteRenderer>();
         //renderer.sortingOrder = -1; 레이어 렌더링 순서 조정하는법
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Move()
     {
-        direction.x = Input.GetAxis("Horizontal");
-        if(direction.x < 0)
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            gameObject.transform.localEulerAngles = new Vector3(0,180,0);
+            gameObject.transform.localEulerAngles = new Vector3(0, 180, 0);
+            animator.SetBool("Move", true);
         }
-        else if(direction.x > 0)
-        {
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        { 
             gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
+            animator.SetBool("Move", true);
         }
-        direction.y = Input.GetAxis("Vertical");
+        //else if ()
+        //{
+        //    animator.SetBool("Move", false);
+        //}
+    }
 
-        direction.Normalize();
-
-        transform.position += direction * speed * Time.deltaTime;
-        // 위치에 버퍼링걸림 - 추후 리지드바디를 이용하여 움직임을 조절
+    private void OnDisable()
+    {
+        InputManager.instance.keyAction -= Move;
     }
 }

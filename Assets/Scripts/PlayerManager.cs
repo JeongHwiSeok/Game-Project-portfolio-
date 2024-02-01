@@ -2,10 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Movement
+{
+    Idle,
+    Move
+}
+
 public class PlayerManager : MonoBehaviour
 {
+    public static PlayerManager instance
+    {
+        get;
+        private set;
+    }
+
     [SerializeField] public SpriteRenderer renderer;
     [SerializeField] public Animator animator;
+    [SerializeField] Movement movement;
+
+    [SerializeField] public float horizontal;
+    [SerializeField] public float vertical;
 
     private void OnEnable()
     {
@@ -14,27 +30,56 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        instance = this;
         InputManager.instance.keyAction += Move;
-        //renderer = GetComponent<SpriteRenderer>();
-        //renderer.sortingOrder = -1; 레이어 렌더링 순서 조정하는법
+        movement = Movement.Idle;
     }
 
+    private void Update()
+    {
+        Status();
+    }
     private void Move()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if(GameManager.instance.state == false)
+        {
+            return;
+        }
+        if (Input.GetAxis("Horizontal") < 0)
         {
             gameObject.transform.localEulerAngles = new Vector3(0, 180, 0);
-            animator.SetBool("Move", true);
+            movement = Movement.Move;
+            Status();
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        { 
+        else if(Input.GetAxis("Horizontal") > 0)
+        {
             gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
-            animator.SetBool("Move", true);
+            movement = Movement.Move;
+            Status();
         }
-        //else if ()
-        //{
-        //    animator.SetBool("Move", false);
-        //}
+        else if(Input.GetAxis("Vertical") != 0)
+        {
+            movement = Movement.Move;
+            Status();
+        }
+    }
+
+    public void Idle()
+    {
+        movement = Movement.Idle;
+    }
+
+    private void Status()
+    {
+        switch(movement)
+        {
+            case Movement.Idle:
+                animator.Play("Idle");
+                break;
+            case Movement.Move:
+                animator.Play("run");
+                break;
+        }
     }
 
     private void OnDisable()

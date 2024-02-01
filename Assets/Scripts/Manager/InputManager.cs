@@ -11,7 +11,14 @@ public class InputManager : Singleton<InputManager>
     {
         if(Input.anyKey == false)
         {
-            return;
+            if(PlayerManager.instance != null)
+            {
+                PlayerManager.instance.Idle();
+            }
+            else
+            {
+                return;
+            }
         }
 
         if(keyAction != null)

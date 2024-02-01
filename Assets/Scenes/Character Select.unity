@@ -2587,6 +2587,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: []
   buttonNumber: 0
+  mainSceneButtonCount: 0
+  characterSelectButtonCount: 0
 --- !u!4 &992341076
 Transform:
   m_ObjectHideFlags: 0
@@ -4800,7 +4802,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a12f918412056aa4d81ccbefd2281bce, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 851d8c6d69cfa11439bd8867699ce63f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

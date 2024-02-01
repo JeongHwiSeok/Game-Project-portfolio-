@@ -11,7 +11,7 @@ public class MapManager : MonoBehaviour
 
     public Vector3 direction;
 
-    public float speed = 10f;
+    public float speed;
 
     private void OnEnable()
     {
@@ -21,13 +21,14 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         InputManager.instance.keyAction += MapMove;
+        speed = GameManager.instance.CharacterSpeed;
         mapList.Capacity = 20;
     }
 
     public void MapMove()
     {
         direction.x = Input.GetAxis("Horizontal") * -1;
-        
+
         direction.y = Input.GetAxis("Vertical") * -1;
 
         direction.Normalize();

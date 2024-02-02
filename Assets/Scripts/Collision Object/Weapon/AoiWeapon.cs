@@ -2,27 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AoiWeapon : Weapon
+public class AoiWeapon : MonoBehaviour
 {
     [SerializeField] public List<GameObject> aoiWeapon;
 
     [SerializeField] public List<GameObject> standbyWeapon;
 
-    protected override void Create()
+    [SerializeField] MinuteHand minuteHand;
+
+    [SerializeField] public Vector3 direction;
+
+    public float speed;
+    public int attackCount;
+
+    public static AoiWeapon instance
     {
-        Transform parent = GameObject.Find("AoiWeapon").GetComponent<Transform>();
+        get;
+        private set;
+    }
 
-        for (int i = 0; i < 6; i++)
+    private void Start()
+    {
+        Create();
+        Attack();
+    }
+
+    private void Create()
+    {
+        Transform parent = GameObject.Find("Attack Manager").GetComponent<Transform>();
+
+        for(int i = 0; i < 3; i++)
         {
-            GameObject weapon = Instantiate(aoiWeapon[0], parent);
+            GameObject weapon = Instantiate(aoiWeapon[i], parent);
 
-            weapon.SetActive(false);
-
-            standbyWeapon.Add(weapon);
-        }
-        for (int i = 0; i < 1; i++)
-        {
-            GameObject weapon = Instantiate(aoiWeapon[1], parent);
+            weapon.transform.position = new Vector3(0, 1.5f, 0);
 
             weapon.SetActive(false);
 
@@ -30,8 +43,24 @@ public class AoiWeapon : Weapon
         }
     }
 
-    protected override IEnumerator Attack()
+    public void Attack()
     {
-        throw new System.NotImplementedException();
+        standbyWeapon[0].SetActive(true);
+        standbyWeapon[1].SetActive(true);
+        StartCoroutine(Unison());
+    }
+
+    public IEnumerator Unison()
+    {
+        while(GameManager.instance.state)
+        {
+            yield return new WaitForSeconds(4320 / minuteHand.Speed);
+            if (standbyWeapon[2].activeSelf == false)
+            {
+                standbyWeapon[0].SetActive(false);
+                standbyWeapon[1].SetActive(false);
+                standbyWeapon[2].SetActive(true);
+            }
+        }
     }
 }

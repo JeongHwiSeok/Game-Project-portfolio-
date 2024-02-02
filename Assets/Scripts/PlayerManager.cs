@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
         private set;
     }
 
-    [SerializeField] public SpriteRenderer renderer;
+    // [SerializeField] public SpriteRenderer renderer;
     [SerializeField] public Animator animator;
     [SerializeField] Movement movement;
 

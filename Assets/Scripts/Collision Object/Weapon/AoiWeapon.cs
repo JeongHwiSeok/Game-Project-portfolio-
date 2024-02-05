@@ -8,9 +8,11 @@ public class AoiWeapon : MonoBehaviour
 
     [SerializeField] public List<GameObject> standbyWeapon;
 
-    [SerializeField] MinuteHand minuteHand;
-
     [SerializeField] public Vector3 direction;
+
+    [SerializeField] Vector3 minuteHand;
+    [SerializeField] Vector3 hourHand;
+
 
     public float speed;
     public int attackCount;
@@ -19,6 +21,14 @@ public class AoiWeapon : MonoBehaviour
     {
         get;
         private set;
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
 
     private void Start()
@@ -35,8 +45,6 @@ public class AoiWeapon : MonoBehaviour
         {
             GameObject weapon = Instantiate(aoiWeapon[i], parent);
 
-            weapon.transform.position = new Vector3(0, 1.5f, 0);
-
             weapon.SetActive(false);
 
             standbyWeapon.Add(weapon);
@@ -47,20 +55,5 @@ public class AoiWeapon : MonoBehaviour
     {
         standbyWeapon[0].SetActive(true);
         standbyWeapon[1].SetActive(true);
-        StartCoroutine(Unison());
-    }
-
-    public IEnumerator Unison()
-    {
-        while(GameManager.instance.state)
-        {
-            yield return new WaitForSeconds(4320 / minuteHand.Speed);
-            if (standbyWeapon[2].activeSelf == false)
-            {
-                standbyWeapon[0].SetActive(false);
-                standbyWeapon[1].SetActive(false);
-                standbyWeapon[2].SetActive(true);
-            }
-        }
     }
 }

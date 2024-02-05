@@ -7,14 +7,12 @@ public class UnisonWeapon : MonoBehaviour
     [SerializeField] Vector3 point;
     [SerializeField] Vector3 target;
     [SerializeField] Vector3 direction;
-    [SerializeField] Vector3 savePoint;
 
     private float speed;
+    private float time;
 
     private void OnEnable()
     {
-        point = Input.mousePosition;
-        target = new Vector3(1, 0, 0);
         transform.position = new Vector3(0, 2.5f, 0);
         speed = 360f;
     }
@@ -22,6 +20,8 @@ public class UnisonWeapon : MonoBehaviour
     private void Update()
     {
         AttackDirection();
+        time += Time.deltaTime;
+        CheckDgree();
     }
 
     private void AttackDirection()
@@ -29,8 +29,18 @@ public class UnisonWeapon : MonoBehaviour
         transform.RotateAround(Vector3.zero, Vector3.forward, -speed * Time.deltaTime);
     }
 
+    private void CheckDgree()
+    {
+        if(gameObject.activeSelf && time > 1f)
+        {
+            time = 0;
+            AoiWeapon.instance.standbyWeapon[2].SetActive(false);
+        }
+    }
+
     private void OnDisable()
     {
-        AoiWeapon.instance.Attack();
+        transform.position = new Vector3(0, 2.5f, 0);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }

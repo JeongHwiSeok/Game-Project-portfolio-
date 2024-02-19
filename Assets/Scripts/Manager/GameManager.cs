@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private float monsterSpeed = 1f;
-    [SerializeField] private float characterSpeed = 3f;
+    [SerializeField] private float characterSpeed = 1f;
     [SerializeField] private float weaponSpeed = 0.2f;
 
     [SerializeField] public bool state = true;

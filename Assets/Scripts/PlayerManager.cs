@@ -5,7 +5,8 @@ using UnityEngine;
 public enum Movement
 {
     Idle,
-    Move
+    Move,
+    Attack
 }
 
 public class PlayerManager : MonoBehaviour
@@ -18,10 +19,8 @@ public class PlayerManager : MonoBehaviour
 
     // [SerializeField] public SpriteRenderer renderer;
     [SerializeField] public Animator animator;
-    [SerializeField] Movement movement;
-
-    [SerializeField] public float horizontal;
-    [SerializeField] public float vertical;
+    [SerializeField] public Movement movement;
+    [SerializeField] public Vector2 pos;
 
     private void OnEnable()
     {
@@ -47,13 +46,13 @@ public class PlayerManager : MonoBehaviour
         }
         if (Input.GetAxis("Horizontal") < 0)
         {
-            gameObject.transform.localEulerAngles = new Vector3(0, 180, 0);
+            transform.localEulerAngles = new Vector3(0, 180, 0);
             movement = Movement.Move;
             Status();
         }
         else if(Input.GetAxis("Horizontal") > 0)
         {
-            gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
+            transform.localEulerAngles = new Vector3(0, 0, 0);
             movement = Movement.Move;
             Status();
         }
@@ -81,6 +80,51 @@ public class PlayerManager : MonoBehaviour
                 break;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        CollisionObject collisionObject = collision.GetComponent<CollisionObject>();
+
+        if(collisionObject != null)
+        {
+            collisionObject.Activate(this);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        CollisionObject collisionObject = collision.GetComponent<CollisionObject>();
+
+        if (collisionObject != null)
+        {
+            collisionObject.UnActivate(this);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        CollisionObject collisionObject = collision.gameObject.GetComponent<CollisionObject>();
+
+        ContactPoint2D contact = collision.contacts[0];
+
+        pos = contact.normal;
+
+        if (collisionObject != null)
+        {
+            collisionObject.CollisionActivate(this);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        CollisionObject collisionObject = collision.gameObject.GetComponent<CollisionObject>();
+
+        if (collisionObject != null)
+        {
+            collisionObject.CollisionUnActivate(this);
+        }
+    }
+
 
     private void OnDisable()
     {

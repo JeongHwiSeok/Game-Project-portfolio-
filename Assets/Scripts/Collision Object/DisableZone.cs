@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class DisableZone : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
+        IkuminAttack Ikumin = other.GetComponent<IkuminAttack>();
+
+        if(Ikumin != null)
+        {
+            return;
+        }
+
         Weapon weapon = other.GetComponent<Weapon>();
 
         if (weapon != null)

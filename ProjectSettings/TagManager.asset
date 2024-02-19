@@ -13,12 +13,12 @@ TagManager:
   - UI
   - 
   - Monster
-  - Attack
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Weapon
+  - Character
+  - Wall
+  - Object
+  - Block
+  - Unison
   - 
   - 
   - 

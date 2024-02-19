@@ -5,13 +5,16 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     [SerializeField] public List<GameObject> mapList;
-    
+
+    [SerializeField] public bool moveXPos;
+    [SerializeField] public bool moveXNeg;
+    [SerializeField] public bool moveYPos;
+    [SerializeField] public bool moveYNeg;
+
     public float offsetX = 38.4f;
     public float offsetY = 21.6f;
 
     public Vector3 direction;
-
-    public float speed;
 
     private void OnEnable()
     {
@@ -21,7 +24,10 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         InputManager.instance.keyAction += MapMove;
-        speed = GameManager.instance.CharacterSpeed;
+        moveXPos = true;
+        moveXNeg = true;
+        moveYPos = true;
+        moveYNeg = true;
         mapList.Capacity = 20;
     }
 
@@ -31,9 +37,38 @@ public class MapManager : MonoBehaviour
 
         direction.y = Input.GetAxis("Vertical") * -1;
 
+        if (moveXNeg == false)
+        {
+            if (direction.x > 0)
+            {
+                direction.x = 0;
+            }
+        }
+        if (moveXPos == false)
+        {
+            if (direction.x < 0)
+            {
+                direction.x = 0;
+            }
+        }
+        if (moveYNeg == false)
+        {
+            if (direction.y > 0)
+            {
+                direction.y = 0;
+            }
+        }
+        if (moveYPos == false)
+        {
+            if (direction.y < 0)
+            {
+                direction.y = 0;
+            }
+        }
+
         direction.Normalize();
 
-        transform.position += direction * speed * Time.deltaTime;
+        transform.position += direction * GameManager.instance.CharacterSpeed * Time.deltaTime;
     }
 
     private void OnDisable()

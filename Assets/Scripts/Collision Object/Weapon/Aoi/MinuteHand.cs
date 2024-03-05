@@ -8,13 +8,6 @@ public class MinuteHand : Weapon
     [SerializeField] Vector3 target;
     [SerializeField] Vector3 direction;
 
-    private float speed;
-
-    public float Speed
-    {
-        get { return speed; }
-    }
-
     private void OnEnable()
     {
         point = Input.mousePosition;
@@ -22,12 +15,16 @@ public class MinuteHand : Weapon
         // transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(point.y, point.x) * Mathf.Rad2Deg - 90);
         transform.position = new Vector3(0, 1.5f, 0);
         speed = 240f;
+        atk = 15f;
+        knockBack = 1f;
     }
 
     private void Update()
     {
-        AttackDirection();
-        // PositionStatus(direction);
+        if (GameManager.instance.state)
+        {
+            AttackDirection();
+        }
     }
 
     private void AttackDirection()

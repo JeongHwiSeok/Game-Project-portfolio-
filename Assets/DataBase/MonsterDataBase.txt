@@ -1,0 +1,4 @@
+0	Ikumin	30	5
+1	Mezzo	50	10
+2	Rkangels	75	10
+3	Wat-ai	100	15

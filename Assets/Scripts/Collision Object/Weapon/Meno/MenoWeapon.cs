@@ -13,7 +13,6 @@ public class MenoWeapon : MonoBehaviour
 
     [SerializeField] public Vector3 direction;
 
-    public float speed;
     public int attackCount;
 
     public static MenoWeapon instance

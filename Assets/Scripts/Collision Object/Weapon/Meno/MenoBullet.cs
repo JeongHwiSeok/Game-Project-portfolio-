@@ -8,13 +8,6 @@ public class MenoBullet : Weapon
     [SerializeField] Vector3 target;
     [SerializeField] Vector3 direction;
 
-    private float speed;
-
-    public float Speed
-    {
-        get { return speed; }
-    }
-
     private void OnEnable()
     {
         point = MenoWeapon.instance.point;

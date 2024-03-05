@@ -33,42 +33,45 @@ public class MapManager : MonoBehaviour
 
     public void MapMove()
     {
-        direction.x = Input.GetAxis("Horizontal") * -1;
-
-        direction.y = Input.GetAxis("Vertical") * -1;
-
-        if (moveXNeg == false)
+        if(GameManager.instance.state)
         {
-            if (direction.x > 0)
-            {
-                direction.x = 0;
-            }
-        }
-        if (moveXPos == false)
-        {
-            if (direction.x < 0)
-            {
-                direction.x = 0;
-            }
-        }
-        if (moveYNeg == false)
-        {
-            if (direction.y > 0)
-            {
-                direction.y = 0;
-            }
-        }
-        if (moveYPos == false)
-        {
-            if (direction.y < 0)
-            {
-                direction.y = 0;
-            }
-        }
+            direction.x = Input.GetAxis("Horizontal") * -1;
 
-        direction.Normalize();
+            direction.y = Input.GetAxis("Vertical") * -1;
 
-        transform.position += direction * GameManager.instance.CharacterSpeed * Time.deltaTime;
+            if (moveXNeg == false)
+            {
+                if (direction.x > 0)
+                {
+                    direction.x = 0;
+                }
+            }
+            if (moveXPos == false)
+            {
+                if (direction.x < 0)
+                {
+                    direction.x = 0;
+                }
+            }
+            if (moveYNeg == false)
+            {
+                if (direction.y > 0)
+                {
+                    direction.y = 0;
+                }
+            }
+            if (moveYPos == false)
+            {
+                if (direction.y < 0)
+                {
+                    direction.y = 0;
+                }
+            }
+
+            direction.Normalize();
+
+            transform.position += direction * GameManager.instance.CharacterSpeed * Time.deltaTime;
+        }
     }
 
     private void OnDisable()

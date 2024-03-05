@@ -1,0 +1,3 @@
+0	Tokimori Aoi	55	1	1.5	5	Clock Hand	Time Control	Sense of Beat	BakaMori
+1	Hoshifuri Iku	70	1.2	1.2	2	Ikumines	Furifuri	Ikumin Hime	Ikuminship
+2	Ibuki Meno	45	1.5	1	3	Electric Bullet	Ippui!	Hologram	Static Accumulation

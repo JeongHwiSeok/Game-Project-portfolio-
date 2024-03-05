@@ -2,26 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnisonWeapon : MonoBehaviour
+public class UnisonWeapon : Weapon
 {
     [SerializeField] Vector3 point;
     [SerializeField] Vector3 target;
     [SerializeField] Vector3 direction;
 
-    private float speed;
     private float time;
 
     private void OnEnable()
     {
         transform.position = new Vector3(0, 2.5f, 0);
-        speed = 360f;
+        //speed = 360f;
+        //atk = 30f;
+        speed = 720f;
+        atk = 150f;
+        knockBack = 1.5f;
     }
 
     private void Update()
     {
-        AttackDirection();
-        time += Time.deltaTime;
-        CheckDgree();
+        if (GameManager.instance.state)
+        {
+            AttackDirection();
+            time += Time.deltaTime;
+            CheckDgree();
+        }  
     }
 
     private void AttackDirection()

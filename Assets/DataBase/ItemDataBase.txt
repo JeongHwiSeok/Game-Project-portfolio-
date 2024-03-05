@@ -1,0 +1,15 @@
+1	weapon	Mechanical Dragon's Tail	1	1	0	1	1	0
+2	weapon	Strange Picture	1	1	0	1	1	0
+3	weapon	Microphone	1	1	0	1	1	0
+4	weapon	Devil's horn	1	1	0	1	1	0
+5	weapon	Special hairpin	1	1	0	1	1	0
+6	weapon	Chakram	1	1	0	1	1	0
+7	weapon	Rain boots	1	1	0	1	1	0
+8	support	Clock hat	1	0	0	1	1	0
+9	support	Jewal box	1	0	0	1	1	0
+10	support	Pink ribbon	1	0	0	1	1	0
+11	support	Ikumin doll	1	0	0	1	1	0
+12	support	Pocket watch string	1	0	0	1	1	0
+13	support	Chicken nuggie	1	0	0	1	1	0
+14	support	Angel's halo	1	0	0	1	1	0
+15	support	Headdress	1	0	0	1	1	0

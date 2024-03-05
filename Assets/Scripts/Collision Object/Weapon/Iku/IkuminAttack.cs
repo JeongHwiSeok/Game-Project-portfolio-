@@ -11,13 +11,7 @@ public class IkuminAttack : Weapon
 
     [SerializeField] public Animator animator;
 
-    private float speed;
     private int count;
-
-    public float Speed
-    {
-        get { return speed; }
-    }
 
     private void OnEnable()
     {

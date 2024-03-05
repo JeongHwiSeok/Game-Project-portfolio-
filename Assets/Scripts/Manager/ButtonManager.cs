@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ButtonManager : Singleton<ButtonManager>
 {
@@ -10,13 +11,23 @@ public class ButtonManager : Singleton<ButtonManager>
     [SerializeField] public int buttonNumber;
 
     [SerializeField] public int mainSceneButtonCount;
-    [SerializeField] public int characterSelectButtonCount;
+    [SerializeField] public int characterSelectSceneButtonCount;
+    [SerializeField] public int shopSceneButtonCount;
+    [SerializeField] public int characterSceneButtonCount;
 
 
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        InputManager.instance.keyAction += ButtonMove;
+        //InputManager.instance.keyAction += ButtonMove;
+    }
+
+    private void Start()
+    {
+        mainSceneButtonCount = 6;
+        characterSelectSceneButtonCount = 6;
+        shopSceneButtonCount = 4;
+        characterSceneButtonCount = 3;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -37,29 +48,65 @@ public class ButtonManager : Singleton<ButtonManager>
             button[3].GetComponent<Button>().onClick.AddListener(Character);
             button[4].GetComponent<Button>().onClick.AddListener(Credit);
             button[5].GetComponent<Button>().onClick.AddListener(Quit);
+
+            button[0].GetComponent<Button>().Select();
         }
         #endregion
 
         #region Character Select Scene
         if (SceneManager.GetActiveScene().name == "Character Select")
         {
-            button = new GameObject[characterSelectButtonCount];
+            button = new GameObject[characterSelectSceneButtonCount];
 
-            for (int i = 0; i < characterSelectButtonCount; i++)
+            for (int i = 0; i < characterSelectSceneButtonCount - 1; i++)
             {
                 button[i] = GameObject.Find("Canvas").transform.GetChild(7).GetChild(i).gameObject;
             }
+            button[characterSelectSceneButtonCount - 1] = GameObject.Find("Canvas").transform.GetChild(8).gameObject;
 
-            button[0].GetComponent<Button>().onClick.AddListener(CharacterSelect);
-            button[1].GetComponent<Button>().onClick.AddListener(CharacterSelect);
-            button[2].GetComponent<Button>().onClick.AddListener(CharacterSelect);
-            button[3].GetComponent<Button>().onClick.AddListener(Character);
-            button[4].GetComponent<Button>().onClick.AddListener(Next);
+            //for (int i = 0; i < characterSelectButtonCount - 2; i++)
+            //{
+            //    button[i].GetComponent<Button>().onClick.AddListener(CharacterSelect);
+            //}
+
+            button[characterSelectSceneButtonCount - 3].GetComponent<Button>().onClick.AddListener(CharacterScene);
+            button[characterSelectSceneButtonCount - 2].GetComponent<Button>().onClick.AddListener(Next);
+            button[characterSelectSceneButtonCount - 1].GetComponent<Button>().onClick.AddListener(CharacterSelectBack);
+        }
+        #endregion
+
+        #region Shop Scene
+        if (SceneManager.GetActiveScene().name == "ShopScene")
+        {
+            button = new GameObject[shopSceneButtonCount];
+
+            button[0] = GameObject.Find("Canvas").transform.GetChild(5).gameObject;
+            button[1] = GameObject.Find("Canvas").transform.GetChild(4).GetChild(0).gameObject;
+            button[2] = GameObject.Find("Canvas").transform.GetChild(4).GetChild(1).gameObject;
+            button[3] = GameObject.Find("Canvas").transform.GetChild(4).GetChild(2).gameObject;
+
+            button[0].GetComponent<Button>().onClick.AddListener(ShopBack);
+            button[2].GetComponent<Button>().onClick.AddListener(ShopInterfaceOpen);
+        }
+        #endregion
+
+        #region CharacterScene
+        if (SceneManager.GetActiveScene().name == "CharacterScene")
+        {
+            button = new GameObject[characterSceneButtonCount];
+
+            for (int i = 0; i < characterSceneButtonCount; i++)
+            {
+                button[i] = GameObject.Find("Canvas").transform.GetChild(i+4).gameObject;
+            }
+
+            button[0].GetComponent<Button>().onClick.AddListener(CharacterBack);
+            button[1].GetComponent<Button>().onClick.AddListener(CharacterLeft);
+            button[2].GetComponent<Button>().onClick.AddListener(CharacterRight);
         }
         #endregion
 
         buttonNumber = 0;
-        button[buttonNumber].GetComponent<Button>().Select();
     }
 
     #region MainScene
@@ -70,12 +117,12 @@ public class ButtonManager : Singleton<ButtonManager>
 
     public void Character()
     {
-        
+        SceneManager.LoadScene(3);
     }
 
     public void Shop()
     {
-
+        SceneManager.LoadScene(4);
     }
 
     public void Option()
@@ -95,58 +142,102 @@ public class ButtonManager : Singleton<ButtonManager>
     }
     #endregion
 
-    #region
+    #region CharacterSelectScene
     public void CharacterSelect()
     {
-        button[3].GetComponent<Button>().Select();
+        button[characterSelectSceneButtonCount - 2].GetComponent<Button>().Select();
+        buttonNumber = characterSelectSceneButtonCount - 2;
     }
 
     public void Next()
     {
         SceneManager.LoadScene("PlayScene");
     }
+
+    public void CharacterScene()
+    {
+        SceneManager.LoadScene(3);
+    }
+
+    public void CharacterSelectBack()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
     #endregion
 
-    private void ButtonMove()
+    #region ShopScene
+    private void ShopBack()
     {
-        if(SceneManager.GetActiveScene().name == "MainScene")
+        if(GameObject.Find("Canvas").transform.GetChild(3).gameObject.activeSelf == true)
         {
-            #region 버튼넘버 카운터 계산
-            if (Input.GetKeyDown(KeyCode.RightArrow) && buttonNumber < 5)
-            {
-                buttonNumber++;
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && buttonNumber > 0)
-            {
-                buttonNumber--;
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow) && buttonNumber > 1)
-            {
-                buttonNumber -= 2;
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow) && buttonNumber < 4)
-            {
-                buttonNumber += 2;
-            }
-            #endregion
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                button[buttonNumber].GetComponent<Button>().Select();
-            }
+            GameObject.Find("Canvas").transform.GetChild(3).gameObject.SetActive(false);
+            GameObject.Find("Canvas").transform.GetChild(4).gameObject.SetActive(true);
         }
-
-        if (SceneManager.GetActiveScene().name == "Character Select")
+        else
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                button[buttonNumber].GetComponent<Button>().Select();
-            }
+            SceneManager.LoadScene(0);
         }
     }
+
+    private void ShopInterfaceOpen()
+    {
+        GameObject.Find("Canvas").transform.GetChild(4).gameObject.SetActive(false);
+        GameObject.Find("Canvas").transform.GetChild(3).gameObject.SetActive(true);
+    }
+    #endregion
+
+    #region CharacterScene
+    private void CharacterBack()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    private void CharacterLeft()
+    {
+        GameObject.Find("Canvas").transform.GetChild(3).GetComponent<InterfaceChanger>().LeftChange();
+    }
+
+    private void CharacterRight()
+    {
+        GameObject.Find("Canvas").transform.GetChild(3).GetComponent<InterfaceChanger>().RightChange();
+    }
+    #endregion
+
+    //private void ButtonMove()
+    //{
+    //    if(SceneManager.GetActiveScene().name == "MainScene")
+    //    {
+
+    //    }
+
+    //    if (SceneManager.GetActiveScene().name == "Character Select")
+    //    {
+    //        if (buttonNumber >= characterSelectButtonCount - 2)
+    //        {
+    //            if (Input.GetKeyDown(KeyCode.Mouse0))
+    //            {
+    //                button[buttonNumber].GetComponent<Button>().Select();
+    //            }
+    //            else if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && buttonNumber < characterSelectButtonCount - 1)
+    //            {
+    //                buttonNumber++;
+    //            }
+    //            else if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && buttonNumber > characterSelectButtonCount - 2)
+    //            {
+    //                buttonNumber--;
+    //            }
+    //            else if (Input.GetKeyDown(KeyCode.Escape))
+    //            {
+    //                buttonNumber = 0;
+    //                button[buttonNumber].GetComponent<Button>().Select();   
+    //            }
+    //        }
+    //    }
+    //}
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        InputManager.instance.keyAction -= ButtonMove;
+        //InputManager.instance.keyAction -= ButtonMove;
     }
 }

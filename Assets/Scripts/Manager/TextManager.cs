@@ -13,7 +13,7 @@ public class ButtonText
 
 public class TextManager : MonoBehaviour
 {
-    public TMP_Text [] buttonTexts;
+    public Text [] buttonTexts;
     public ButtonText[] buttonText;
 
     void Start()
@@ -21,8 +21,9 @@ public class TextManager : MonoBehaviour
         for (int i = 0; i < buttonText.Length; i++)
         {
             buttonTexts[i].text = buttonText[i].buttonName;
-            buttonTexts[i].fontSize = 30;
-            buttonTexts[i].fontStyle = TMPro.FontStyles.Bold;
+            buttonTexts[i].fontSize = 40;
+            buttonTexts[i].fontStyle = FontStyle.Bold;
+            buttonTexts[i].alignment = TextAnchor.UpperCenter;
         }
     }
 }

@@ -25,7 +25,10 @@ public class UserData
     /* 꾸미기 용품
      * 캐릭터 선택창 발판
      */
-    public int[ , ] characterInfo;
+
+    public int[] AoiInfo = new int[12];
+    public int[] IkuInfo = new int[12];
+    public int[] MenoInfo = new int[12];
     public int shopCoin;
-    public bool firstCheck;
+    public int[] shopInfo = new int[30];
 }

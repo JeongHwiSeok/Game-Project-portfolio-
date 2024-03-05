@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargeBulletRotation : MonoBehaviour
+public class ChargeBulletRotation : Weapon
 {
-    private float speed;
     private float time;
 
     private void OnEnable()

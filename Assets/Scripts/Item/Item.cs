@@ -45,6 +45,8 @@ public class Item : MonoBehaviour
 
             PlayerManager.instance.exp += exp;
 
+            DropItemManager.instance.removeDropItem(gameObject);
+
             Destroy(this.gameObject);
         }
     }

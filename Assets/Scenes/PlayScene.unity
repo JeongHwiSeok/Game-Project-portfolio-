@@ -1907,6 +1907,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 886525216}
+  - component: {fileID: 886525217}
   m_Layer: 0
   m_Name: DropItem
   m_TagString: Untagged
@@ -1929,6 +1930,23 @@ Transform:
   m_Father: {fileID: 717265103}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &886525217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886525215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 397f05a6bd8d373468a08c31de61c32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropItemList: []
+  dropItem:
+  - {fileID: 2651416530690363227, guid: 75a75035d07032b4ea8d23216fd14f16, type: 3}
+  - {fileID: 7968660014064408247, guid: 94cf1da2f8ba25f4a8e2753d8d8d6592, type: 3}
+  - {fileID: 929412373972014932, guid: 73a6698c5d5bd5f4287d63c560317e3c, type: 3}
 --- !u!1 &931038785
 GameObject:
   m_ObjectHideFlags: 0

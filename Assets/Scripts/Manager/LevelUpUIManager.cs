@@ -87,11 +87,21 @@ public class LevelUpUIManager : MonoBehaviour
                     }
                     for (int i = 6; i < 14; i++)
                     {
-                        itemBox[i] = i + 1;
+                        itemBox[i] = i + 2;
                     }
                     checkNumber = Random.Range(0, 13);
+                    while (itemNumberCheck[checkNumber])
+                    {
+                        checkNumber = Random.Range(0, 13);
+                    }
+                    itemNumberCheck[checkNumber] = true;
                     return itemBox[checkNumber];
                 }
+                while (itemNumberCheck[checkNumber])
+                {
+                    checkNumber = Random.Range(8, 15);
+                }
+                itemNumberCheck[checkNumber] = true;
                 return checkNumber;
             }
             else if (SupportFullCheck())
@@ -108,15 +118,25 @@ public class LevelUpUIManager : MonoBehaviour
                     itemBox = new int[13];
                     for (int i = 0; i < 7; i++)
                     {
-                        itemBox[i] = i;
+                        itemBox[i] = i+1;
                     }
                     for (int i = 7; i < 13; i++)
                     {
-                        itemBox[i] = canvas.GetComponent<UIManager>().supportItem[i,0];
+                        itemBox[i] = canvas.GetComponent<UIManager>().supportItem[i - 7, 0];
                     }
                     checkNumber = Random.Range(0, 12);
+                    while (itemNumberCheck[checkNumber])
+                    {
+                        checkNumber = Random.Range(0, 12);
+                    }
+                    itemNumberCheck[checkNumber] = true;
                     return itemBox[checkNumber];
                 }
+                while (itemNumberCheck[checkNumber])
+                {
+                    checkNumber = Random.Range(1, 7);
+                }
+                itemNumberCheck[checkNumber] = true;
                 return checkNumber;
             }
             else

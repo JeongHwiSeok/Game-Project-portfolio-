@@ -32,11 +32,16 @@ public class Monster : MonoBehaviour
     private int[] dropPercent = new int[5] {3,5,7,11,29};
     private int maxDropCount;
 
+    private DropItemManager dropItemManager;
+
+    [SerializeField] GameObject drop;
+
     protected virtual void OnEnable()
     {
         maxDropCount = 10;
         parent = transform.parent.parent.GetChild(11);
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
+        dropItemManager = transform.parent.parent.GetChild(11).GetComponent<DropItemManager>();
         StartCoroutine(LastPosition());
         for (int i = 0; i < dropPercent.Length; i++)
         {
@@ -148,8 +153,6 @@ public class Monster : MonoBehaviour
     {
         int randomCount = Random.Range(1, maxDropCount+1);
 
-        GameObject drop;
-
         if(randomCount % dropPercent[4] == 0)
         {
             randomCount = Random.Range(1, 6);
@@ -190,5 +193,10 @@ public class Monster : MonoBehaviour
         float y = Random.insideUnitSphere.y + transform.position.y;
 
         drop.transform.position = new Vector3(x, y, 0);
+
+        if (drop.name != "coin(Clone)")
+        {
+            dropItemManager.dropAdd(drop);
+        }
     }
 }

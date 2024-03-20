@@ -48,8 +48,6 @@ public class ButtonManager : Singleton<ButtonManager>
             button[3].GetComponent<Button>().onClick.AddListener(Character);
             button[4].GetComponent<Button>().onClick.AddListener(Credit);
             button[5].GetComponent<Button>().onClick.AddListener(Quit);
-
-            button[0].GetComponent<Button>().Select();
         }
         #endregion
 
@@ -60,9 +58,9 @@ public class ButtonManager : Singleton<ButtonManager>
 
             for (int i = 0; i < characterSelectSceneButtonCount - 1; i++)
             {
-                button[i] = GameObject.Find("Canvas").transform.GetChild(7).GetChild(i).gameObject;
+                button[i] = GameObject.Find("Canvas").transform.GetChild(6).GetChild(i).gameObject;
             }
-            button[characterSelectSceneButtonCount - 1] = GameObject.Find("Canvas").transform.GetChild(8).gameObject;
+            button[characterSelectSceneButtonCount - 1] = GameObject.Find("Canvas").transform.GetChild(7).gameObject;
 
             //for (int i = 0; i < characterSelectButtonCount - 2; i++)
             //{
@@ -127,7 +125,7 @@ public class ButtonManager : Singleton<ButtonManager>
 
     public void Option()
     {
-        
+        Instantiate(Resources.Load<GameObject>("PreFabs/UI/Option"));
     }
 
     public void Credit()
@@ -137,7 +135,8 @@ public class ButtonManager : Singleton<ButtonManager>
 
     public void Quit()
     {
-        UnityEditor.EditorApplication.isPlaying = false;
+        DataManager.instance.Save();
+        //UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
     #endregion
@@ -145,12 +144,13 @@ public class ButtonManager : Singleton<ButtonManager>
     #region CharacterSelectScene
     public void CharacterSelect()
     {
-        button[characterSelectSceneButtonCount - 2].GetComponent<Button>().Select();
-        buttonNumber = characterSelectSceneButtonCount - 2;
+        //button[characterSelectSceneButtonCount - 2].GetComponent<Button>().Select();
+        //buttonNumber = characterSelectSceneButtonCount - 2;
     }
 
     public void Next()
     {
+        GameManager.instance.playChapterNumber = 0;
         SceneManager.LoadScene("PlayScene");
     }
 

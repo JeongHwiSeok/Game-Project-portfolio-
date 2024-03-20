@@ -5,12 +5,10 @@ using UnityEngine.UI;
 
 public class CharacterSkinManager : MonoBehaviour
 {
-    [SerializeField] Sprite[] character;
-    [SerializeField] RuntimeAnimatorController[] characterController;
+    [SerializeField] AnimationClip[] characterAnimation;
 
     public void CharacterSkin()
     {
-        gameObject.GetComponent<SpriteRenderer>().sprite = character[GameManager.instance.charNum];
-        gameObject.GetComponent<Animator>().runtimeAnimatorController = characterController[GameManager.instance.charNum];
+        gameObject.GetComponent<Animator>().Play(characterAnimation[GameManager.instance.charNum].name);
     }
 }

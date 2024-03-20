@@ -40,8 +40,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 325, y: -60}
-  m_SizeDelta: {x: 650, y: 120}
+  m_AnchoredPosition: {x: 350, y: -60}
+  m_SizeDelta: {x: 700, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4819906239986286948
 CanvasRenderer:
@@ -160,7 +160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: 10}
+  m_AnchoredPosition: {x: -60, y: 15}
   m_SizeDelta: {x: 520, y: 80}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &2549308060040283082
@@ -316,8 +316,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: -50}
-  m_SizeDelta: {x: 520, y: 120}
+  m_AnchoredPosition: {x: -10, y: -45}
+  m_SizeDelta: {x: 570, y: 120}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &3067565116203152615
 CanvasRenderer:
@@ -396,8 +396,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 45, y: 40}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 50, y: 45}
+  m_SizeDelta: {x: 115, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6506233852080395005
 CanvasRenderer:
@@ -475,7 +475,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 650, y: 120}
+  m_SizeDelta: {x: 700, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7102013388901665086
 CanvasRenderer:
@@ -498,7 +498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.47058824}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.88235295}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -531,6 +531,34 @@ MonoBehaviour:
   itemImage: {fileID: 4732868487607257998}
   itemName: {fileID: 4339757764438305540}
   itemInfo: {fileID: 3356258252449904623}
+  uIManager: {fileID: 0}
+  levelUpUIManager: {fileID: 0}
+  supportItemManager: {fileID: 0}
+  subWeaponManager: {fileID: 0}
+  supportItemList:
+  - {fileID: 4849359245962819315, guid: 7d4925d905b577445963935269e04edc, type: 3}
+  - {fileID: 882065149966939121, guid: 45c40dc177ce4c745b24c4ecb9662192, type: 3}
+  - {fileID: 8748570168154174415, guid: 348e51a988c48cb49a4a986858078bdb, type: 3}
+  - {fileID: 8672122030426741255, guid: be335b5829c9dd14b920d63e928b6e89, type: 3}
+  - {fileID: 3731303343843332161, guid: b9020ed228958f44fa5b334bcb5ac3a8, type: 3}
+  - {fileID: 521493454377806346, guid: 6b81fb28220cd6146b16d84f188adee0, type: 3}
+  - {fileID: 5793935064754565137, guid: 1bfb5729f06d2814f89e5dc9f60d8caa, type: 3}
+  - {fileID: 4216571440506838955, guid: 4c56615d70d93694298a0c5a1146cc27, type: 3}
+  - {fileID: 4607489707410436239, guid: bef631fe9618d1d4eab02b0b1e40daeb, type: 3}
+  - {fileID: 5660542928218191328, guid: 29f20a5c73948af4281bbdce6291c93b, type: 3}
+  - {fileID: 7384922513753239704, guid: 2c2456bffab228641987b3123c0cec8a, type: 3}
+  subWeaponList:
+  - {fileID: 4849359245962819315, guid: 7d4925d905b577445963935269e04edc, type: 3}
+  - {fileID: 4849359245962819315, guid: 7d4925d905b577445963935269e04edc, type: 3}
+  - {fileID: 4849359245962819315, guid: 7d4925d905b577445963935269e04edc, type: 3}
+  - {fileID: 4849359245962819315, guid: 7d4925d905b577445963935269e04edc, type: 3}
+  - {fileID: 4849359245962819315, guid: 7d4925d905b577445963935269e04edc, type: 3}
+  - {fileID: 1467591865144028527, guid: d081355fe11cd6b4c86b544152483eac, type: 3}
+  - {fileID: 4849359245962819315, guid: 7d4925d905b577445963935269e04edc, type: 3}
+  - {fileID: 812260744532798484, guid: a5dba569e618fcc46bdbbf40e56e15de, type: 3}
+  - {fileID: 4849359245962819315, guid: 7d4925d905b577445963935269e04edc, type: 3}
+  - {fileID: 4849359245962819315, guid: 7d4925d905b577445963935269e04edc, type: 3}
+  - {fileID: 4849359245962819315, guid: 7d4925d905b577445963935269e04edc, type: 3}
 --- !u!1 &8270126727260210145
 GameObject:
   m_ObjectHideFlags: 0

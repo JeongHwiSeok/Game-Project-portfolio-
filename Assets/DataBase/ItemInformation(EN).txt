@@ -1,0 +1,25 @@
+Tail Type : Laser	0	0	0	0	0	0	0
+Crawling Mushroom	0	0	0	0	0	0	0
+Mike	0	0	0	0	0	0	0
+Devil's tail	0	0	0	0	0	0	0
+Eternity Flame	Fires Eternity Flame in a random direction.	Damage increases by 20%	Fires 2 flames.	Duration reduced by 33%	Attack speed increases by 25% and damage increases by 20%.	Duration reduced by 50%.	Fires 4 flames.
+Ikumin transmitter	0	0	0	0	0	0	0
+Snake Chakram	Creates a chakram that rotates around the character.	The number of chakrams created is increased by 1.	Damage increases by 30%, duration increases by 1 second.	The number of chakrams created is increased by 1.	Damage increases by 30%, rotation speed increases by 1.5 times.	The number of chakrams created is increased by 1.	Damage increases by 40%
+Rain boots	0	0	0	0	0	0	0
+Trick Card	0	0	0	0	0	0	0
+Hyper Optic…Cube	0	0	0	0	0	0	0
+Clock hat	Every 30s, when get hit, it becomes invincible for <color="green">1.5s</color>.	0	0	0	0	0	0
+Jewal box	With a 10% chance, red coins worth <color="green">3</color> times as much will be dropped instead of coins.	With a 10% chance, red coins worth <color="green">5</color> times as much will be dropped instead of coins.	With a 10% chance, red coins worth <color="green">10</color> times as much will be dropped instead of coins.	0	0	0	0
+Space food	Food falls from space every 10 seconds, and you can only carry a maximum of 1. When your HP is depleted, consume this item to recover <color="green">20%</color> of your HP.	Food falls from space every 10 seconds, and you can only carry a maximum of 1. When your HP is depleted, consume this item to recover <color="green">30%</color> of your HP.	Food falls from space every 10 seconds, and you can only carry a maximum of 1. When your HP is depleted, consume this item to recover <color="green">50%</color> of your HP.	0	0	0	0
+Special hairpin	Pick Up Range increases by <color="green">20%</color>.	Pick Up Range increases by <color="green">40%</color>.	Pick Up Range increases by <color="green">60%</color>.	Pick Up Range increases by <color="green">80%</color>.	Pick Up Range increases by <color="green">100%</color>.	0	0
+Pocket watch string	 Increase Attack speed and Speed by <color="green">10%</color>, but damage received increases by <color="red">1.3</color> times.	 Increase Attack speed and Speed by <color="green">20%</color>, but damage received increases by <color="red">1.3</color> times.	 Increase Attack speed and Speed by <color="green">30%</color>, but damage received increases by <color="red">1.3</color> times.	0	0	0	0
+Chicken nuggie	When you kill an enemy, a stack accumulates, and every <color="green">10</color> stacks you consume a stack to recover 1% of your Max HP.	When you kill an enemy, a stack accumulates, and every <color="green">7</color> stacks you consume a stack to recover 1% of your Max HP.	When you kill an enemy, a stack accumulates, and every <color="green">5</color> stacks you consume a stack to recover 1% of your Max HP.	0	0	0	0
+Cat's bell	Summons enemies, increasing the number of enemies by <color="red">10%</color>.	Summons enemies, increasing the number of enemies by <color="red">25%</color>.	Summons enemies, increasing the number of enemies by <color="red">50%</color>.	Summons enemies, increasing the number of enemies by <color="red">75%</color>.	Summons enemies, increasing the number of enemies by <color="red">100%</color>.	0	0
+Shield device Type : Halo	Creates a shield equal to 30% of Max HP. Once the shield is depleted, it will regenerate if you are not hit for <color="green">15</color> seconds.	Creates a shield equal to 30% of Max HP. Once the shield is depleted, it will regenerate if you are not hit for <color="green">10</color> seconds.	Creates a shield equal to 30% of Max HP. Once the shield is depleted, it will regenerate if you are not hit for <color="green">5</color> seconds.	0	0	0	0
+Puzzle Game Collection	Increases EXP gain by <color="green">10%</color>.	Increases EXP gain by <color="green">20%</color>.	Increases EXP gain by <color="green">30%</color>.	Increases EXP gain by <color="green">40%</color>.	Increases EXP gain by <color="green">50%</color>.	0	0
+Strange Picture	Atk increases in proportion to current Hp, up to <color="green">1.1</color> times.	Atk increases in proportion to current Hp, up to <color="green">1.2</color> times.	Atk increases in proportion to current Hp, up to <color="green">1.3</color> times.	0	0	0	0
+Attack+	Increases ATK by 10%.	0	0	0	0	0	0
+Speed+	Increases SPD by 10%.	0	0	0	0	0	0
+Critical+	Increases critical hit chance by 5%.	0	0	0	0	0	0
+Recovery	Recover 20% HP.	0	0	0	0	0	0
+Coin	Gain 200 Coins.	0	0	0	0	0	0

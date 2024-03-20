@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -13,11 +14,23 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] public bool state = true;
     [SerializeField] public bool monsterSpawn = true;
+    [SerializeField] public int weaponcount;
+    [SerializeField] public int supportcount;
+
+    [SerializeField] public int[] itemLvCheck;
+    [SerializeField] public bool[] itemNumberCheck;
 
     [SerializeField] public CharacterNumber charNumber;
     public int charNum;
 
     [SerializeField] public GameObject player;
+
+    [SerializeField] public int playChapterNumber;
+
+    [SerializeField] public Vector2 canvasScaler;
+    [SerializeField] public float[] volume;
+
+    [SerializeField] public float pwsBuff;
 
     public float MonsterSpeed
     {
@@ -26,7 +39,7 @@ public class GameManager : Singleton<GameManager>
     }
     public float CharacterSpeed
     {
-        get { return characterSpeed; }
+        get { return characterSpeed * pwsBuff; }
         set { characterSpeed = value; }
     }
 
@@ -69,6 +82,12 @@ public class GameManager : Singleton<GameManager>
     {
         state = false;
         monsterSpawn = false;
+        Instantiate(Resources.Load<GameObject>("PreFabs/UI/GameOver"));
+    }
+
+    public void ReLoadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void OnEnable()
@@ -79,8 +98,11 @@ public class GameManager : Singleton<GameManager>
     void onSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Time.timeScale = 1.0f;
+        GameObject.Find("Canvas").GetComponent<CanvasScaler>().referenceResolution = canvasScaler;
         if(SceneManager.GetActiveScene().name == "PlayScene")
         {
+            state = true;
+            monsterSpawn = true;
             GameStart();
         }
     }

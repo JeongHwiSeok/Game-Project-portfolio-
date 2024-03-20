@@ -26,6 +26,5 @@ public class ButtonInfo : MonoBehaviour
         GameManager.instance.CharacterNumberCheck();
         characterStatManager.CharacterStat();
         characterSkinManager.CharacterSkin();
-        characterButton.Select();
     }
 }

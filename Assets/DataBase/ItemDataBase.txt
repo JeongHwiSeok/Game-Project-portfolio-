@@ -1,15 +1,25 @@
-1	weapon	Mechanical Dragon's Tail	1	1	0	1	1	0
-2	weapon	Strange Picture	1	1	0	1	1	0
-3	weapon	Microphone	1	1	0	1	1	0
-4	weapon	Devil's horn	1	1	0	1	1	0
-5	weapon	Special hairpin	1	1	0	1	1	0
-6	weapon	Chakram	1	1	0	1	1	0
-7	weapon	Rain boots	1	1	0	1	1	0
-8	support	Clock hat	1	0	0	1	1	0
-9	support	Jewal box	1	0	0	1	1	0
-10	support	Pink ribbon	1	0	0	1	1	0
-11	support	Ikumin doll	1	0	0	1	1	0
-12	support	Pocket watch string	1	0	0	1	1	0
-13	support	Chicken nuggie	1	0	0	1	1	0
-14	support	Angel's halo	1	0	0	1	1	0
-15	support	Headdress	1	0	0	1	1	0
+1	weapon	Tail Type : Laser	1	1	0	1	1	0	7
+2	weapon	Crawling Mushroom	1	1	0	1	1	0	7
+3	weapon	Mike	1	1	0	1	1	0	7
+4	weapon	Devil's tail	1	1	0	1	1	0	7
+5	weapon	Eternity Flame	1	1	0	1	1	0	7
+6	weapon	Ikumin transmitter	1	1	0	1	1	0	7
+7	weapon	Snake Chakram	1	1	0	1	1	0	7
+8	weapon	Rain boots	1	1	0	1	1	0	7
+9	weapon	Trick Card	1	1	0	1	1	0	7
+10	weapon	Hyper Optic…Cube	1	1	0	1	1	0	7
+11	support	Clock hat	1	0	0	0	1	0	1
+12	support	Jewal box	1	0	0	0	1	0	3
+13	support	Space food	1	0	0	0	1	0	3
+14	support	Special hairpin	1	0	0	0	1	0	5
+15	support	Pocket watch string	1	0	0	0	1	0	3
+16	support	Chicken nuggie	1	0	0	0	1	0	3
+17	support	Cat's bell	1	0	0	0	1	0	5
+18	support	Shield device Type : Halo	1	0	0	0	1	0	3
+19	support	Puzzle Game Collection	1	0	0	0	1	0	5
+20	support	Strange Picture	1	0	0	0	1	0	3
+21	etc	Attack+	1	1	1	1	1	1	1
+22	etc	Speed+	1	1	1	1	1	1	1
+23	etc	Critical+	1	1	1	1	1	1	1
+24	etc	Recovery	1	1	1	1	1	1	1
+25	etc	Coin	1	1	1	1	1	1	1

@@ -5,6 +5,7 @@ using UnityEngine;
 public class DropItemManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> dropItemList;
+    [SerializeField] List<GameObject> coinList;
     [SerializeField] GameObject[] dropItem;
 
     public static DropItemManager instance
@@ -27,15 +28,33 @@ public class DropItemManager : MonoBehaviour
         }
     }
 
+    public void coinAdd(GameObject obj)
+    {
+        coinList.Add(obj);
+    }
+
+    public void AllPickUp()
+    {
+        int k = dropItemList.Count;
+        for (int i = 0; i < k; i++)
+        {
+            dropItemList[i].GetComponent<Item>().pickUPCheck = true;
+        }
+        k = coinList.Count;
+        for (int i = 0; i < k; i++)
+        {
+            coinList[i].GetComponent<Item>().pickUPCheck = true;
+        }
+    }
+
     public void removeDropItem(GameObject obj)
     {
-        for (int i = 0; i < dropItemList.Count; i++)
-        {
-            if (obj == dropItemList[i])
-            {
-                dropItemList.Remove(dropItemList[i]);
-            }
-        }
+        dropItemList.Remove(obj);
+    }
+
+    public void removeCoin(GameObject obj)
+    {
+        coinList.Remove(obj);
     }
 
     private void dropUnison(GameObject obj)
@@ -75,6 +94,21 @@ public class DropItemManager : MonoBehaviour
                             break;
                         case 3:
                             newobj = Instantiate(dropItem[2], transform);
+                            newobj.transform.localPosition = dropPosition;
+                            dropAdd(newobj);
+                            break;
+                        case 4:
+                            newobj = Instantiate(dropItem[3], transform);
+                            newobj.transform.localPosition = dropPosition;
+                            dropAdd(newobj);
+                            break;
+                        case 5:
+                            newobj = Instantiate(dropItem[4], transform);
+                            newobj.transform.localPosition = dropPosition;
+                            dropAdd(newobj);
+                            break;
+                        case 6:
+                            newobj = Instantiate(dropItem[5], transform);
                             newobj.transform.localPosition = dropPosition;
                             dropAdd(newobj);
                             break;

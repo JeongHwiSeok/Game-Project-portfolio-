@@ -15,66 +15,58 @@ public class CharacterStatManager : MonoBehaviour
     private float spd;
     private float cri;
 
-    [SerializeField] RectTransform[] statBar;
+    [SerializeField] Text[] skillName;
+    [SerializeField] Text[] skillInfo;
+    [SerializeField] Image[] skillImage;
 
-    [SerializeField] Sprite[] weaponImage;
+    [SerializeField] Text[] stat;
 
     private void Start()
     {
         characterName.text = " ";
         characterAttack.text = " ";
         attackInfo.text = " ";
+        for (int i = 0; i < 3; i++)
+        {
+            skillName[i].text = "";
+            skillInfo[i].text = "";
+        }
         attackImage.sprite = null;
     }
 
     public void CharacterStat()
     {
-        switch (GameManager.instance.charNumber)
+        characterName.text = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Name;
+        characterAttack.text = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).AttackName;
+        attackInfo.text = "";
+        attackImage.sprite = SpriteManager.instance.CharacterAttack(GameManager.instance.charNum);
+        attackImage.color = new Color(1, 1, 1, 1);
+        for (int i = 0; i < 3 ; i++)
         {
-            case CharacterNumber.Aoi:
-                characterName.text = "Tokimori Aoi";
-                characterAttack.text = ": Clock";
-                attackInfo.text = "";
-                attackImage.sprite = weaponImage[GameManager.instance.charNum];
-                attackImage.color = new Color(1,1,1,1);
-                break;
-            case CharacterNumber.Iku:
-                characterName.text = "Hoshifuri Iku";
-                characterAttack.text = ": Ikumines";
-                attackInfo.text = "";
-                attackImage.sprite = weaponImage[GameManager.instance.charNum];
-                attackImage.color = new Color(1, 1, 1, 1);
-                break;
-            case CharacterNumber.Meno:
-                characterName.text = "Ibuki Meno";
-                characterAttack.text = ": Electric Bullet";
-                attackInfo.text = "";
-                attackImage.sprite = weaponImage[GameManager.instance.charNum];
-                attackImage.color = new Color(1, 1, 1, 1);
-
-                break;
+            skillImage[i].sprite = SpriteManager.instance.SkillSprite((3 * GameManager.instance.charNum) + i);
+            skillImage[i].color = new Color(1, 1, 1, 1);
         }
         Stat();
+        SkillName();
     }
 
     private void Stat()
-    {
-        float r = 0;
-        float g = 26 / 255f;
-        float b = 132 / 255f;
-
+    {   
         maxHp = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp - DataManager.instance.subArray[GameManager.instance.charNum, 2] * 10;
         atk = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Atk - DataManager.instance.subArray[GameManager.instance.charNum, 3] * 0.5f;
         spd = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Speed - DataManager.instance.subArray[GameManager.instance.charNum, 4] * 0.1f;
         cri = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Cri - DataManager.instance.subArray[GameManager.instance.charNum, 5] * 1f;
 
-        statBar[0].localScale = new Vector3((1.1f * maxHp) / 100, 1, 1);
-        statBar[0].gameObject.GetComponent<Image>().color = new Color(r, g, b, 1);
-        statBar[1].localScale = new Vector3((1.1f * atk) / 2, 1, 1);
-        statBar[1].gameObject.GetComponent<Image>().color = new Color(r, g, b, 1);
-        statBar[2].localScale = new Vector3((1.1f * spd) / 2, 1, 1);
-        statBar[2].gameObject.GetComponent<Image>().color = new Color(r, g, b, 1);
-        statBar[3].localScale = new Vector3((1.1f * cri) / 15, 1, 1);
-        statBar[3].gameObject.GetComponent<Image>().color = new Color(r, g, b, 1);
+        stat[0].text = ": " + maxHp.ToString();
+        stat[1].text = ": " + atk.ToString();
+        stat[2].text = ": " + spd.ToString();
+        stat[3].text = ": " + cri.ToString();
+    }
+
+    private void SkillName()
+    {
+        skillName[0].text = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Skill1Name;
+        skillName[1].text = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Skill2Name;
+        skillName[2].text = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Skill3Name;
     }
 }

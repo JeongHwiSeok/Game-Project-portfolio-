@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class DebugCheck : MonoBehaviour
 {
-    void Update()
+    private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log(transform.position);
-            transform.position = Vector3.zero;
-        }
+        Debug.Log(Random.Range(0, 21));
     }
 }

@@ -13,11 +13,6 @@ public class UnisonWeapon : Weapon
     private void OnEnable()
     {
         transform.position = new Vector3(0, 2.5f, 0);
-        //speed = 360f;
-        //atk = 30f;
-        speed = 720f;
-        atk = 150f;
-        knockBack = 1.5f;
     }
 
     private void Update()
@@ -32,7 +27,7 @@ public class UnisonWeapon : Weapon
 
     private void AttackDirection()
     {
-        transform.RotateAround(Vector3.zero, Vector3.forward, -speed * Time.deltaTime);
+        transform.RotateAround(Vector3.zero, Vector3.forward, -normalspeed * Time.deltaTime);
     }
 
     private void CheckDgree()

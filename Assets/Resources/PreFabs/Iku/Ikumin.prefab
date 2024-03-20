@@ -120,6 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4268b6ca6528ed7419791d0aa1e6d6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atk: 0
+  knockBack: 0
+  speed: 0
+  aswSpeedBuff: 0
+  pwsSpeedBuff: 0
   point: {x: 0, y: 0, z: 0}
   direction: {x: 0, y: 0, z: 0}
   movement: 0
@@ -157,6 +162,6 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.045}
-  m_Size: {x: 0.35, y: 0.55}
+  m_Offset: {x: -0.0080133015, y: -0.044383578}
+  m_Size: {x: 0.27233303, y: 0.35891423}
   m_Direction: 0

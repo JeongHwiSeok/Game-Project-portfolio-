@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] Slider expBar;
     [SerializeField] Slider hpBar;
+    [SerializeField] Slider shieldBar;
 
     [SerializeField] float playerLv;
     [SerializeField] float needExp;
@@ -32,11 +33,18 @@ public class UIManager : MonoBehaviour
     private int minute;
     private int second;
 
+    private int dropCoin;
+
     public bool flag;
 
     public float PlayerLv
     {
         get { return playerLv; }
+    }
+    public int DropCoin
+    {
+        set { dropCoin = value; }
+        get { return dropCoin; }
     }
 
     public static UIManager instance
@@ -52,6 +60,8 @@ public class UIManager : MonoBehaviour
         weaponItem = new int[6,2];
         supportItem = new int[6,2];
         flag = true;
+        shieldBar.value = 0;
+        characterImage.sprite = SpriteManager.instance.CharacterSprite(GameManager.instance.charNum);
         for (int i = 0; i < 6; i++)
         {
             weaponLv[i].gameObject.SetActive(false);
@@ -68,6 +78,10 @@ public class UIManager : MonoBehaviour
         }  
         expBar.value = PlayerManager.instance.exp / needExp;
         hpBar.value = PlayerManager.instance.Hp / DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp;
+        if (PlayerManager.instance.MaxShield != 0)
+        {
+            shieldBar.value = PlayerManager.instance.Shield / PlayerManager.instance.MaxShield;
+        }
         LvUP();
     }
 
@@ -81,14 +95,14 @@ public class UIManager : MonoBehaviour
         {
             needExp = Mathf.Pow(playerLv, 3) * ((((playerLv + 1) / 3) + 24) / 50);
         }
-        else if (playerLv <= 36)
+        else
         {
             needExp = Mathf.Pow(playerLv, 3) * ((playerLv + 14) / 50);
         }
-        else
-        {
-            needExp = Mathf.Pow(playerLv, 3) * (((playerLv / 2) + 32) / 50);
-        }
+        //else
+        //{
+        //    needExp = Mathf.Pow(playerLv, 3) * (((playerLv / 2) + 32) / 50);
+        //}
     }
 
     public void LvUP()

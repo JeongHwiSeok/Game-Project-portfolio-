@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5946397055988672714}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.8, y: 2.8, z: 2.8}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -140,7 +140,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.005}
+  m_Offset: {x: 0.00065141916, y: -0.03144853}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -151,7 +151,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.18, y: 0.25}
+  m_Size: {x: 0.12527962, y: 0.18303332}
   m_EdgeRadius: 0
 --- !u!114 &-4776086924961324368
 MonoBehaviour:
@@ -169,16 +169,18 @@ MonoBehaviour:
   previusPosition: {x: 0, y: 0, z: 0}
   maxHp: 0
   hp: 0
+  firstCheck: 0
   direction: {x: 0, y: 0, z: 0}
   spriteRenderer: {fileID: 0}
   dropItem:
   - {fileID: 2910105076109916669, guid: ae59f6d9a9e5f7247b45ee2434ad63c5, type: 3}
   - {fileID: 6256063415748685298, guid: c34f4fc044f2fca42b036f39e78b5d54, type: 3}
   - {fileID: 2651416530690363227, guid: 75a75035d07032b4ea8d23216fd14f16, type: 3}
-  - {fileID: 7968660014064408247, guid: 94cf1da2f8ba25f4a8e2753d8d8d6592, type: 3}
-  - {fileID: 929412373972014932, guid: 73a6698c5d5bd5f4287d63c560317e3c, type: 3}
+  - {fileID: 5180180708486654462, guid: 6b1dc4e009429b34a91f9fc954da1323, type: 3}
+  - {fileID: 7658335242257513811, guid: 7c399e1f5b969b541a7af0adf9ffb100, type: 3}
   weapon: {fileID: 0}
   player: {fileID: 0}
   timeCheck: 0
   damageTime: 0
   parent: {fileID: 0}
+  drop: {fileID: 0}

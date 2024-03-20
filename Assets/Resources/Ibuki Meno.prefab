@@ -136,8 +136,97 @@ MonoBehaviour:
   menoBullet: []
   point: {x: 0, y: 0, z: 0}
   direction: {x: 0, y: 0, z: 0}
-  speed: 0
   attackCount: 0
+--- !u!1 &5351744647957402725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2672093300398071486}
+  - component: {fileID: 50591286667022043}
+  m_Layer: 0
+  m_Name: SubWeapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2672093300398071486
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5351744647957402725}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6578821009113622145}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &50591286667022043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5351744647957402725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50d508ab012bab4c881d3b4e04a688a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  supportWeaponList: []
+--- !u!1 &6306075142480287039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8092788201740242964}
+  - component: {fileID: 4401494312428849649}
+  m_Layer: 0
+  m_Name: SupportItem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8092788201740242964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6306075142480287039}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6578821009113622145}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4401494312428849649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6306075142480287039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e7ddb517f3029a4fa00ae7edeaa1cb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  supportItemList: []
 --- !u!1 &6575825000937249160
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +257,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8456248876491440470}
+  - {fileID: 2672093300398071486}
+  - {fileID: 8092788201740242964}
   m_Father: {fileID: 8354453841593804546}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -201,7 +292,7 @@ GameObject:
   - component: {fileID: 7457166436150299578}
   m_Layer: 0
   m_Name: Ibuki Meno
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -312,6 +403,17 @@ MonoBehaviour:
   animator: {fileID: 6504421993469377229}
   movement: 0
   pos: {x: 0, y: 0}
+  hp: 0
+  atk: 0
+  cri: 0
+  exp: 0
+  shield: 0
+  haloShield: 0
+  maxShield: 0
+  pwsDamage: 0
+  spAtk: 0
+  shieldDeviceTypeHalo: {fileID: 0}
+  time: 0
 --- !u!50 &5391087921713061054
 Rigidbody2D:
   serializedVersion: 4

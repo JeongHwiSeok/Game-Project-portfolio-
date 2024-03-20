@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class ItemShopManager : MonoBehaviour
 {
-    [SerializeField] GameObject coinImage;
-
     [SerializeField] public Image itemImage;
     [SerializeField] public Text itemName;
     [SerializeField] public Text itemInformation;
@@ -24,7 +22,6 @@ public class ItemShopManager : MonoBehaviour
     private void OnEnable()
     {
         rerollNumber = 15;
-        coinImage.SetActive(true);
         button[0].onClick.AddListener(Buy);
         button[1].onClick.AddListener(Sell);
         shopCoin = DataManager.instance.data.shopCoin;
@@ -61,10 +58,5 @@ public class ItemShopManager : MonoBehaviour
             shopCoin += itemLvPrice;
             DataManager.instance.Save();
         }
-    }
-
-    private void OnDisable()
-    {
-        coinImage.SetActive(false);
     }
 }

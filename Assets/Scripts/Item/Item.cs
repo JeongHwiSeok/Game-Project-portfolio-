@@ -6,20 +6,11 @@ public class Item : MonoBehaviour
 {
     [SerializeField] protected int coin;
     [SerializeField] protected int exp;
-    [SerializeField] protected bool pickUPCheck;
+    [SerializeField] public bool pickUPCheck;
 
     [SerializeField] Vector3 direction;
 
     [SerializeField] int speed;
-
-    public virtual int Coin
-    {
-        get { return coin; }
-    }
-    public virtual int Exp
-    {
-        get { return exp; }
-    }
 
     protected virtual void OnEnable()
     {
@@ -41,19 +32,36 @@ public class Item : MonoBehaviour
         }
         if (obj.GetComponent<PlayerManager>() != null)
         {
-            DataManager.instance.data.shopCoin += coin;
+            UIManager.instance.DropCoin += coin;
 
-            PlayerManager.instance.exp += exp;
+            if (PuzzleGameCollection.instance != null)
+            {
+                PlayerManager.instance.exp += (exp * PuzzleGameCollection.instance.Pow);
+            }
+            else
+            {
+                PlayerManager.instance.exp += exp;
+            }
 
-            DropItemManager.instance.removeDropItem(gameObject);
-
+            if (gameObject.name == "coin(Clone)")
+            {
+                DropItemManager.instance.removeCoin(gameObject);
+            }
+            else if (gameObject.name == "RedCoin(Clone)")
+            {
+                DropItemManager.instance.removeCoin(gameObject);
+            }
+            else
+            {
+                DropItemManager.instance.removeDropItem(gameObject);
+            }
             Destroy(this.gameObject);
         }
     }
 
     protected virtual void PickUPItem()
     {
-        if(pickUPCheck)
+        if(pickUPCheck && GameManager.instance.state)
         {
             direction = GameManager.instance.player.transform.position - transform.position;
 

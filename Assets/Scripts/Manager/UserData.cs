@@ -26,9 +26,12 @@ public class UserData
      * 캐릭터 선택창 발판
      */
 
-    public int[] AoiInfo = new int[12];
-    public int[] IkuInfo = new int[12];
-    public int[] MenoInfo = new int[12];
     public int shopCoin;
+    public int[] AoiInformation = new int[12];
+    public int[] IkuInformation = new int[12];
+    public int[] MenoInformation = new int[12];
     public int[] shopInfo = new int[30];
+    public int language;
+    public float[] canvasScalerSize = new float[2];
+    public float[] volume = new float[3];
 }

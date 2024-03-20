@@ -19,7 +19,7 @@ public class ShopItemButton : MonoBehaviour
     private void OnEnable()
     {
         transform.GetComponent<Button>().onClick.AddListener(ButtonClick);
-        itemImage = transform.GetChild(0).GetChild(0).GetComponent<Image>();
+        itemImage = transform.GetChild(0).GetComponent<Image>();
         if(DictionaryManager.instance.ShopItemInfoOutput(int.Parse(gameObject.name)).MaxLv == DataManager.instance.data.shopInfo[int.Parse(gameObject.name)])
         {
             transform.GetComponent<Button>().interactable = false;

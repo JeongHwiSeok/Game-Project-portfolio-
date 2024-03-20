@@ -19,6 +19,7 @@ public class CharacterInformationManager : MonoBehaviour
 
     [SerializeField] Text lv;
 
+    [SerializeField] Text[] statLV;
     [SerializeField] Text[] stat;
 
     private int[] statPoint;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8105328215798158981}
   - component: {fileID: 7704242517560429779}
   - component: {fileID: -7044024011017561615}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mezzo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6821028258885041566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.2, y: 4.2, z: 4.2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -140,7 +140,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.016, y: -0.004}
+  m_Offset: {x: 0.020001419, y: -0.005028799}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -151,7 +151,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.12, y: 0.11}
+  m_Size: {x: 0.12022756, y: 0.12851837}
   m_EdgeRadius: 0
 --- !u!114 &-7044024011017561615
 MonoBehaviour:
@@ -169,16 +169,18 @@ MonoBehaviour:
   previusPosition: {x: 0, y: 0, z: 0}
   maxHp: 0
   hp: 0
+  firstCheck: 0
   direction: {x: 0, y: 0, z: 0}
   spriteRenderer: {fileID: 0}
   dropItem:
   - {fileID: 2910105076109916669, guid: ae59f6d9a9e5f7247b45ee2434ad63c5, type: 3}
   - {fileID: 6256063415748685298, guid: c34f4fc044f2fca42b036f39e78b5d54, type: 3}
   - {fileID: 2651416530690363227, guid: 75a75035d07032b4ea8d23216fd14f16, type: 3}
-  - {fileID: 7968660014064408247, guid: 94cf1da2f8ba25f4a8e2753d8d8d6592, type: 3}
-  - {fileID: 929412373972014932, guid: 73a6698c5d5bd5f4287d63c560317e3c, type: 3}
+  - {fileID: 5180180708486654462, guid: 6b1dc4e009429b34a91f9fc954da1323, type: 3}
+  - {fileID: 7658335242257513811, guid: 7c399e1f5b969b541a7af0adf9ffb100, type: 3}
   weapon: {fileID: 0}
   player: {fileID: 0}
   timeCheck: 0
   damageTime: 0
   parent: {fileID: 0}
+  drop: {fileID: 0}

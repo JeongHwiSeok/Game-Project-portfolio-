@@ -10,11 +10,13 @@ public class DictionaryManager : Singleton<DictionaryManager>
     [SerializeField] TextAsset monsterDataBase;
     [SerializeField] TextAsset characterDataBase;
     [SerializeField] TextAsset shopItemDataBase;
+    [SerializeField] TextAsset[] itemInformaion; 
 
     private static readonly Dictionary<int, ItemInfo> itemDictionary = new Dictionary<int, ItemInfo>();
     private static readonly Dictionary<string, MonsterInfo> monsterDictionary = new Dictionary<string, MonsterInfo>();
     private static readonly Dictionary<int, CharacterInfo> characterDictionary = new Dictionary<int, CharacterInfo>();
     private static readonly Dictionary<int, ShopItemInfo> shopItemDictionary = new Dictionary<int, ShopItemInfo>();
+    private static readonly Dictionary<string, ItemInformaionText> itemInformaionTextDictionary = new Dictionary<string, ItemInformaionText>();
 
     private void Start()
     {
@@ -46,7 +48,7 @@ public class DictionaryManager : Singleton<DictionaryManager>
 
             if (itemDictionary.TryGetValue(int.Parse(row[0]), out itemInfo) == false)
             {
-                itemInfo = new ItemInfo(int.Parse(row[0]), row[1], row[2], int.Parse(row[3]), float.Parse(row[4]), float.Parse(row[5]), float.Parse(row[6]), float.Parse(row[7]), float.Parse(row[8]));
+                itemInfo = new ItemInfo(int.Parse(row[0]), row[1], row[2], int.Parse(row[3]), float.Parse(row[4]), float.Parse(row[5]), float.Parse(row[6]), float.Parse(row[7]), float.Parse(row[8]), int.Parse(row[9]));
                 itemDictionary.Add(int.Parse(row[0]), itemInfo);
             }
         }
@@ -87,6 +89,23 @@ public class DictionaryManager : Singleton<DictionaryManager>
                 }
                 shopItemInfo = new ShopItemInfo(int.Parse(row[0]), row[1], int.Parse(row[2]), price);
                 shopItemDictionary.Add(int.Parse(row[0]), shopItemInfo);
+            }
+        }
+        #endregion
+
+        #region 아이템 레벨 정보
+        string[] itemInforTextLine = itemInformaion[DataManager.instance.data.language].text.Substring(0, itemInformaion[DataManager.instance.data.language].text.Length - 1).Split('\n');
+
+        for (int i = 0; i < itemInforTextLine.Length; i++)
+        {
+            string[] row = itemInforTextLine[i].Split('\t');
+
+            ItemInformaionText itemInformaionText;
+
+            if (itemInformaionTextDictionary.TryGetValue(row[0], out itemInformaionText) == false)
+            {   
+                itemInformaionText = new ItemInformaionText(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
+                itemInformaionTextDictionary.Add(row[0], itemInformaionText);
             }
         }
         #endregion
@@ -146,6 +165,44 @@ public class DictionaryManager : Singleton<DictionaryManager>
         {
             return null;
         }
+    }
+    public ItemInformaionText ItemInformationTextOutput(string name)
+    {
+        ItemInformaionText itemInformaionText;
+
+        if (itemInformaionTextDictionary.TryGetValue(name, out itemInformaionText))
+        {
+            itemInformaionText = itemInformaionTextDictionary[name];
+            return itemInformaionText;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public void ChangeLanguage()
+    {
+        string[] itemInforTextLine = itemInformaion[DataManager.instance.data.language].text.Substring(0, itemInformaion[DataManager.instance.data.language].text.Length - 1).Split('\n');
+
+        for (int i = 0; i < itemInforTextLine.Length; i++)
+        {
+            string[] row = itemInforTextLine[i].Split('\t');
+
+            ItemInformaionText itemInformaionText;
+
+            if (itemInformaionTextDictionary.TryGetValue(row[0], out itemInformaionText) == false)
+            {
+                int[] price = new int[10];
+                for (int j = 3; j < row.Length; j++)
+                {
+                    price[j - 3] = int.Parse(row[j]);
+                }
+                itemInformaionText = new ItemInformaionText(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
+                itemInformaionTextDictionary.Add(row[0], itemInformaionText);
+            }
+        }
+        GameManager.instance.ReLoadScene();
     }
 }
 
@@ -263,6 +320,7 @@ public class ItemInfo
     float speed;
     float size;
     float knockBack;
+    int maxLv;
 
     public int ItemNumber
     {
@@ -300,7 +358,11 @@ public class ItemInfo
     {
         get { return knockBack; }
     }
-    public ItemInfo(int _itemNumber, string _itemType, string _name, int _lv, float _atk, float _cri, float _speed, float _size, float _knockBack)
+    public int MaxLV
+    {
+        get { return maxLv; }
+    }
+    public ItemInfo(int _itemNumber, string _itemType, string _name, int _lv, float _atk, float _cri, float _speed, float _size, float _knockBack, int _maxLv)
     {
         itemNumber = _itemNumber;
         itemType = _itemType;
@@ -311,6 +373,7 @@ public class ItemInfo
         speed = _speed;
         size = _size;
         knockBack = _knockBack;
+        maxLv = _maxLv;
     }
 }
 
@@ -344,5 +407,31 @@ public class ShopItemInfo
         shopItemName = _shopItemName;
         maxLv = _maxLv;
         lvUpPrice = _lvUpPrice;
+    }
+}
+
+public class ItemInformaionText
+{
+    string itemName;
+    string[] itemLvInformation = new string[7];
+    
+    public string ItemName
+    {
+        get { return itemName; }
+    }
+    public string LVInformation(int lv)
+    {
+        return itemLvInformation[lv];
+    }
+    public ItemInformaionText(string _itemName, string _LV0, string _LV1, string _LV2, string _LV3, string _LV4, string _LV5, string _LV6)
+    {
+        itemName = _itemName;
+        itemLvInformation[0] = _LV0;
+        itemLvInformation[1] = _LV1;
+        itemLvInformation[2] = _LV2;
+        itemLvInformation[3] = _LV3;
+        itemLvInformation[4] = _LV4;
+        itemLvInformation[5] = _LV5;
+        itemLvInformation[6] = _LV6;
     }
 }

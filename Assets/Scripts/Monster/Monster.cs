@@ -14,7 +14,6 @@ public class Monster : MonoBehaviour
     protected float knockBack;
 
     [SerializeField] protected bool firstCheck = false;
-    [SerializeField] protected bool redCoin = false;
 
     [SerializeField] protected Vector3 direction;
     [SerializeField] protected SpriteRenderer spriteRenderer;
@@ -29,24 +28,18 @@ public class Monster : MonoBehaviour
 
     [SerializeField] protected Transform parent;
 
-    private int[] dropPercent = new int[5] {3,5,7,11,29};
-    private int maxDropCount;
-
     private DropItemManager dropItemManager;
 
     [SerializeField] GameObject drop;
 
+    [SerializeField] int dotDamage;
+
     protected virtual void OnEnable()
     {
-        maxDropCount = 10;
         parent = transform.parent.parent.GetChild(11);
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
         dropItemManager = transform.parent.parent.GetChild(11).GetComponent<DropItemManager>();
         StartCoroutine(LastPosition());
-        for (int i = 0; i < dropPercent.Length; i++)
-        {
-            maxDropCount *= dropPercent[i];
-        }
     }
 
     protected virtual void Update()
@@ -84,6 +77,10 @@ public class Monster : MonoBehaviour
         {
             spriteRenderer.flipX = true;
         }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
         direction = GameManager.instance.player.transform.position - transform.position;
 
         direction.z = 0f;
@@ -100,6 +97,10 @@ public class Monster : MonoBehaviour
         hp = maxHp;
         spriteRenderer.flipX = false;
         spriteRenderer.color = new Color(1, 1, 1, 1);
+        if (Chickennuggie.instance != null)
+        {
+            Chickennuggie.instance.Count++;
+        }
         if(firstCheck)
         {
             DropItem();
@@ -108,11 +109,6 @@ public class Monster : MonoBehaviour
         {
             firstCheck = true;
         }
-    }
-
-    protected virtual void OnDestroy()
-    {
-        DropItem();
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -124,7 +120,20 @@ public class Monster : MonoBehaviour
         {
             if (weapon != null)
             {
-                hp -= (int)weapon.Atk;
+                int count = Random.Range(1, 1000);
+                if (count <= PlayerManager.instance.Cri * 10)
+                {
+                    hp -= (int)((weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk) * 1.5f);
+                }
+                else
+                {
+                    hp -= (int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk);
+                }
+                if (collision.GetComponent<EternityFlameBullet>() != null)
+                {
+                    dotDamage = 1;
+                    StartCoroutine(FlameDot());
+                }
                 knockBack = weapon.KnockBack;
                 if(hp > 0)
                 {
@@ -134,7 +143,44 @@ public class Monster : MonoBehaviour
             if (player != null)
             {
                 player.Damage(atk);
+
+                for (int i = 0; i < player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ListCount(); i++)
+                {
+                    if (player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<ClockHat>() != null)
+                    {
+                        if (player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<ClockHat>().flag)
+                        {
+                            player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<ClockHat>().Activate();
+                            return;
+                        }
+                    }
+                }
+                for (int i = 0; i < player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ListCount(); i++)
+                {
+                    if (player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<SpaceFood>() != null)
+                    {
+                        if (player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<SpaceFood>().flag)
+                        {
+                            player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<SpaceFood>().Activate();
+                            return;
+                        }
+                    }
+                }
             }
+        }
+    }
+
+    private IEnumerator FlameDot()
+    {
+        while (true)
+        {
+            while (gameObject.activeSelf && GameManager.instance.state)
+            {
+                hp -= dotDamage;
+
+                yield return new WaitForSeconds(1);
+            }
+            yield return null;
         }
     }
 
@@ -151,52 +197,49 @@ public class Monster : MonoBehaviour
 
     private void DropItem()
     {
-        int randomCount = Random.Range(1, maxDropCount+1);
+        int randomCount = Random.Range(1, 100);
 
-        if(randomCount % dropPercent[4] == 0)
+        if(randomCount <= 5)
         {
-            randomCount = Random.Range(1, 6);
-            if(redCoin && randomCount % 5 == 0)
+            randomCount = Random.Range(1, 100);
+            if(JewalBox.instance != null && randomCount <= 10)
             {
-                // drop = Instantiate(dropItem[5]);
-                return;
+                drop = Instantiate(dropItem[4], parent);
             }
-            else
+            else if(randomCount <= 95)
             {
                 drop = Instantiate(dropItem[0], parent);
             }
-        }
-        else if(randomCount % dropPercent[0] == 0)
-        {
-            randomCount = Random.Range(1, 106);
-            
-            if (randomCount % 3 == 0 && UIManager.instance.time >= 60)
-            {
-                drop = Instantiate(dropItem[2], parent);
-            }
-            else if (randomCount % 5 == 0 && UIManager.instance.time >= 120)
+            else
             {
                 drop = Instantiate(dropItem[3], parent);
             }
-            else
-            {
-                drop = Instantiate(dropItem[1], parent);
-            }
+        }
+        else if(randomCount <= 90)
+        {
+            drop = Instantiate(dropItem[1], parent);
         }
         else
         {
-            return;
+            drop = Instantiate(dropItem[2], parent);
         }
 
-        float x = Random.insideUnitSphere.x + transform.position.x;
-
-        float y = Random.insideUnitSphere.y + transform.position.y;
-
-        drop.transform.position = new Vector3(x, y, 0);
-
-        if (drop.name != "coin(Clone)")
+        drop.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        
+        if (drop.name != "PickUP-item(Clone)")
         {
-            dropItemManager.dropAdd(drop);
+            if (drop.name == "coin(Clone)")
+            {
+                dropItemManager.coinAdd(drop);
+            }
+            else if (drop.name == "RedCoin(Clone)")
+            {
+                dropItemManager.coinAdd(drop);
+            }
+            else
+            {
+                dropItemManager.dropAdd(drop);
+            }
         }
     }
 }

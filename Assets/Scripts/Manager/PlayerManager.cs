@@ -20,6 +20,7 @@ public class PlayerManager : MonoBehaviour
     // [SerializeField] public SpriteRenderer renderer;
     [SerializeField] public Animator animator;
     [SerializeField] public Movement movement;
+    [SerializeField] public SpriteRenderer spriteRenderer;
     [SerializeField] public Vector2 pos;
 
     [SerializeField] int hp;
@@ -71,6 +72,7 @@ public class PlayerManager : MonoBehaviour
         spAtk = 1;
         pwsDamage = 1;
         shield = 0;
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     private void OnEnable()
@@ -100,13 +102,13 @@ public class PlayerManager : MonoBehaviour
         }
         if (Input.GetAxis("Horizontal") < 0)
         {
-            transform.localEulerAngles = new Vector3(0, 180, 0);
+            spriteRenderer.flipX = true;
             movement = Movement.Move;
             Status();
         }
         else if(Input.GetAxis("Horizontal") > 0)
         {
-            transform.localEulerAngles = new Vector3(0, 0, 0);
+            spriteRenderer.flipX = false;
             movement = Movement.Move;
             Status();
         }

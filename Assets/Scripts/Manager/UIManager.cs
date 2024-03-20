@@ -87,17 +87,17 @@ public class UIManager : MonoBehaviour
 
     private void expCheck()
     {
-        if(playerLv <= 3)
+        if(playerLv <= 6)
         {
-            needExp = 30;
+            needExp = 100;
         }
-        else if(playerLv <= 15)
+        else if (playerLv <= 50)
         {
-            needExp = Mathf.Pow(playerLv, 3) * ((((playerLv + 1) / 3) + 24) / 50);
+            needExp = Mathf.Pow(playerLv, 2) * ((((playerLv + 1) / 3) + 24) / 50);
         }
         else
         {
-            needExp = Mathf.Pow(playerLv, 3) * ((playerLv + 14) / 50);
+            needExp = Mathf.Pow(playerLv, 2) * ((playerLv + 14) / 50);
         }
         //else
         //{

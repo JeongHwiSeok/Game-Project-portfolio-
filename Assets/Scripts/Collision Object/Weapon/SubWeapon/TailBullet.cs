@@ -2,23 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EternityFlameBullet : Weapon
+public class TailBullet : Weapon
 {
     [SerializeField] Vector3 target;
     [SerializeField] Vector3 direction;
 
     private void OnEnable()
     {
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg);
         transform.position = new Vector3(0, 0, 0);
         AttackDirection(target);
+        StartCoroutine(DisableOn());
     }
 
     private void Update()
     {
-        if (GameManager.instance.state)
-        {
-            PositionStatus(direction);
-        }
+        PositionStatus(direction);
     }
 
     private void AttackDirection(Vector3 position)
@@ -31,12 +30,7 @@ public class EternityFlameBullet : Weapon
 
     private void PositionStatus(Vector3 direction)
     {
-        transform.Translate(direction * speed * Time.deltaTime, Space.World);
-    }
-
-    public void Target(Vector3 _target)
-    {
-        target = _target;
+        transform.position = Vector3.Lerp(transform.position, direction , speed * Time.deltaTime);
     }
 
     public void StatInput(float a, float b, float c)
@@ -45,5 +39,17 @@ public class EternityFlameBullet : Weapon
         normalspeed = b;
         knockBack = c;
         SpeedUP();
+    }
+
+    public void Target(Vector3 _target)
+    {
+        target = _target;
+    }
+
+    private IEnumerator DisableOn()
+    {
+        yield return new WaitForSeconds(1f);
+
+        gameObject.SetActive(false);
     }
 }

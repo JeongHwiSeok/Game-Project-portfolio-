@@ -133,7 +133,55 @@ public class ItemButtonUI : MonoBehaviour
 
     private void ItemCheck(int level)
     {
-        if (itemNumber == 5)
+        if (itemNumber == 1)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                if (subWeaponManager.ResearchList(i).GetComponent<TailTypeLaser>() != null)
+                {
+                    subWeaponManager.ResearchList(i).GetComponent<TailTypeLaser>().itemLV = level;
+                    subWeaponManager.ResearchList(i).GetComponent<TailTypeLaser>().Activate();
+                    return;
+                }
+            }
+        }
+        else if (itemNumber == 2)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                if (subWeaponManager.ResearchList(i).GetComponent<CrawlingMushroom>() != null)
+                {
+                    subWeaponManager.ResearchList(i).GetComponent<CrawlingMushroom>().itemLV = level;
+                    subWeaponManager.ResearchList(i).GetComponent<CrawlingMushroom>().Activate();
+                    return;
+                }
+            }
+        }
+        else if (itemNumber == 3)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                if (subWeaponManager.ResearchList(i).GetComponent<Mike>() != null)
+                {
+                    subWeaponManager.ResearchList(i).GetComponent<Mike>().itemLV = level;
+                    subWeaponManager.ResearchList(i).GetComponent<Mike>().Activate();
+                    return;
+                }
+            }
+        }
+        else if (itemNumber == 4)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                if (subWeaponManager.ResearchList(i).GetComponent<DevilsTail>() != null)
+                {
+                    subWeaponManager.ResearchList(i).GetComponent<DevilsTail>().itemLV = level;
+                    subWeaponManager.ResearchList(i).GetComponent<DevilsTail>().Activate();
+                    return;
+                }
+            }
+        }
+        else if (itemNumber == 5)
         {
             for (int i = 0; i < 6; i++)
             {
@@ -145,14 +193,26 @@ public class ItemButtonUI : MonoBehaviour
                 }
             }
         }
-        if (itemNumber == 7)
+        else if (itemNumber == 6)
         {
             for (int i = 0; i < 6; i++)
             {
-                if (subWeaponManager.ResearchList(i).GetComponent<SnakeChakramRotation>() != null)
+                if (subWeaponManager.ResearchList(i).GetComponent<IkuminTransmitter>() != null)
                 {
-                    subWeaponManager.ResearchList(i).GetComponent<SnakeChakramRotation>().itemLV = level;
-                    subWeaponManager.ResearchList(i).GetComponent<SnakeChakramRotation>().Activate();
+                    subWeaponManager.ResearchList(i).GetComponent<IkuminTransmitter>().itemLV = level;
+                    subWeaponManager.ResearchList(i).GetComponent<IkuminTransmitter>().Activate();
+                    return;
+                }
+            }
+        }
+        else if (itemNumber == 7)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                if (subWeaponManager.ResearchList(i).GetComponent<SnakeChakram>() != null)
+                {
+                    subWeaponManager.ResearchList(i).GetComponent<SnakeChakram>().itemLV = level;
+                    subWeaponManager.ResearchList(i).GetComponent<SnakeChakram>().Activate();
                     return;
                 }
             }

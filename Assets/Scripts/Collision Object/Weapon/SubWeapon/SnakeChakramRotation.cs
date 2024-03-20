@@ -4,102 +4,77 @@ using UnityEngine;
 
 public class SnakeChakramRotation : Weapon
 {
-    [SerializeField] GameObject chakram;
-    [SerializeField] public int itemLV;
+    [SerializeField] float time;
     [SerializeField] float duration;
-    [SerializeField] int count;
 
-    [SerializeField] float atkBuff;
-    [SerializeField] float speedBuff;
-
-    [SerializeField] float dis;
-
-    [SerializeField] Transform parent;
-
-    [SerializeField] List<GameObject> standbyChakramList;
-
-    private void OnEnable()
+    private void Update()
     {
-        atk = 10;
-        normalspeed = 180;
-        speed = normalspeed;
-        knockBack = 0.5f;
-        dis = 2f;
-        parent = GameObject.Find("Attack Manager").transform;
-        for (int i = 0; i < 4; i++)
+        if (GameManager.instance.state)
         {
-            GameObject standbyChakram = Instantiate(chakram, parent);
+            AttackDirection();
 
-            standbyChakram.GetComponent<SnakeChakram>().StatInput(atk, normalspeed, knockBack);
-
-            standbyChakram.SetActive(false);
-
-            standbyChakramList.Add(standbyChakram);
-
-            GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(standbyChakram);
-        }
-        StartCoroutine(Create());
-    }
-
-    public void Activate()
-    {
-        switch (itemLV)
-        {
-            case 1:
-                count = 1;
-                duration = 4;
-                atkBuff = 1;
-                speedBuff = 1;
-                break;
-            case 2:
-                count = 2;
-                atkBuff = 1.3f;
-                break;
-            case 3:
-                duration = 6;
-                break;
-            case 4:
-                count = 3;
-                break;
-            case 5:
-                atkBuff = 1.6f;
-                speedBuff = 1.5f;
-                break;
-            case 6:
-                count = 4;
-                break;
-            case 7:
-                atkBuff = 2f;
-                break;
+            time += Time.deltaTime;
+            CheckDgree();
         }
     }
 
-    private IEnumerator Create()
+    private void CheckDgree()
     {
-        bool flag = true;
-        while (true)
+        if (gameObject.activeSelf && time > duration)
         {
-            while (GameManager.instance.state)
-            {
-                for (int i = 0; i < count; i++)
-                {
-                    if (standbyChakramList[i].activeSelf != true && flag)
-                    {
-                        standbyChakramList[i].transform.position = new Vector3(Mathf.Cos((i * 360/count) * Mathf.Deg2Rad), Mathf.Sin((i * 360 / count) * Mathf.Deg2Rad), 0) * dis;
-                        standbyChakramList[i].GetComponent<SnakeChakram>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
-                        standbyChakramList[i].GetComponent<SnakeChakram>().Duration(duration);
-                        standbyChakramList[i].SetActive(true);
-                    }
-                }
-                flag = false;
-                yield return new WaitForSeconds(duration + 2);
-                flag = true;
-            }
-            if (GameManager.instance.monsterSpawn != true)
-            {
-                yield break;
-            }
-            yield return new WaitForSeconds(1f);
+            time = 0;
+            gameObject.SetActive(false);
         }
+    }
+
+    private void AttackDirection()
+    {
+        transform.RotateAround(Vector3.zero, Vector3.forward, -speed * Time.deltaTime);
+
+        if (transform.position.x > 0 && transform.position.y == 0)
+        {
+            transform.position += new Vector3(Time.deltaTime, 0, 0);
+        }
+        else if (transform.position.x > 0 && transform.position.y > 0)
+        {
+            transform.position += new Vector3(Time.deltaTime, Time.deltaTime, 0);
+        }
+        else if (transform.position.x == 0 && transform.position.y > 0)
+        {
+            transform.position += new Vector3(0, Time.deltaTime, 0);
+        }
+        else if (transform.position.x < 0 && transform.position.y > 0)
+        {
+            transform.position += new Vector3(-Time.deltaTime, Time.deltaTime, 0);
+        }
+        else if (transform.position.x < 0 && transform.position.y == 0)
+        {
+            transform.position += new Vector3(-Time.deltaTime, 0, 0);
+        }
+        else if (transform.position.x < 0 && transform.position.y < 0)
+        {
+            transform.position += new Vector3(-Time.deltaTime, -Time.deltaTime, 0);
+        }
+        else if (transform.position.x == 0 && transform.position.y < 0)
+        {
+            transform.position += new Vector3(0, -Time.deltaTime, 0);
+        }
+        else if (transform.position.x > 0 && transform.position.y < 0)
+        {
+            transform.position += new Vector3(Time.deltaTime, -Time.deltaTime, 0);
+        }
+    }
+
+    public void StatInput(float a, float b, float c)
+    {
+        atk = a;
+        normalspeed = b;
+        knockBack = c;
+        SpeedUP();
+    }
+
+    public void Duration(float num)
+    {
+        duration = num;
     }
 }

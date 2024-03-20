@@ -9,6 +9,5 @@ public class Mezzo : Monster
         maxHp = 50;
         hp = maxHp;
         atk = 5;
-        speed = GameManager.instance.MonsterSpeed;
     }
 }

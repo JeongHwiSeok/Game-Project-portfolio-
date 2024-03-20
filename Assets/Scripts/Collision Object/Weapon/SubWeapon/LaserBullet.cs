@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EternityFlameBullet : Weapon
+public class LaserBullet : Weapon
 {
     [SerializeField] Vector3 target;
     [SerializeField] Vector3 direction;
 
     private void OnEnable()
     {
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg - 90);
         transform.position = new Vector3(0, 0, 0);
         AttackDirection(target);
+        StartCoroutine(DisableOff());
     }
 
     private void Update()
@@ -45,5 +47,10 @@ public class EternityFlameBullet : Weapon
         normalspeed = b;
         knockBack = c;
         SpeedUP();
+    }
+
+    private IEnumerator DisableOff()
+    {
+        yield return new WaitForSeconds(2f);
     }
 }

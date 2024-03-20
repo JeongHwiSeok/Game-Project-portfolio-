@@ -11,10 +11,12 @@ public class TailTypeLaser : Weapon
     [SerializeField] float atkBuff;
     [SerializeField] float speedBuff;
 
+    [SerializeField] int maxCount;
     [SerializeField] int count;
     [SerializeField] float duration;
 
-    [SerializeField] Vector3 target;
+    [SerializeField] Vector3 currentTarget;
+    [SerializeField] Vector3 preivousTarget;
 
     [SerializeField] Transform parent;
 
@@ -23,20 +25,20 @@ public class TailTypeLaser : Weapon
     private void Start()
     {
         atk = 10;
-        normalspeed = 10;
+        normalspeed = 7.5f;
         knockBack = 0;
         atkBuff = 1;
         speedBuff = 1;
-        count = 1;
-        duration = 3;
+        maxCount = 1;
+        duration = 2;
 
         parent = GameObject.Find("Attack Manager").transform;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 8; i++)
         {
             GameObject bullet = Instantiate(laser, parent);
 
-            bullet.GetComponent<EternityFlameBullet>().StatInput(atk, normalspeed, knockBack);
+            bullet.GetComponent<LaserBullet>().StatInput(atk, normalspeed, knockBack);
 
             bullet.SetActive(false);
 
@@ -57,20 +59,19 @@ public class TailTypeLaser : Weapon
                 atkBuff = 1.2f;
                 break;
             case 3:
-                atkBuff = 1.5f;
+                maxCount = 2;
                 break;
             case 4:
-                duration = 2;
+                atkBuff = 1.5f;
                 break;
             case 5:
-                speedBuff = 1.25f;
-                atkBuff = 1.4f;
+                maxCount = 3;
                 break;
             case 6:
-                duration = 1f;
+                duration = 1;
                 break;
             case 7:
-                count = 4;
+                maxCount = 4;
                 break;
         }
     }
@@ -81,18 +82,24 @@ public class TailTypeLaser : Weapon
         {
             while (GameManager.instance.state)
             {
-                for (int i = 0; i < count; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     if (standbyLaser[i].activeSelf != true)
                     {
-                        standbyLaser[i].transform.position = new Vector3(0, 0, 0);
-                        standbyLaser[i].GetComponent<EternityFlameBullet>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                        if (currentTarget != Vector3.zero && currentTarget != preivousTarget)
+                        {
+                            standbyLaser[i].transform.position = new Vector3(0, 0, 0);
+                            standbyLaser[i].GetComponent<LaserBullet>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                            standbyLaser[i].GetComponent<LaserBullet>().Target(currentTarget);
+                            standbyLaser[i].SetActive(true);
+                            count++;
+                        }
+                        if (count == maxCount)
+                        {
+                            break;
+                        }
 
-                        target = Random.insideUnitSphere;
-                        target.z = 0;
-
-                        standbyLaser[i].GetComponent<EternityFlameBullet>().Target(target);
-                        standbyLaser[i].SetActive(true);
+                        yield return new WaitForSeconds(0.3f);
                     }
                 }
                 yield return new WaitForSeconds(duration);
@@ -102,6 +109,17 @@ public class TailTypeLaser : Weapon
                 yield break;
             }
             yield return null;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Monster monster = collision.GetComponent<Monster>();
+
+        if (monster != null)
+        {
+            preivousTarget = currentTarget;
+            currentTarget = monster.transform.position;
         }
     }
 }

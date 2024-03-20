@@ -39,6 +39,7 @@ public class Monster : MonoBehaviour
         parent = transform.parent.parent.GetChild(11);
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
         dropItemManager = transform.parent.parent.GetChild(11).GetComponent<DropItemManager>();
+        speed = GameManager.instance.MonsterSpeed;
         StartCoroutine(LastPosition());
     }
 
@@ -55,6 +56,7 @@ public class Monster : MonoBehaviour
                 if (timeCheck >= 0.2f)
                 {
                     timeCheck = 0;
+                    DevilsTail.instance.GetComponent<DevilsTail>().MonsterRemove(gameObject);
                     gameObject.SetActive(false);
                 }
             }
@@ -134,6 +136,10 @@ public class Monster : MonoBehaviour
                     dotDamage = 1;
                     StartCoroutine(FlameDot());
                 }
+                if (collision.GetComponent<SoundWave>() != null)
+                {
+                    StartCoroutine(Slow(collision.GetComponent<SoundWave>().Slow));
+                }
                 knockBack = weapon.KnockBack;
                 if(hp > 0)
                 {
@@ -193,6 +199,13 @@ public class Monster : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    private IEnumerator Slow(float slow)
+    {
+        speed *= slow;
+        yield return new WaitForSeconds(3f);
+        speed /= slow;
     }
 
     private void DropItem()

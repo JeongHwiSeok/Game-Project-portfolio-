@@ -9,6 +9,5 @@ public class Ikumin : Monster
         maxHp = 30;
         hp = maxHp;
         atk = 5;
-        speed = GameManager.instance.MonsterSpeed;
     }
 }

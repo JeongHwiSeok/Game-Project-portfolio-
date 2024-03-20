@@ -1,4 +1,4 @@
-Tail Type : Laser	0	0	0	0	0	0	0
+Tail Type : Laser	Fires a laser at nearby enemies.	Damage increases by 20%	The number of lasers fired is 2.	Damage increases by 30%	The number of lasers fired is 3.	Duration reduced by 50%	The number of lasers fired is 4.
 Crawling Mushroom	0	0	0	0	0	0	0
 Mike	0	0	0	0	0	0	0
 Devil's tail	0	0	0	0	0	0	0

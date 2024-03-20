@@ -9,6 +9,5 @@ public class Watai : Monster
         maxHp = 150; 
         hp = maxHp;
         atk = 5;
-        speed = GameManager.instance.MonsterSpeed;
     }
 }

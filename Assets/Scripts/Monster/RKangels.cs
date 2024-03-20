@@ -9,6 +9,5 @@ public class RKangels : Monster
         maxHp = 75;
         hp = maxHp;
         atk = 5;
-        speed = GameManager.instance.MonsterSpeed;
     }
 }

@@ -1524,10 +1524,12 @@ MonoBehaviour:
   moveXNeg: 0
   moveYPos: 0
   moveYNeg: 0
+  pause: {fileID: 0}
   offsetX: 38.4
   offsetY: 21.6
   direction: {x: 0, y: 0, z: 0}
   pausePanel: {fileID: 4710902757998289432, guid: 9d3d8cb40f9054e46b751e387f796cf8, type: 3}
+  speed: 0
 --- !u!1 &724247472
 GameObject:
   m_ObjectHideFlags: 0

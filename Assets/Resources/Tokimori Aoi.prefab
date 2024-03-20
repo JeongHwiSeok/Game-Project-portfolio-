@@ -53,6 +53,7 @@ MonoBehaviour:
   standbyWeapon: []
   standbySpecialWeapon: []
   direction: {x: 0, y: 0, z: 0}
+  weaponManager: {fileID: 0}
   attackCount: 0
   buffCheck: 0
 --- !u!1 &1391872542595695972
@@ -483,6 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2881503556209696404}
   movement: 0
+  spriteRenderer: {fileID: 0}
   pos: {x: 0, y: 0}
   hp: 0
   atk: 0
@@ -494,6 +496,7 @@ MonoBehaviour:
   pwsDamage: 0
   spAtk: 0
   shieldDeviceTypeHalo: {fileID: 0}
+  weaponManager: {fileID: 0}
   time: 0
 --- !u!50 &1636030481233467802
 Rigidbody2D:

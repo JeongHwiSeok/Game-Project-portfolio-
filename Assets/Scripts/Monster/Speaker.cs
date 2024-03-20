@@ -9,6 +9,5 @@ public class Speaker : Monster
         maxHp = 100;
         hp = maxHp;
         atk = 5;
-        speed = GameManager.instance.MonsterSpeed;
     }
 }

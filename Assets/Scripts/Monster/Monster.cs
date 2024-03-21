@@ -34,12 +34,19 @@ public class Monster : MonoBehaviour
 
     [SerializeField] int dotDamage;
 
+    [SerializeField] bool rainSlow;
+    [SerializeField] bool rainDamage;
+    [SerializeField] bool trickDamage;
+
     protected virtual void OnEnable()
     {
         parent = transform.parent.parent.GetChild(11);
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
         dropItemManager = transform.parent.parent.GetChild(11).GetComponent<DropItemManager>();
         speed = GameManager.instance.MonsterSpeed;
+        rainSlow = false;
+        rainDamage = false;
+        trickDamage = false;
         StartCoroutine(LastPosition());
     }
 
@@ -138,7 +145,27 @@ public class Monster : MonoBehaviour
                 }
                 if (collision.GetComponent<SoundWave>() != null)
                 {
-                    StartCoroutine(Slow(collision.GetComponent<SoundWave>().Slow));
+                    StartCoroutine(MomentSlow(collision.GetComponent<SoundWave>().Slow));
+                }
+                if (collision.GetComponent<RainFlooring>() != null)
+                {
+                    if (collision.GetComponent<RainFlooring>().itemLV == 7)
+                    {
+                        rainSlow = true;
+                        rainDamage = true;
+                        StartCoroutine(ContinueDamage((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
+                        StartCoroutine(ContinueSlow());
+                    }
+                    else
+                    {
+                        rainDamage = true;
+                        StartCoroutine(ContinueDamage((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
+                    }
+                }
+                if (collision.GetComponent<CardFlooring>() != null)
+                {
+                    trickDamage = true;
+                    StartCoroutine(ContinueDamage((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
                 }
                 knockBack = weapon.KnockBack;
                 if(hp > 0)
@@ -176,6 +203,17 @@ public class Monster : MonoBehaviour
         }
     }
 
+    protected virtual void OnTriggerExit2D(Collider2D collision)
+    {
+        weapon = collision.GetComponent<Weapon>();
+
+        if (weapon.GetComponent<RainFlooring>() != null)
+        {
+            rainSlow = false;
+            rainDamage = false;
+        }
+    }
+
     private IEnumerator FlameDot()
     {
         while (true)
@@ -201,11 +239,45 @@ public class Monster : MonoBehaviour
         }
     }
 
-    private IEnumerator Slow(float slow)
+    private IEnumerator MomentSlow(float slow)
     {
         speed *= slow;
         yield return new WaitForSeconds(3f);
         speed /= slow;
+    }
+
+    private IEnumerator ContinueSlow()
+    {
+        while (true)
+        {
+            while (GameManager.instance.state)
+            {
+                speed = GameManager.instance.MonsterSpeed * 0.5f;
+                if (rainSlow != true)
+                {
+                    yield break;
+                }
+                yield return null;
+            }
+            yield return null;
+        }
+    }
+
+    private IEnumerator ContinueDamage(int damage)
+    {
+        while (true)
+        {
+            while (GameManager.instance.state)
+            {
+                hp -= damage;
+                if (rainDamage != true && trickDamage != true)
+                {
+                    yield break;
+                }
+                yield return new WaitForSeconds(0.5f);
+            }
+            yield return null;
+        }
     }
 
     private void DropItem()

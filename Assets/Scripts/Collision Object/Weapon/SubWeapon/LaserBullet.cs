@@ -52,5 +52,7 @@ public class LaserBullet : Weapon
     private IEnumerator DisableOff()
     {
         yield return new WaitForSeconds(2f);
+
+        gameObject.SetActive(false);
     }
 }

@@ -109,9 +109,11 @@ MonoBehaviour:
   laser: {fileID: 2946755890550218405, guid: 0971391b8e6904142aa25fa40716d068, type: 3}
   atkBuff: 0
   speedBuff: 0
+  maxCount: 0
   count: 0
   duration: 0
-  target: {x: 0, y: 0, z: 0}
+  currentTarget: {x: 0, y: 0, z: 0}
+  preivousTarget: {x: 0, y: 0, z: 0}
   parent: {fileID: 0}
   standbyLaser: []
 --- !u!58 &5305665450083009168

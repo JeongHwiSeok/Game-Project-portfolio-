@@ -217,6 +217,30 @@ public class ItemButtonUI : MonoBehaviour
                 }
             }
         }
+        else if (itemNumber == 8)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                if (subWeaponManager.ResearchList(i).GetComponent<RainBoots>() != null)
+                {
+                    subWeaponManager.ResearchList(i).GetComponent<RainBoots>().itemLV = level;
+                    subWeaponManager.ResearchList(i).GetComponent<RainBoots>().Activate();
+                    return;
+                }
+            }
+        }
+        else if (itemNumber == 9)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                if (subWeaponManager.ResearchList(i).GetComponent<TrickCard>() != null)
+                {
+                    subWeaponManager.ResearchList(i).GetComponent<TrickCard>().itemLV = level;
+                    subWeaponManager.ResearchList(i).GetComponent<TrickCard>().Activate();
+                    return;
+                }
+            }
+        }
         else if (itemNumber == 12)
         {
             for (int i = 0; i < 6; i++)

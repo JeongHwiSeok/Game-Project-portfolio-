@@ -33,20 +33,17 @@ public class DevilsTail : Weapon
 
         parent = GameObject.Find("Attack Manager").transform;
 
-        for (int i = 0; i < 3; i++)
-        {
-            GameObject bullet = Instantiate(tailAttack, parent);
+        GameObject bullet = Instantiate(tailAttack, parent);
 
-            bullet.GetComponent<TailBullet>().StatInput(atk, normalspeed, knockBack);
+        bullet.GetComponent<TailBullet>().StatInput(atk, normalspeed, knockBack);
 
-            bullet.SetActive(false);
+        bullet.SetActive(false);
 
-            standbyTail.Add(bullet);
+        standbyTail.Add(bullet);
 
-            GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(bullet);
+        GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(bullet);
 
-            StartCoroutine(Fire());
-        }
+        StartCoroutine(Fire());
     }
 
     private void Update()

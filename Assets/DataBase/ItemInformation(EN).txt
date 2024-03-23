@@ -1,13 +1,13 @@
-Tail Type : Laser	Fires a laser at nearby enemies.	Damage increases by 20%	The number of lasers fired is 2.	Damage increases by 30%	The number of lasers fired is 3.	Duration reduced by 50%	The number of lasers fired is 4.
-Crawling Mushroom	0	0	0	0	0	0	0
-Mike	0	0	0	0	0	0	0
-Devil's tail	0	0	0	0	0	0	0
-Eternity Flame	Fires Eternity Flame in a random direction.	Damage increases by 20%	Fires 2 flames.	Duration reduced by 33%	Attack speed increases by 25% and damage increases by 20%.	Duration reduced by 50%.	Fires 4 flames.
-Ikumin transmitter	0	0	0	0	0	0	0
-Snake Chakram	Creates a chakram that rotates around the character.	The number of chakrams created is increased by 1.	Damage increases by 30%, duration increases by 1 second.	The number of chakrams created is increased by 1.	Damage increases by 30%, rotation speed increases by 1.5 times.	The number of chakrams created is increased by 1.	Damage increases by 40%
-Rain boots	0	0	0	0	0	0	0
-Trick Card	0	0	0	0	0	0	0
-Hyper Optic…Cube	0	0	0	0	0	0	0
+Tail Type : Laser	Fires a laser at nearby enemies.	Damage increases by 20%	The number of lasers fired is 2.	Damage increases by 30%	The number of lasers fired is 3.	Attack cycle reduced by 50%	The number of lasers fired is 4.
+Crawling Mushroom	Approach nearby enemies and summon exploding mushrooms.	Explosion range increased by 20%	Damage increased by 30%	The number of mushrooms becomes 2.	Attack cycle reduced by 20%	Explosion range increased by 20%	The number of mushrooms becomes 3.
+Mike	Fires a sound wave forward, knocking back enemies.	Damage increase by 20%	Range increased by 30%	Knockback increases by 20%	Attack cycle reduced by 33%	Damage increased by 20%	Range increases by 20% and slows down speed.
+Devil's tail	Stabs the nearest enemy with its tail.	Damage increase by 20%	Knockback increases by 20%	Attack cycle reduced by 33%	Range increases by 20% and Damage increased by 20%	Attack cycle reduced by 33%	Range increases by 30%
+Eternity Flame	Fires Eternity Flame in a random direction.	Damage increases by 20%	Fires 2 flames.	Attack cycle reduced by 33%	Attack speed increases by 25% and damage increases by 20%.	Attack cycle reduced by 50%.	Fires 4 flames.
+Ikumin transmitter	Creates a Ikumin Ufo that rotates around the character.	The number of chakrams created is increased by 1.	Damage increases by 30%, duration increases by 1 second.	The number of chakrams created is increased by 1.	Damage increases by 30%, rotation speed increases by 1.5 times.	The number of chakrams created is increased by 1.	Damage increases by 40%
+Snake Chakram	Creates a chakram that rotates around the character.	Size increased by 20% and Damage increase by 20%	Attack cycle reduced by 33%	Size increased by 30% and Damage increase by 30%	Duration increased by 1s	Size increased by 50%	Damage increases by 50%
+Rain boots	Creates a puddle of water around you and inflicts continuous damage to enemies.	Size increased by 10%	Damage increased by 30%	Size increased by 15%	Damage increased by 30%	Size increased by 25%	Slows down enemy speed.
+Trick Card	Install a card in a random location, and the card inflicts continuous damage to the enemy.	Size increased by 20%	The number of cards installed becomes 2.	Damage increased by 30% and Duration increased by 1s.	Damage increased by 30%	The number of cards installed becomes 3	The number of cards installed becomes 4, and Size increased by 20%
+Hyper Optic…Cube	Cube is created around you to push enemies away.	Size increased by 15%	Duration increased by 1s	Size increased by 15%	Damage increased by 30%	Attack cycle reduced by 1 second	Number of rotating cubes increased to 2
 Clock hat	Every 30s, when get hit, it becomes invincible for <color="green">1.5s</color>.	0	0	0	0	0	0
 Jewal box	With a 10% chance, red coins worth <color="green">3</color> times as much will be dropped instead of coins.	With a 10% chance, red coins worth <color="green">5</color> times as much will be dropped instead of coins.	With a 10% chance, red coins worth <color="green">10</color> times as much will be dropped instead of coins.	0	0	0	0
 Space food	Food falls from space every 10 seconds, and you can only carry a maximum of 1. When your HP is depleted, consume this item to recover <color="green">20%</color> of your HP.	Food falls from space every 10 seconds, and you can only carry a maximum of 1. When your HP is depleted, consume this item to recover <color="green">30%</color> of your HP.	Food falls from space every 10 seconds, and you can only carry a maximum of 1. When your HP is depleted, consume this item to recover <color="green">50%</color> of your HP.	0	0	0	0

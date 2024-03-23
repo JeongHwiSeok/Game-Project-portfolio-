@@ -630,6 +630,7 @@ MonoBehaviour:
   - 1
   - 1
   pwsBuff: 1
+  subWeaponList: []
 --- !u!4 &310202576
 Transform:
   m_ObjectHideFlags: 0
@@ -3112,7 +3113,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ad5245a99709fc0439b0f85ddb5944e3, type: 3}
   - {fileID: 21300000, guid: faf0545946a1e064cb5ff8fe26e261af, type: 3}
   - {fileID: 21300000, guid: 9d2e95cf91e65644c9612044bfb75fe9, type: 3}
-  - {fileID: 21300000, guid: 82eb2ef1dc0d0e5418cd0c2772483686, type: 3}
+  - {fileID: 21300000, guid: 5f8ad750648c53d4b983ce7616e4a354, type: 3}
   - {fileID: 21300000, guid: cc90622d4436db54581ccd64c06d94b6, type: 3}
   - {fileID: 21300000, guid: 0211a8acc076a624592b436e6e22edfc, type: 3}
   - {fileID: 21300000, guid: e8f7b4ab2db8624448498f95341520ec, type: 3}
@@ -3129,11 +3130,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6a9afcbf7b91199408893bb8dfcae12a, type: 3}
   - {fileID: 21300000, guid: 9fc35d93e6e946f4c94997990b1d8e05, type: 3}
   - {fileID: 21300000, guid: a084b9f0ad4b9bb4eb1d4e8da4b0a7c7, type: 3}
-  - {fileID: 21300000, guid: 2ce61a6edcb9c544ab469a41e3f8339f, type: 3}
+  - {fileID: 21300000, guid: 59408b3b82cc5c94281120afca5aa5e3, type: 3}
   - {fileID: 21300000, guid: 3393312990dc3fd42963ec983661e9d6, type: 3}
   - {fileID: 21300000, guid: 149abab75634b6c4abcac9cf67bec403, type: 3}
   characterAttackSprite:
-  - {fileID: 21300000, guid: 2a8fdf1058698454c9d181b98a651072, type: 3}
+  - {fileID: 21300000, guid: b721a3eaeed7f184899f6cb22d1e5e1b, type: 3}
   - {fileID: 21300000, guid: 8d122320f7c0f454dadb177322a39fc7, type: 3}
   - {fileID: 21300000, guid: 443ca57d13daac442bc26f24c247e5e8, type: 3}
   shopSprite:
@@ -4410,64 +4411,3 @@ RectTransform:
   m_AnchoredPosition: {x: 590, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
---- !u!1001 &421855377372834457
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 94604475523798021, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 94604475523798021, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 94604475523798021, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 94604475523798021, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 94604475523798021, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94604475523798021, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 94604475523798021, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 94604475523798021, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 94604475523798021, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 94604475523798021, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 94604475523798021, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8321851441023202827, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}
-      propertyPath: m_Name
-      value: Hyper Otic...Cube
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 82ded02865784cd4c9bf4fc8d90b8c77, type: 3}

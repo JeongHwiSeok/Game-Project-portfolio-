@@ -33,11 +33,22 @@ public class BigMonster : MonoBehaviour
 
     [SerializeField] GameObject drop;
 
+    [SerializeField] int dotDamage;
+
+    [SerializeField] bool rainSlow;
+    [SerializeField] bool rainDamage;
+    [SerializeField] bool trickDamage;
+
     protected virtual void OnEnable()
     {
         parent = transform.parent.parent.GetChild(11);
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
         dropItemManager = transform.parent.parent.GetChild(11).GetComponent<DropItemManager>();
+        speed = GameManager.instance.MonsterSpeed;
+        rainSlow = false;
+        rainDamage = false;
+        trickDamage = false;
+        StartCoroutine(LastPosition());
         StartCoroutine(LastPosition());
     }
 
@@ -54,6 +65,13 @@ public class BigMonster : MonoBehaviour
                 if (timeCheck >= 0.2f)
                 {
                     timeCheck = 0;
+                    for (int i = 0; i < GameManager.instance.subWeaponList.Count; i++)
+                    {
+                        if (GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>() != null)
+                        {
+                            GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>().MonsterRemove(gameObject);
+                        }
+                    }
                     gameObject.SetActive(false);
                 }
             }
@@ -76,6 +94,10 @@ public class BigMonster : MonoBehaviour
         {
             spriteRenderer.flipX = true;
         }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
         direction = GameManager.instance.player.transform.position - transform.position;
 
         direction.z = 0f;
@@ -92,6 +114,10 @@ public class BigMonster : MonoBehaviour
         hp = maxHp;
         spriteRenderer.flipX = false;
         spriteRenderer.color = new Color(1, 1, 1, 1);
+        if (Chickennuggie.instance != null)
+        {
+            Chickennuggie.instance.Count++;
+        }
         if (firstCheck)
         {
             DropItem();
@@ -100,11 +126,6 @@ public class BigMonster : MonoBehaviour
         {
             firstCheck = true;
         }
-    }
-
-    protected virtual void OnDestroy()
-    {
-        DropItem();
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -119,11 +140,40 @@ public class BigMonster : MonoBehaviour
                 int count = Random.Range(1, 1000);
                 if (count <= PlayerManager.instance.Cri * 10)
                 {
-                    hp -= (int)((weapon.Atk * PlayerManager.instance.Atk) * 1.5f);
+                    hp -= (int)((weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk) * 1.5f);
                 }
                 else
                 {
-                    hp -= (int)(weapon.Atk * PlayerManager.instance.Atk);
+                    hp -= (int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk);
+                }
+                if (collision.GetComponent<EternityFlameBullet>() != null)
+                {
+                    dotDamage = 1;
+                    StartCoroutine(FlameDot());
+                }
+                if (collision.GetComponent<SoundWave>() != null)
+                {
+                    StartCoroutine(MomentSlow(collision.GetComponent<SoundWave>().Slow));
+                }
+                if (collision.GetComponent<RainFlooring>() != null)
+                {
+                    if (collision.GetComponent<RainFlooring>().itemLV == 7)
+                    {
+                        rainSlow = true;
+                        rainDamage = true;
+                        StartCoroutine(ContinueDamage((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
+                        StartCoroutine(ContinueSlow());
+                    }
+                    else
+                    {
+                        rainDamage = true;
+                        StartCoroutine(ContinueDamage((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
+                    }
+                }
+                if (collision.GetComponent<CardFlooring>() != null)
+                {
+                    trickDamage = true;
+                    StartCoroutine(ContinueDamage((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
                 }
                 knockBack = weapon.KnockBack;
                 if (hp > 0)
@@ -139,16 +189,22 @@ public class BigMonster : MonoBehaviour
                 {
                     if (player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<ClockHat>() != null)
                     {
-                        player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<ClockHat>().Activate();
-                        return;
+                        if (player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<ClockHat>().flag)
+                        {
+                            player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<ClockHat>().Activate();
+                            return;
+                        }
                     }
                 }
                 for (int i = 0; i < player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ListCount(); i++)
                 {
                     if (player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<SpaceFood>() != null)
                     {
-                        player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<SpaceFood>().Activate();
-                        return;
+                        if (player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<SpaceFood>().flag)
+                        {
+                            player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<SpaceFood>().Activate();
+                            return;
+                        }
                     }
                 }
             }
@@ -163,6 +219,61 @@ public class BigMonster : MonoBehaviour
             currentPosition = transform.position;
 
             yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private IEnumerator FlameDot()
+    {
+        while (true)
+        {
+            while (gameObject.activeSelf && GameManager.instance.state)
+            {
+                hp -= dotDamage;
+
+                yield return new WaitForSeconds(1);
+            }
+            yield return null;
+        }
+    }
+
+    private IEnumerator MomentSlow(float slow)
+    {
+        speed *= slow;
+        yield return new WaitForSeconds(3f);
+        speed /= slow;
+    }
+
+    private IEnumerator ContinueSlow()
+    {
+        while (true)
+        {
+            while (GameManager.instance.state)
+            {
+                speed = GameManager.instance.MonsterSpeed * 0.5f;
+                if (rainSlow != true)
+                {
+                    yield break;
+                }
+                yield return null;
+            }
+            yield return null;
+        }
+    }
+
+    private IEnumerator ContinueDamage(int damage)
+    {
+        while (true)
+        {
+            while (GameManager.instance.state)
+            {
+                hp -= damage;
+                if (rainDamage != true && trickDamage != true)
+                {
+                    yield break;
+                }
+                yield return new WaitForSeconds(0.5f);
+            }
+            yield return null;
         }
     }
 

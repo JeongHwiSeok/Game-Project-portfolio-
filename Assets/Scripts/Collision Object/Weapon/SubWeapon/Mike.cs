@@ -92,12 +92,10 @@ public class Mike : Weapon
                     if (PlayerManager.instance.spriteRenderer.flipX)
                     {
                         standbySoundWave[0].transform.position = new Vector3(-2, 0, 0);
-                        standbySoundWave[0].GetComponent<SpriteRenderer>().flipX = true;
                     }
                     else
                     {
                         standbySoundWave[0].transform.position = new Vector3(2, 0, 0);
-                        standbySoundWave[0].GetComponent<SpriteRenderer>().flipX = false;
                     }
                     standbySoundWave[0].SetActive(true);
                 }

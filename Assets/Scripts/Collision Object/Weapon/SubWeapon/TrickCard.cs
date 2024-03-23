@@ -38,7 +38,7 @@ public class TrickCard : Weapon
         {
             GameObject bullet = Instantiate(cardFlooring, parent);
 
-            bullet.GetComponent<RainFlooring>().StatInput(atk, normalspeed, knockBack);
+            bullet.GetComponent<CardFlooring>().StatInput(atk, normalspeed, knockBack);
 
             bullet.SetActive(false);
 

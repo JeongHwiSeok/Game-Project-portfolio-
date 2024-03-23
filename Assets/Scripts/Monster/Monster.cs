@@ -63,7 +63,13 @@ public class Monster : MonoBehaviour
                 if (timeCheck >= 0.2f)
                 {
                     timeCheck = 0;
-                    DevilsTail.instance.GetComponent<DevilsTail>().MonsterRemove(gameObject);
+                    for (int i = 0; i < GameManager.instance.subWeaponList.Count; i++)
+                    {
+                        if (GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>() != null)
+                        {
+                            GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>().MonsterRemove(gameObject);
+                        }
+                    }
                     gameObject.SetActive(false);
                 }
             }
@@ -205,9 +211,7 @@ public class Monster : MonoBehaviour
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
-        weapon = collision.GetComponent<Weapon>();
-
-        if (weapon.GetComponent<RainFlooring>() != null)
+        if (collision.GetComponent<RainFlooring>() != null)
         {
             rainSlow = false;
             rainDamage = false;

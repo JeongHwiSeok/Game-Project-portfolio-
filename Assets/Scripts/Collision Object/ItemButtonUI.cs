@@ -241,6 +241,18 @@ public class ItemButtonUI : MonoBehaviour
                 }
             }
         }
+        else if (itemNumber == 10)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                if (subWeaponManager.ResearchList(i).GetComponent<HyperOticCube>() != null)
+                {
+                    subWeaponManager.ResearchList(i).GetComponent<HyperOticCube>().itemLV = level;
+                    subWeaponManager.ResearchList(i).GetComponent<HyperOticCube>().Activate();
+                    return;
+                }
+            }
+        }
         else if (itemNumber == 12)
         {
             for (int i = 0; i < 6; i++)

@@ -32,6 +32,8 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] public float pwsBuff;
 
+    [SerializeField] public List<GameObject> subWeaponList;
+
     public float MonsterSpeed
     {
         get { return monsterSpeed; }

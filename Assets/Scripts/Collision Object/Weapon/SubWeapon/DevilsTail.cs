@@ -9,6 +9,7 @@ public class DevilsTail : Weapon
 
     [SerializeField] float atkBuff;
     [SerializeField] float speedBuff;
+    [SerializeField] float knockBack2;
 
     [SerializeField] float duration;
     [SerializeField] float range;
@@ -23,12 +24,13 @@ public class DevilsTail : Weapon
 
     private void Start()
     {
-        atk = 30;
+        atk = 0;
         normalspeed = 5;
-        knockBack = 0.5f;
+        knockBack = 0f;
+        knockBack2 = 0.5f;
         atkBuff = 1;
         speedBuff = 1;
-        range = 1;
+        range = 2.8f;
         duration = 3;
 
         parent = GameObject.Find("Attack Manager").transform;
@@ -72,36 +74,41 @@ public class DevilsTail : Weapon
                 atkBuff = 1.2f;
                 break;
             case 3:
-                knockBack = 0.6f;
+                knockBack2 = 0.6f;
                 break;
             case 4:
                 duration = 2;
                 break;
             case 5:
-                range = 1.2f;
+                range = 3.36f;
                 atkBuff = 1.4f;
                 break;
             case 6:
                 duration = 1;
                 break;
             case 7:
-                range = 1.5f;
+                range = 4.2f;
                 break;
         }
     }
 
     private IEnumerator Fire()
     {
+        yield return new WaitForSeconds(3f);
         while (true)
         {
             while (GameManager.instance.state)
             {
                 if (standbyTail[0].activeSelf != true)
-                {
-                    standbyTail[0].transform.position = new Vector3(0, 0, 0);
-                    standbyTail[0].GetComponent<TailBullet>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                { 
+                    standbyTail[0].GetComponent<TailBullet>().StatInput(30 * atkBuff, normalspeed * speedBuff, knockBack2);
                     standbyTail[0].GetComponent<TailBullet>().Target(target);
-                    standbyTail[0].transform.localScale *= range;
+
+                    target.Normalize();
+
+                    standbyTail[0].transform.position = target * range;
+
+                    standbyTail[0].transform.localScale = new Vector3(range, range, range);
                     standbyTail[0].SetActive(true);
                 }
                 yield return new WaitForSeconds(duration);

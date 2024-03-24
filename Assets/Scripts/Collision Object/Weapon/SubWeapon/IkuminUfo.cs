@@ -29,6 +29,7 @@ public class IkuminUfo : Weapon
     private void AttackDirection()
     {
         transform.RotateAround(Vector3.zero, Vector3.forward, -speed * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void StatInput(float a, float b, float c)

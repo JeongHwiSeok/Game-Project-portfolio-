@@ -96,10 +96,11 @@ public class TailTypeLaser : Weapon
                         }
                         if (count == maxCount)
                         {
+                            count = 0;
                             break;
                         }
 
-                        yield return new WaitForSeconds(0.3f);
+                        yield return new WaitForSeconds(0.5f);
                     }
                 }
                 yield return new WaitForSeconds(duration);

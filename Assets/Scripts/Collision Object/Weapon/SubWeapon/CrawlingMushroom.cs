@@ -24,20 +24,20 @@ public class CrawlingMushroom : Weapon
     {
         atk = 30;
         normalspeed = 5;
-        knockBack = 1;
+        knockBack = 0;
         atkBuff = 1;
         speedBuff = 1;
         count = 1;
-        range = 1;
+        range = 0.2f;
         duration = 3;
 
-        parent = GameObject.Find("Attack Manager").transform;
+        parent = GameObject.Find("Map").transform.GetChild(12).transform;
 
         for (int i = 0; i < 3; i++)
         {
             GameObject bullet = Instantiate(mushroom, parent);
 
-            bullet.GetComponent<EternityFlameBullet>().StatInput(atk, normalspeed, knockBack);
+            bullet.GetComponent<Mushroom>().StatInput(atk, normalspeed, knockBack);
 
             bullet.SetActive(false);
 
@@ -56,7 +56,7 @@ public class CrawlingMushroom : Weapon
             case 1:
                 break;
             case 2:
-                range = 1.2f;
+                range = 0.24f;
                 break;
             case 3:
                 atkBuff = 1.3f;
@@ -68,7 +68,7 @@ public class CrawlingMushroom : Weapon
                 duration = 2.4f;
                 break;
             case 6:
-                range = 1.4f;
+                range = 0.28f;
                 break;
             case 7:
                 count = 3;
@@ -86,14 +86,18 @@ public class CrawlingMushroom : Weapon
                 {
                     if (standbyMushRoom[i].activeSelf != true)
                     {
-                        standbyMushRoom[i].transform.position = new Vector3(0, 0, 0);
                         standbyMushRoom[i].GetComponent<Mushroom>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
 
-                        target = Random.insideUnitSphere;
+                        target = Random.insideUnitSphere * 3;
+                        if (Mathf.Abs(target.x) < 1 && Mathf.Abs(target.y) < 1)
+                        {
+                            target = Random.insideUnitSphere * 3;
+                        }
                         target.z = 0;
+                        standbyMushRoom[i].transform.position = target;
 
                         standbyMushRoom[i].GetComponent<Mushroom>().Point(target);
-                        standbyMushRoom[i].GetComponent<Mushroom>().circleCollider2D.radius *= range;
+                        standbyMushRoom[i].GetComponent<Mushroom>().circleCollider2D.radius = range;
                         standbyMushRoom[i].SetActive(true);
                     }
                 }

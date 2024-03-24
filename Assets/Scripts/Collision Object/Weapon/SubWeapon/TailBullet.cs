@@ -10,27 +10,17 @@ public class TailBullet : Weapon
     private void OnEnable()
     {
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg);
-        transform.position = new Vector3(0, 0, 0);
-        AttackDirection(target);
-        StartCoroutine(DisableOn());
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 
-    private void Update()
+    public void OnCollider()
     {
-        PositionStatus(direction);
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
     }
 
-    private void AttackDirection(Vector3 position)
+    public void OffCollider()
     {
-        direction = position - transform.position;
-
-        direction.z = 0f;
-        direction.Normalize();
-    }
-
-    private void PositionStatus(Vector3 direction)
-    {
-        transform.position = Vector3.Lerp(transform.position, direction , speed * Time.deltaTime);
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 
     public void StatInput(float a, float b, float c)
@@ -46,10 +36,8 @@ public class TailBullet : Weapon
         target = _target;
     }
 
-    private IEnumerator DisableOn()
+    public void DisableOn()
     {
-        yield return new WaitForSeconds(1f);
-
         gameObject.SetActive(false);
     }
 }

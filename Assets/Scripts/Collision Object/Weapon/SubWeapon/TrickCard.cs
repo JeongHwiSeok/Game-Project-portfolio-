@@ -28,11 +28,11 @@ public class TrickCard : Weapon
         knockBack = 0f;
         atkBuff = 1;
         speedBuff = 1;
-        size = 1;
+        size = 2;
         duration = 2;
         count = 1;
 
-        parent = GameObject.Find("Attack Manager").transform;
+        parent = GameObject.Find("Map").transform.GetChild(12).transform;
 
         for (int i = 0; i < 4; i++)
         {
@@ -57,7 +57,7 @@ public class TrickCard : Weapon
             case 1:
                 break;
             case 2:
-                size = 1.2f;
+                size = 2.4f;
                 break;
             case 3:
                 count = 2;
@@ -74,7 +74,7 @@ public class TrickCard : Weapon
                 break;
             case 7:
                 count = 4;
-                size = 1.4f;
+                size = 2.8f;
                 break;
         }
     }
@@ -92,15 +92,20 @@ public class TrickCard : Weapon
                         standbyCardFlooring[i].GetComponent<CardFlooring>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
                         standbyCardFlooring[i].GetComponent<CardFlooring>().time = duration;
 
-                        target = Random.insideUnitSphere;
+                        target = Random.insideUnitSphere * 5;
+                        while (Mathf.Abs(target.x) < 1 && Mathf.Abs(target.y) < 1)
+                        {
+                            target = Random.insideUnitSphere * 5;
+                        }
                         target.z = 0;
 
                         standbyCardFlooring[i].GetComponent<CardFlooring>().gameObject.transform.position = target;
-                        standbyCardFlooring[i].transform.localScale *= size;
+                        standbyCardFlooring[i].transform.localScale = new Vector3(size, size, size);
                         standbyCardFlooring[i].SetActive(true);
                     }
-                    yield return new WaitForSeconds(2);
+                    yield return new WaitForSeconds(3);
                 }
+                yield return new WaitForSeconds(3);
             }
             if (GameManager.instance.monsterSpawn != true)
             {

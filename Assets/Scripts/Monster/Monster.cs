@@ -63,13 +63,6 @@ public class Monster : MonoBehaviour
                 if (timeCheck >= 0.2f)
                 {
                     timeCheck = 0;
-                    for (int i = 0; i < GameManager.instance.subWeaponList.Count; i++)
-                    {
-                        if (GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>() != null)
-                        {
-                            GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>().MonsterRemove(gameObject);
-                        }
-                    }
                     gameObject.SetActive(false);
                 }
             }
@@ -116,13 +109,31 @@ public class Monster : MonoBehaviour
         {
             Chickennuggie.instance.Count++;
         }
-        if(firstCheck)
+        for (int i = 0; i < GameManager.instance.subWeaponList.Count; i++)
+        {
+            if (GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>() != null)
+            {
+                GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>().MonsterRemove(gameObject);
+            }
+        }
+        if (firstCheck)
         {
             DropItem();
         }
         else
         {
             firstCheck = true;
+        }
+    }
+
+    protected virtual void OnDestroy()
+    {
+        for (int i = 0; i < GameManager.instance.subWeaponList.Count; i++)
+        {
+            if (GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>() != null)
+            {
+                GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>().MonsterRemove(gameObject);
+            }
         }
     }
 
@@ -159,19 +170,19 @@ public class Monster : MonoBehaviour
                     {
                         rainSlow = true;
                         rainDamage = true;
-                        StartCoroutine(ContinueDamage((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
+                        StartCoroutine(ContinueDamageRain((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
                         StartCoroutine(ContinueSlow());
                     }
                     else
                     {
                         rainDamage = true;
-                        StartCoroutine(ContinueDamage((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
+                        StartCoroutine(ContinueDamageRain((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
                     }
                 }
                 if (collision.GetComponent<CardFlooring>() != null)
                 {
                     trickDamage = true;
-                    StartCoroutine(ContinueDamage((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
+                    StartCoroutine(ContinueDamageCard((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
                 }
                 knockBack = weapon.KnockBack;
                 if(hp > 0)
@@ -259,6 +270,7 @@ public class Monster : MonoBehaviour
                 speed = GameManager.instance.MonsterSpeed * 0.5f;
                 if (rainSlow != true)
                 {
+                    speed = GameManager.instance.MonsterSpeed;
                     yield break;
                 }
                 yield return null;
@@ -267,14 +279,30 @@ public class Monster : MonoBehaviour
         }
     }
 
-    private IEnumerator ContinueDamage(int damage)
+    private IEnumerator ContinueDamageRain(int damage)
     {
         while (true)
         {
             while (GameManager.instance.state)
             {
                 hp -= damage;
-                if (rainDamage != true && trickDamage != true)
+                if (rainDamage != true)
+                {
+                    yield break;
+                }
+                yield return new WaitForSeconds(0.5f);
+            }
+            yield return null;
+        }
+    }
+    private IEnumerator ContinueDamageCard(int damage)
+    {
+        while (true)
+        {
+            while (GameManager.instance.state)
+            {
+                hp -= damage;
+                if (trickDamage != true)
                 {
                     yield break;
                 }

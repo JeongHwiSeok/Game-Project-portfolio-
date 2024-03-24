@@ -4117,6 +4117,7 @@ MonoBehaviour:
   canvasScaler: {x: 1280, y: 720}
   volume: []
   pwsBuff: 1
+  subWeaponList: []
 --- !u!4 &1653381212
 Transform:
   m_ObjectHideFlags: 0

@@ -6,6 +6,9 @@ public class SnakeChakramRotation : Weapon
 {
     [SerializeField] float time;
     [SerializeField] float duration;
+    [SerializeField] float angle;
+
+    [SerializeField] float r;
 
     private void Update()
     {
@@ -29,40 +32,11 @@ public class SnakeChakramRotation : Weapon
 
     private void AttackDirection()
     {
-        transform.RotateAround(Vector3.zero, Vector3.forward, -speed * Time.deltaTime);
+        angle += Time.deltaTime * 4 * pwsSpeedBuff * aswSpeedBuff;
 
-        if (transform.position.x > 0 && transform.position.y == 0)
-        {
-            transform.position += new Vector3(Time.deltaTime, 0, 0);
-        }
-        else if (transform.position.x > 0 && transform.position.y > 0)
-        {
-            transform.position += new Vector3(Time.deltaTime, Time.deltaTime, 0);
-        }
-        else if (transform.position.x == 0 && transform.position.y > 0)
-        {
-            transform.position += new Vector3(0, Time.deltaTime, 0);
-        }
-        else if (transform.position.x < 0 && transform.position.y > 0)
-        {
-            transform.position += new Vector3(-Time.deltaTime, Time.deltaTime, 0);
-        }
-        else if (transform.position.x < 0 && transform.position.y == 0)
-        {
-            transform.position += new Vector3(-Time.deltaTime, 0, 0);
-        }
-        else if (transform.position.x < 0 && transform.position.y < 0)
-        {
-            transform.position += new Vector3(-Time.deltaTime, -Time.deltaTime, 0);
-        }
-        else if (transform.position.x == 0 && transform.position.y < 0)
-        {
-            transform.position += new Vector3(0, -Time.deltaTime, 0);
-        }
-        else if (transform.position.x > 0 && transform.position.y < 0)
-        {
-            transform.position += new Vector3(Time.deltaTime, -Time.deltaTime, 0);
-        }
+        r += Time.deltaTime;
+
+        transform.position = new Vector3(r * Mathf.Cos(angle), r *  Mathf.Sin(angle), 0);
     }
 
     public void StatInput(float a, float b, float c)
@@ -70,6 +44,8 @@ public class SnakeChakramRotation : Weapon
         atk = a;
         normalspeed = b;
         knockBack = c;
+        r = 1.5f;
+        angle = 0;
         SpeedUP();
     }
 

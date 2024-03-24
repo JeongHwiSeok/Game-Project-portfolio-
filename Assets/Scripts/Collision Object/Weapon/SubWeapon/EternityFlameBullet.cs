@@ -9,6 +9,7 @@ public class EternityFlameBullet : Weapon
 
     private void OnEnable()
     {
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg + 90);
         transform.position = new Vector3(0, 0, 0);
         AttackDirection(target);
     }

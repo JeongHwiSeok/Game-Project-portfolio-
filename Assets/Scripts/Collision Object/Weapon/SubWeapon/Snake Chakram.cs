@@ -17,17 +17,17 @@ public class SnakeChakram : Weapon
 
     [SerializeField] Transform parent;
 
-    [SerializeField] List<GameObject> standbyIkuminUfo;
+    [SerializeField] List<GameObject> standbyChakram;
 
     private void OnEnable()
     {
         atk = 10;
         normalspeed = 180;
         speed = normalspeed;
-        knockBack = 0.5f;
-        size = 1f;
+        knockBack = 0.1f;
+        size = 2.8f;
         time = 2;
-        duration = 3;
+        duration = 5;
         parent = GameObject.Find("Attack Manager").transform;
 
         GameObject standbyChakram = Instantiate(snakeChakramBullet, parent);
@@ -36,7 +36,7 @@ public class SnakeChakram : Weapon
 
         standbyChakram.SetActive(false);
 
-        standbyIkuminUfo.Add(standbyChakram);
+        this.standbyChakram.Add(standbyChakram);
 
         GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(standbyChakram);
         
@@ -50,21 +50,21 @@ public class SnakeChakram : Weapon
             case 1:
                 break;
             case 2:
-                size = 1.2f;
+                size = 3.36f;
                 atkBuff = 1.2f;
                 break;
             case 3:
-                duration = 2;
+                duration = 4;
                 break;
             case 4:
-                size = 1.5f;
+                size = 4.2f;
                 atkBuff = 1.5f;
                 break;
             case 5:
                 time = 3;
                 break;
             case 6:
-                size = 2.0f;
+                size = 5.6f;
                 break;
             case 7:
                 atkBuff = 2.0f;
@@ -79,14 +79,13 @@ public class SnakeChakram : Weapon
         {
             while (GameManager.instance.state)
             {
-
-                if (standbyIkuminUfo[0].activeSelf != true)
+                if (standbyChakram[0].activeSelf != true)
                 {
-                    standbyIkuminUfo[0].transform.position = new Vector3(1, 0, 0) * 2;
-                    standbyIkuminUfo[0].GetComponent<SnakeChakramRotation>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
-                    standbyIkuminUfo[0].GetComponent<SnakeChakramRotation>().Duration(time);
-                    standbyIkuminUfo[0].GetComponent<SnakeChakramRotation>().transform.localScale *= size;
-                    standbyIkuminUfo[0].SetActive(true);
+                    standbyChakram[0].transform.position = new Vector3(1, 0, 0) * 3;
+                    standbyChakram[0].GetComponent<SnakeChakramRotation>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                    standbyChakram[0].GetComponent<SnakeChakramRotation>().Duration(time);
+                    standbyChakram[0].GetComponent<SnakeChakramRotation>().transform.localScale = new Vector3(size, size, size);
+                    standbyChakram[0].SetActive(true);
                 }
 
                 yield return new WaitForSeconds(duration);

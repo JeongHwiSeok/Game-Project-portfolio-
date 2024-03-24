@@ -23,7 +23,7 @@ public class EternityFlame : Weapon
     private void Start()
     {
         atk = 10;
-        normalspeed = 10;
+        normalspeed = 5;
         knockBack = 0;
         atkBuff = 1;
         speedBuff = 1;

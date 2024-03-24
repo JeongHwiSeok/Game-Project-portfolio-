@@ -23,8 +23,8 @@ public class IkuminTransmitter : Weapon
         atk = 10;
         normalspeed = 180;
         speed = normalspeed;
-        knockBack = 0.5f;
-        dis = 2f;
+        knockBack = 0.1f;
+        dis = 2;
         parent = GameObject.Find("Attack Manager").transform;
         for (int i = 0; i < 4; i++)
         {

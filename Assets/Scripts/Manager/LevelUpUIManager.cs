@@ -7,6 +7,7 @@ public class LevelUpUIManager : MonoBehaviour
 {
     [SerializeField] Transform parent;
     [SerializeField] GameObject itemButton;
+    [SerializeField] GameObject attackButton;
     [SerializeField] Button[] commandButton;
     [SerializeField] Text[] statText;
     [SerializeField] GameObject canvas;
@@ -14,6 +15,8 @@ public class LevelUpUIManager : MonoBehaviour
     [SerializeField] Sprite[] itemImage;
 
     private int addItemSlot;
+
+    private int maxSlot;
 
     [SerializeField] private int[] itemBox;
 
@@ -32,11 +35,20 @@ public class LevelUpUIManager : MonoBehaviour
 
         addItemSlot = 16;
 
+        maxSlot = 3 + DataManager.instance.data.shopInfo[addItemSlot];
+
         canvas = GameObject.Find("Canvas");
 
-        for (int i = 0; i < 3 + DataManager.instance.data.shopInfo[addItemSlot]; i++)
+        for (int i = 0; i < maxSlot; i++)
         {
             GameObject item = itemButton;
+            if (i == 5)
+            {
+                item = attackButton;
+                item.GetComponent<ItemButtonUI>().levelUpUIManager = this;
+                Instantiate(item, parent);
+                break;
+            }
             item.GetComponent<ItemButtonUI>().itemNumber = ItemCheck();
             if (item.GetComponent<ItemButtonUI>().itemNumber == 0)
             {
@@ -44,6 +56,12 @@ public class LevelUpUIManager : MonoBehaviour
             }
             item.GetComponent<ItemButtonUI>().itemImage.sprite = SpriteManager.instance.ItemSprite(item.GetComponent<ItemButtonUI>().itemNumber);
             item.GetComponent<ItemButtonUI>().levelUpUIManager = this;
+            Instantiate(item, parent);
+        }
+        if (GameManager.instance.attackLV < 6 && maxSlot < 5)
+        {
+            GameObject item = attackButton;
+            item.GetComponent<AttackButtonUI>().levelUpUIManager = this;
             Instantiate(item, parent);
         }
 

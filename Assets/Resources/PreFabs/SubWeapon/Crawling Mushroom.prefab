@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8401578904907701034}
   - component: {fileID: 6011862380959861792}
   - component: {fileID: 6627969082552847073}
-  m_Layer: 0
+  - component: {fileID: 4646095309647650134}
+  m_Layer: 16
   m_Name: Crawling Mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6011862380959861792
 SpriteRenderer:
@@ -110,6 +111,43 @@ MonoBehaviour:
   count: 0
   duration: 0
   range: 0
+  flag: 0
   parent: {fileID: 0}
   target: {x: 0, y: 0, z: 0}
+  spawn: {x: 0, y: 0, z: 0}
   standbyMushRoom: []
+--- !u!58 &4646095309647650134
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011607462600175601}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 3

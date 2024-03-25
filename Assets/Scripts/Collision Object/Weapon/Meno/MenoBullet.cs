@@ -13,7 +13,8 @@ public class MenoBullet : Weapon
         point = MenoWeapon.instance.point;
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(point.y, point.x) * Mathf.Rad2Deg);
         transform.position = new Vector3(0, 0, 0);
-        speed = 8f;
+        atk = 10 * MenoWeapon.instance.pickUpBuff;
+        speed = 8f * GameManager.instance.pwsBuff;
         AttackDirection(point);
     }
 

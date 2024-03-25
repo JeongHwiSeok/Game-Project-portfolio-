@@ -37,10 +37,6 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] public ShieldDeviceTypeHalo shieldDeviceTypeHalo;
 
-    [SerializeField] WeaponManager weaponManager;
-
-    public float time;
-
     public int Hp
     {
         set { hp = value; }
@@ -87,7 +83,6 @@ public class PlayerManager : MonoBehaviour
         instance = this;
         movement = Movement.Idle;
         GameManager.instance.CharacterSpeed = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Speed;
-        weaponManager = GameObject.Find("Attack Manager").GetComponent<WeaponManager>();
     }
 
     private void Update()
@@ -214,45 +209,6 @@ public class PlayerManager : MonoBehaviour
         {
             collisionObject.CollisionUnActivate(this);
         }
-    }
-
-    private IEnumerator AoiBuff()
-    {
-        time = UIManager.instance.time;
-
-        bool flag = true;
-
-        while (UIManager.instance.time - time < 15)
-        {
-            if (flag)
-            {
-                for (int i = 0; i < weaponManager.ListCount(); i++)
-                {
-                    if (weaponManager.weaponsFind(i).activeSelf)
-                    {
-                        weaponManager.weaponsFind(i).GetComponent<Weapon>().aswSpeedBuff = 1.5f;
-                        weaponManager.weaponsFind(i).GetComponent<Weapon>().SpeedUP();
-                    }
-                }
-            }
-            yield return null;
-        }
-
-        for (int i = 0; i < weaponManager.ListCount(); i++)
-        {
-            if (weaponManager.weaponsFind(i).activeSelf)
-            {
-                weaponManager.weaponsFind(i).GetComponent<Weapon>().aswSpeedBuff = 1f;
-                weaponManager.weaponsFind(i).GetComponent<Weapon>().SpeedUP();
-            }
-        }
-        
-        AoiWeapon.instance.buffCheck = true;
-    }
-
-    public void AoiBuffStart()
-    {
-        StartCoroutine(AoiBuff());
     }
 
     private void OnDisable()

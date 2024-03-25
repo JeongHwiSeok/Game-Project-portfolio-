@@ -9,18 +9,11 @@ public class LaserBullet : Weapon
 
     private void OnEnable()
     {
-        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg - 90);
-        transform.position = new Vector3(0, 0, 0);
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg);
         AttackDirection(target);
-        StartCoroutine(DisableOff());
-    }
-
-    private void Update()
-    {
-        if (GameManager.instance.state)
-        {
-            PositionStatus(direction);
-        }
+        transform.position = direction;
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        
     }
 
     private void AttackDirection(Vector3 position)
@@ -29,11 +22,7 @@ public class LaserBullet : Weapon
 
         direction.z = 0f;
         direction.Normalize();
-    }
-
-    private void PositionStatus(Vector3 direction)
-    {
-        transform.Translate(direction * speed * Time.deltaTime, Space.World);
+        direction *= 2.7f * transform.localScale.x;
     }
 
     public void Target(Vector3 _target)
@@ -49,10 +38,18 @@ public class LaserBullet : Weapon
         SpeedUP();
     }
 
-    private IEnumerator DisableOff()
+    public void ColliderOn()
     {
-        yield return new WaitForSeconds(2f);
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+    }
 
+    public void ColliderOff()
+    {
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    public void DisableOff()
+    {
         gameObject.SetActive(false);
     }
 }

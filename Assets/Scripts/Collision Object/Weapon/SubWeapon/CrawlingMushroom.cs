@@ -14,22 +14,27 @@ public class CrawlingMushroom : Weapon
     [SerializeField] float duration;
     [SerializeField] float range;
 
+    [SerializeField] bool flag;
+
     [SerializeField] Transform parent;
 
     [SerializeField] Vector3 target;
+    [SerializeField] Vector3 spawn;
 
     [SerializeField] List<GameObject> standbyMushRoom;
 
     private void Start()
     {
-        atk = 30;
-        normalspeed = 5;
+        atk = 0;
+        normalspeed = 3;
         knockBack = 0;
         atkBuff = 1;
         speedBuff = 1;
         count = 1;
-        range = 0.2f;
+        range = 1f;
         duration = 3;
+
+        flag = true;
 
         parent = GameObject.Find("Map").transform.GetChild(12).transform;
 
@@ -56,7 +61,7 @@ public class CrawlingMushroom : Weapon
             case 1:
                 break;
             case 2:
-                range = 0.24f;
+                range = 1.2f;
                 break;
             case 3:
                 atkBuff = 1.3f;
@@ -68,7 +73,7 @@ public class CrawlingMushroom : Weapon
                 duration = 2.4f;
                 break;
             case 6:
-                range = 0.28f;
+                range = 1.4f;
                 break;
             case 7:
                 count = 3;
@@ -78,6 +83,7 @@ public class CrawlingMushroom : Weapon
 
     private IEnumerator Fire()
     {
+        yield return new WaitForSeconds(1f);
         while (true)
         {
             while (GameManager.instance.state)
@@ -86,19 +92,20 @@ public class CrawlingMushroom : Weapon
                 {
                     if (standbyMushRoom[i].activeSelf != true)
                     {
-                        standbyMushRoom[i].GetComponent<Mushroom>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                        standbyMushRoom[i].GetComponent<Mushroom>().StatInput(30 * atkBuff, normalspeed * speedBuff, knockBack);
 
-                        target = Random.insideUnitSphere * 3;
-                        if (Mathf.Abs(target.x) < 1 && Mathf.Abs(target.y) < 1)
+                        spawn = Random.insideUnitSphere * 3;
+                        if (Mathf.Abs(spawn.x) < 1 && Mathf.Abs(spawn.y) < 1)
                         {
-                            target = Random.insideUnitSphere * 3;
+                            spawn = Random.insideUnitSphere * 3;
                         }
-                        target.z = 0;
-                        standbyMushRoom[i].transform.position = target;
+                        spawn.z = 0;
+                        standbyMushRoom[i].transform.position = spawn;
 
                         standbyMushRoom[i].GetComponent<Mushroom>().Point(target);
-                        standbyMushRoom[i].GetComponent<Mushroom>().circleCollider2D.radius = range;
+                        standbyMushRoom[i].GetComponent<Mushroom>().circleCollider2D.radius = 0.1f * range;
                         standbyMushRoom[i].SetActive(true);
+                        flag = true;
                     }
                 }
                 yield return new WaitForSeconds(duration);
@@ -108,6 +115,17 @@ public class CrawlingMushroom : Weapon
                 yield break;
             }
             yield return null;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Monster monster = collision.GetComponent<Monster>();
+
+        if (monster != null && flag)
+        {
+            target = monster.gameObject.transform.position;
+            flag = false;
         }
     }
 }

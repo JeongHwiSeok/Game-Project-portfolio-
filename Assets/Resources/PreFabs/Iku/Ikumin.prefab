@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3138401578829539579}
   - component: {fileID: -3992961885465508406}
   - component: {fileID: 2722394277308035958}
+  - component: {fileID: 7143027584646141575}
   m_Layer: 0
   m_Name: Ikumin
   m_TagString: Untagged
@@ -123,6 +124,7 @@ MonoBehaviour:
   atk: 0
   knockBack: 0
   speed: 0
+  normalspeed: 0
   aswSpeedBuff: 0
   pwsSpeedBuff: 0
   point: {x: 0, y: 0, z: 0}
@@ -130,6 +132,8 @@ MonoBehaviour:
   movement: 0
   spriteRenderer: {fileID: 0}
   animator: {fileID: 3138401578829539579}
+  angle: 0
+  returnIkumin: 0
 --- !u!70 &2722394277308035958
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -165,3 +169,30 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0080133015, y: -0.044383578}
   m_Size: {x: 0.27233303, y: 0.35891423}
   m_Direction: 0
+--- !u!50 &7143027584646141575
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5118090075272893915}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

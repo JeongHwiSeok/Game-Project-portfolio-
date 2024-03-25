@@ -84,7 +84,7 @@ public class RainBoots : Weapon
                     standbyRainFlooring[0].GetComponent<RainFlooring>().time = duration;
                     standbyRainFlooring[0].GetComponent<RainFlooring>().gameObject.transform.position = new Vector3(-0.1f, -0.4f, 0);
                     standbyRainFlooring[0].GetComponent<RainFlooring>().itemLV = itemLV;
-                    standbyRainFlooring[0].transform.localScale = new Vector3(3 * size, 2 * size, 2 * size);
+                    standbyRainFlooring[0].transform.localScale = new Vector3(4 * size, 2.5f * size, 2.5f * size);
                     standbyRainFlooring[0].SetActive(true);
                 }
                 yield return new WaitForSeconds(2);

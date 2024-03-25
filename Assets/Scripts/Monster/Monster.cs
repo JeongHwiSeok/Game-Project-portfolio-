@@ -7,6 +7,8 @@ public class Monster : MonoBehaviour
     [SerializeField] Vector3 currentPosition;
     [SerializeField] Vector3 previusPosition;
 
+    [SerializeField] Vector3 backPosition;
+
     [SerializeField] protected int maxHp;
     [SerializeField] protected int hp;
     protected int atk;
@@ -32,6 +34,8 @@ public class Monster : MonoBehaviour
 
     [SerializeField] GameObject drop;
 
+    [SerializeField] bool timeBack;
+
     [SerializeField] int dotDamage;
 
     [SerializeField] bool rainSlow;
@@ -47,7 +51,9 @@ public class Monster : MonoBehaviour
         rainSlow = false;
         rainDamage = false;
         trickDamage = false;
+        timeBack = false;
         StartCoroutine(LastPosition());
+        StartCoroutine(BackPosition());
     }
 
     protected virtual void Update()
@@ -63,8 +69,14 @@ public class Monster : MonoBehaviour
                 if (timeCheck >= 0.2f)
                 {
                     timeCheck = 0;
+                    
                     gameObject.SetActive(false);
                 }
+            }
+            else if (timeBack)
+            {
+                transform.position = backPosition;
+                timeBack = false;
             }
             else if (damageTime > 0)
             {
@@ -109,31 +121,21 @@ public class Monster : MonoBehaviour
         {
             Chickennuggie.instance.Count++;
         }
-        for (int i = 0; i < GameManager.instance.subWeaponList.Count; i++)
+
+        int random = Random.Range(0, 10);
+        if (random < MenoWeapon.instance.jewalRandom)
         {
-            if (GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>() != null)
-            {
-                GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>().MonsterRemove(gameObject);
-            }
+            MenoWeapon.instance.jewalCount++;
         }
+
         if (firstCheck)
         {
+            GameManager.instance.monsterCount++;
             DropItem();
         }
         else
         {
             firstCheck = true;
-        }
-    }
-
-    protected virtual void OnDestroy()
-    {
-        for (int i = 0; i < GameManager.instance.subWeaponList.Count; i++)
-        {
-            if (GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>() != null)
-            {
-                GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>().MonsterRemove(gameObject);
-            }
         }
     }
 
@@ -154,6 +156,27 @@ public class Monster : MonoBehaviour
                 else
                 {
                     hp -= (int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk);
+                }
+                if (collision.GetComponent<MinuteHand>() != null || collision.GetComponent<HourHand>() != null)
+                {
+                    AoiWeapon.instance.attackCount++;
+
+                    if (DataManager.instance.subArray[0, 7] == 1)
+                    {
+                        StartCoroutine(MomentSlow(0.1f));
+                    }
+                    else if (DataManager.instance.subArray[0, 7] == 2)
+                    {
+                        StartCoroutine(MomentSlow(0.2f));
+                    }
+                    else
+                    {
+                        StartCoroutine(MomentSlow(0.3f));
+                    }
+                }
+                if (collision.GetComponent<UnisonWeapon>() != null && GameManager.instance.attackLV == 7)
+                {
+                    timeBack = true;
                 }
                 if (collision.GetComponent<EternityFlameBullet>() != null)
                 {
@@ -184,6 +207,7 @@ public class Monster : MonoBehaviour
                     trickDamage = true;
                     StartCoroutine(ContinueDamageCard((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
                 }
+                Debug.Log("Weapon : " + weapon.name + " / Atk : " + weapon.Atk);
                 knockBack = weapon.KnockBack;
                 if(hp > 0)
                 {
@@ -193,6 +217,18 @@ public class Monster : MonoBehaviour
             if (player != null)
             {
                 player.Damage(atk);
+
+                if (GameManager.instance.charNum == 2)
+                {
+                    if (MenoWeapon.instance.hologram[MenoWeapon.instance.hologramCount - 1].activeSelf)
+                    {
+                        for (int i = 0; i < MenoWeapon.instance.hologramCount; i++)
+                        {
+                            MenoWeapon.instance.hologram[i].SetActive(false);
+                        }
+                        MenoWeapon.instance.HolograminvincibilityStart();
+                    }
+                }
 
                 for (int i = 0; i < player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ListCount(); i++)
                 {
@@ -251,6 +287,16 @@ public class Monster : MonoBehaviour
             currentPosition = transform.position;
 
             yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private IEnumerator BackPosition()
+    {
+        while (true)
+        {
+            backPosition = transform.position;
+
+            yield return new WaitForSeconds(1f);
         }
     }
 

@@ -1,0 +1,3 @@
+0	Use Time Controll to slow down enemies and increase speed.	A microphone is created within the screen range. Use the microphone to rhythm and increase attack speed.	A success or baka decision occurs every 30 seconds, and a buff is granted according to the decision.
+1	Wave the ribbon to summon Ikumin hiding nearby.	As the princess of Ikumin, she can summon special Ikumin.	The more Ikumin you gather, the stronger your abilities become.
+2	Enemies who receive help sometimes give you gems and disappear. You can collect gems to use special attacks. Can be used with x and y keys	Uses its ability to create a hologram that confuses enemies.	By accumulating current in the body, stronger output can be produced.

@@ -11,6 +11,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float monsterSpeed;
 
     [SerializeField] public string characterName;
+    [SerializeField] public int attackLV;
 
     [SerializeField] public bool state = true;
     [SerializeField] public bool monsterSpawn = true;
@@ -31,6 +32,11 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] public float[] volume;
 
     [SerializeField] public float pwsBuff;
+    [SerializeField] public float tcBuff;
+
+    [SerializeField] public int monsterCount;
+
+    [SerializeField] public int ikuminCount;
 
     [SerializeField] public List<GameObject> subWeaponList;
 
@@ -41,7 +47,7 @@ public class GameManager : Singleton<GameManager>
     }
     public float CharacterSpeed
     {
-        get { return characterSpeed * pwsBuff; }
+        get { return characterSpeed * pwsBuff * tcBuff; }
         set { characterSpeed = value; }
     }
 
@@ -78,13 +84,18 @@ public class GameManager : Singleton<GameManager>
                 player = Instantiate(Resources.Load<GameObject>("Ibuki Meno"));
                 break;
         }
+        monsterCount = 0;
+        ikuminCount = 0;
     }
 
     public void GameOver()
     {
         state = false;
         monsterSpawn = false;
+        DataManager.instance.data.shopCoin += UIManager.instance.DropCoin;
+        DataManager.instance.Save();
         Instantiate(Resources.Load<GameObject>("PreFabs/UI/GameOver"));
+        attackLV = 1;
     }
 
     public void ReLoadScene()

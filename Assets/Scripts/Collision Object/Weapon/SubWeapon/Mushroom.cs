@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Mushroom : Weapon
 {
-    [SerializeField] public Vector3 target;
     [SerializeField] Animator animator;
 
     [SerializeField] Monster monster;
@@ -18,7 +17,7 @@ public class Mushroom : Weapon
     [SerializeField] float time;
 
     [SerializeField] bool flag;
-    [SerializeField] bool runFlag;
+    [SerializeField] bool move;
 
     [SerializeField] public CircleCollider2D circleCollider2D;
 
@@ -26,61 +25,56 @@ public class Mushroom : Weapon
     {
         atk = 0;
         flag = true;
-        runFlag = false;
+        move = true;
         animator = gameObject.GetComponent<Animator>();
         circleCollider2D = gameObject.GetComponent<CircleCollider2D>();
-        circleCollider2D.enabled = false;
         animator.Play("Summon");
     }
 
     private void Update()
     {
-        time += Time.deltaTime;
-        
-        if (GameManager.instance.state)
+        if (GameManager.instance.state && move)
         {
-            if (runFlag)
-            {
-                PositionStatus(direction);
-            }
+            time += Time.deltaTime;
+            PositionStatus(direction);
         }
     }
 
     public void Target()
     {
-        direction = target - transform.position;
+        direction = point - transform.position;
 
         direction.z = 0f;
         direction.Normalize();
-
-        atk = subAtk;
     }
 
     private void PositionStatus(Vector3 direction)
     {
         transform.Translate(direction * speed * Time.deltaTime);
 
-        Vector3 offset = transform.position - target;
+        Vector3 offset = transform.position - point;
         float sqrLen = offset.sqrMagnitude;
 
-        if (sqrLen <= 0.01f)
+        if (sqrLen <= 0.05f || time > 10)
         {
-            runFlag = false;
-            circleCollider2D.enabled = true;
+            time = 0;
+            atk = subAtk;
+            move = false;
             animator.SetLayerWeight(1, 1);
+            animator.SetBool("Boom", true);
             animator.Play("Boom");
         }
     }
 
-    public void RunOn()
+    public void Run()
     {
-        runFlag = true;
         animator.SetBool("Run", true);
     }
 
     public void Point(Vector3 _target)
     {
         point = _target;
+        Target();
     }
 
     public void StatInput(float a, float b, float c)
@@ -94,5 +88,19 @@ public class Mushroom : Weapon
     public void Boom()
     {
         gameObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Monster monster = collision.GetComponent<Monster>();
+
+        if (monster != null)
+        {
+            atk = subAtk;
+            move = false;
+            animator.SetLayerWeight(1, 1);
+            animator.SetBool("Boom", true);
+            animator.Play("Boom");
+        }
     }
 }

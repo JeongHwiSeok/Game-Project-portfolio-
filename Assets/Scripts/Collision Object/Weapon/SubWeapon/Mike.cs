@@ -30,7 +30,7 @@ public class Mike : Weapon
         atkBuff = 1;
         speedBuff = 1;
         duration = 3;
-        range = 2.8f;
+        range = 1f;
         slow = 1;
 
         parent = GameObject.Find("Attack Manager").transform;
@@ -58,7 +58,7 @@ public class Mike : Weapon
                 atkBuff = 1.2f;
                 break;
             case 3:
-                range = 3.64f;
+                range = 1.2f;
                 break;
             case 4:
                 knockBack = 1.2f;
@@ -70,7 +70,7 @@ public class Mike : Weapon
                 atkBuff = 1.4f;
                 break;
             case 7:
-                range = 4.2f;
+                range = 1.5f;
                 slow = 0.5f;
                 break;
         }
@@ -87,17 +87,17 @@ public class Mike : Weapon
                     standbySoundWave[0].transform.position = new Vector3(0, 0, 0);
                     standbySoundWave[0].GetComponent<SoundWave>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
                     standbySoundWave[0].GetComponent<SoundWave>().Slow = slow;
-                    standbySoundWave[0].transform.localScale = new Vector3(range, range, range);
+                    standbySoundWave[0].transform.localScale = new Vector3(5.6f * range, 5.6f * range, 5.6f * range);
 
                     if (PlayerManager.instance.spriteRenderer.flipX)
                     {
-                        standbySoundWave[0].transform.position = new Vector3(-2, 0, 0);
-                        standbySoundWave[0].transform.rotation = Quaternion.Euler(0, 0, 270);
+                        standbySoundWave[0].transform.position = new Vector3(-1.5f, 0, 0);
+                        standbySoundWave[0].transform.rotation = Quaternion.Euler(0, 0, 180);
                     }
                     else
                     {
-                        standbySoundWave[0].transform.position = new Vector3(2, 0, 0);
-                        standbySoundWave[0].transform.rotation = Quaternion.Euler(0, 0, 90);
+                        standbySoundWave[0].transform.position = new Vector3(1.5f, 0, 0);
+                        standbySoundWave[0].transform.rotation = Quaternion.Euler(0, 0, 0);
                     }
                     standbySoundWave[0].SetActive(true);
                 }

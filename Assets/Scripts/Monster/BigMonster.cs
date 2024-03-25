@@ -65,6 +65,7 @@ public class BigMonster : MonoBehaviour
                 if (timeCheck >= 0.2f)
                 {
                     timeCheck = 0;
+                    
                     gameObject.SetActive(false);
                 }
             }
@@ -111,31 +112,14 @@ public class BigMonster : MonoBehaviour
         {
             Chickennuggie.instance.Count++;
         }
-        for (int i = 0; i < GameManager.instance.subWeaponList.Count; i++)
-        {
-            if (GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>() != null)
-            {
-                GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>().MonsterRemove(gameObject);
-            }
-        }
         if (firstCheck)
         {
+            GameManager.instance.monsterCount++;
             DropItem();
         }
         else
         {
             firstCheck = true;
-        }
-    }
-
-    protected virtual void OnDestroy()
-    {
-        for (int i = 0; i < GameManager.instance.subWeaponList.Count; i++)
-        {
-            if (GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>() != null)
-            {
-                GameManager.instance.subWeaponList[i].GetComponent<DevilsTail>().MonsterRemove(gameObject);
-            }
         }
     }
 

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 4212575014504625769}
   - component: {fileID: 7302810148056448465}
   - component: {fileID: 2481871708868845491}
-  - component: {fileID: 5907654301697249871}
+  - component: {fileID: 6218439636308999489}
+  - component: {fileID: 4478424651123391351}
   m_Layer: 0
   m_Name: ChargeBullet
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4212575014504625769
 SpriteRenderer:
@@ -120,16 +121,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a562e5b0d5b07a841bdfaf4b5626bbcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  point: {x: 0, y: 0, z: 0}
-  target: {x: 0, y: 0, z: 0}
-  direction: {x: 0, y: 0, z: 0}
---- !u!136 &5907654301697249871
-CapsuleCollider:
+  atk: 0
+  knockBack: 0
+  speed: 0
+  normalspeed: 0
+  aswSpeedBuff: 0
+  pwsSpeedBuff: 0
+--- !u!50 &6218439636308999489
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843043112482039275}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &4478424651123391351
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843043112482039275}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -138,11 +171,21 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.025464416, y: 0.019495606}
   serializedVersion: 2
-  m_Radius: 0.35
-  m_Height: 0.6
-  m_Direction: 1
-  m_Center: {x: -0.02, y: 0.02, z: 0}
+  m_Radius: 0.31407148

@@ -92,7 +92,7 @@ public class HyperOticCube : Weapon
                         standbyCube[0].transform.position = new Vector3(1.5f, 0, 0);
                         standbyCube[0].GetComponent<HyperCube>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
                         standbyCube[0].GetComponent<HyperCube>().Duration(time);
-                        standbyCube[0].transform.localScale = new Vector3(size, size, size);
+                        standbyCube[0].transform.localScale = new Vector3(2.8f * size, 2.8f * size, 2.8f * size);
                         standbyCube[0].SetActive(true);
                     }
                 }              

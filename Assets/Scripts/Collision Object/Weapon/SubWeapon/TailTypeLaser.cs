@@ -8,15 +8,15 @@ public class TailTypeLaser : Weapon
 
     [SerializeField] GameObject laser;
 
+    [SerializeField] Vector3 target;
+
     [SerializeField] float atkBuff;
     [SerializeField] float speedBuff;
+    [SerializeField] float size;
 
     [SerializeField] int maxCount;
     [SerializeField] int count;
     [SerializeField] float duration;
-
-    [SerializeField] Vector3 currentTarget;
-    [SerializeField] Vector3 preivousTarget;
 
     [SerializeField] Transform parent;
 
@@ -25,16 +25,16 @@ public class TailTypeLaser : Weapon
     private void Start()
     {
         atk = 10;
-        normalspeed = 7.5f;
-        knockBack = 0;
+        knockBack = 1;
         atkBuff = 1;
         speedBuff = 1;
         maxCount = 1;
-        duration = 2;
+        duration = 5;
+        size = 1;
 
         parent = GameObject.Find("Attack Manager").transform;
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 2; i++)
         {
             GameObject bullet = Instantiate(laser, parent);
 
@@ -45,9 +45,9 @@ public class TailTypeLaser : Weapon
             standbyLaser.Add(bullet);
 
             GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(bullet);
-
-            StartCoroutine(Fire());
         }
+
+        StartCoroutine(Fire());
     }
     public void Activate()
     {
@@ -56,22 +56,22 @@ public class TailTypeLaser : Weapon
             case 1:
                 break;
             case 2:
-                atkBuff = 1.2f;
+                size = 1.3f;
                 break;
             case 3:
-                maxCount = 2;
+                duration = 4.5f;
                 break;
             case 4:
                 atkBuff = 1.5f;
                 break;
             case 5:
-                maxCount = 3;
+                duration = 4f;
                 break;
             case 6:
-                duration = 1;
+                size = 1.8f;
                 break;
             case 7:
-                maxCount = 4;
+                maxCount = 2;
                 break;
         }
     }
@@ -82,26 +82,33 @@ public class TailTypeLaser : Weapon
         {
             while (GameManager.instance.state)
             {
-                for (int i = 0; i < 8; i++)
-                {
-                    if (standbyLaser[i].activeSelf != true)
-                    {
-                        if (currentTarget != Vector3.zero && currentTarget != preivousTarget)
-                        {
-                            standbyLaser[i].transform.position = new Vector3(0, 0, 0);
-                            standbyLaser[i].GetComponent<LaserBullet>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
-                            standbyLaser[i].GetComponent<LaserBullet>().Target(currentTarget);
-                            standbyLaser[i].SetActive(true);
-                            count++;
-                        }
-                        if (count == maxCount)
-                        {
-                            count = 0;
-                            break;
-                        }
+                target = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
 
-                        yield return new WaitForSeconds(0.5f);
+                for (int i = 0; i < maxCount; i++)
+                {
+                    if (i == 0)
+                    {
+                        if (standbyLaser[i].activeSelf != true)
+                        {
+                            standbyLaser[i].gameObject.transform.position = new Vector3(0, 0, 0);
+                            standbyLaser[i].GetComponent<LaserBullet>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                            standbyLaser[i].GetComponent<LaserBullet>().Target(target);
+                            standbyLaser[i].gameObject.transform.localScale = new Vector3(2 * size, 2 * size, 2 * size);
+                            standbyLaser[i].SetActive(true);
+                        }
                     }
+                    else
+                    {
+                        if (standbyLaser[i].activeSelf != true)
+                        {
+                            standbyLaser[i].gameObject.transform.position = new Vector3(0, 0, 0);
+                            standbyLaser[i].GetComponent<LaserBullet>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                            standbyLaser[i].GetComponent<LaserBullet>().Target(target * -1);
+                            standbyLaser[i].gameObject.transform.localScale = new Vector3(2 * size, 2 * size, 2 * size);
+                            standbyLaser[i].SetActive(true);
+                        }
+                    }
+                    
                 }
                 yield return new WaitForSeconds(duration);
             }
@@ -110,17 +117,6 @@ public class TailTypeLaser : Weapon
                 yield break;
             }
             yield return null;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Monster monster = collision.GetComponent<Monster>();
-
-        if (monster != null)
-        {
-            preivousTarget = currentTarget;
-            currentTarget = monster.transform.position;
         }
     }
 }

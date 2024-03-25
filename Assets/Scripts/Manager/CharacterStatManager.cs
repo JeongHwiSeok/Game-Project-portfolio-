@@ -38,7 +38,7 @@ public class CharacterStatManager : MonoBehaviour
     {
         characterName.text = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Name;
         characterAttack.text = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).AttackName;
-        attackInfo.text = "";
+        attackInfo.text = DictionaryManager.instance.AttackInformationTextOutput(GameManager.instance.charNum).AttackInformation;
         attackImage.sprite = SpriteManager.instance.CharacterAttack(GameManager.instance.charNum);
         attackImage.color = new Color(1, 1, 1, 1);
         for (int i = 0; i < 3 ; i++)
@@ -48,6 +48,7 @@ public class CharacterStatManager : MonoBehaviour
         }
         Stat();
         SkillName();
+        SkillInformation();
     }
 
     private void Stat()
@@ -68,5 +69,12 @@ public class CharacterStatManager : MonoBehaviour
         skillName[0].text = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Skill1Name;
         skillName[1].text = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Skill2Name;
         skillName[2].text = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Skill3Name;
+    }
+
+    private void SkillInformation()
+    {
+        skillInfo[0].text = DictionaryManager.instance.SkillInformationTextOutput(GameManager.instance.charNum).Skill1Information;
+        skillInfo[1].text = DictionaryManager.instance.SkillInformationTextOutput(GameManager.instance.charNum).Skill2Information;
+        skillInfo[2].text = DictionaryManager.instance.SkillInformationTextOutput(GameManager.instance.charNum).Skill3Information;
     }
 }

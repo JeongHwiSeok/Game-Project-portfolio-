@@ -8,7 +8,6 @@ public class CharacterInformationManager : MonoBehaviour
     [SerializeField] Image characterImage;
 
     [SerializeField] Sprite[] characterMainImage;
-    [SerializeField] Sprite[] AllSkill;
     [SerializeField] Sprite[,] characterSkill;
 
     [SerializeField] Image[] characterSkillImage;
@@ -37,7 +36,7 @@ public class CharacterInformationManager : MonoBehaviour
         {
             for (int j = 0; j < 3; j++)
             {
-                characterSkill[i, j] = AllSkill[k++];
+                characterSkill[i, j] = SpriteManager.instance.SkillSprite(k++);
             }
         }
         characterNumber = GameManager.instance.charNum;
@@ -67,6 +66,10 @@ public class CharacterInformationManager : MonoBehaviour
         characterSkillName[0].text = DictionaryManager.instance.CharacterInfoOutput(characterNumber).Skill1Name;
         characterSkillName[1].text = DictionaryManager.instance.CharacterInfoOutput(characterNumber).Skill2Name;
         characterSkillName[2].text = DictionaryManager.instance.CharacterInfoOutput(characterNumber).Skill3Name;
+
+        characterSkillInformation[0].text = DictionaryManager.instance.SkillInformationTextOutput(characterNumber).Skill1Information;
+        characterSkillInformation[1].text = DictionaryManager.instance.SkillInformationTextOutput(characterNumber).Skill2Information;
+        characterSkillInformation[2].text = DictionaryManager.instance.SkillInformationTextOutput(characterNumber).Skill3Information;
     }
 
     private void Update()

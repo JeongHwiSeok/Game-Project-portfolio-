@@ -14,13 +14,13 @@ public class DevilsTail : Weapon
     [SerializeField] float duration;
     [SerializeField] float range;
 
+    [SerializeField] bool flag;
+
     [SerializeField] Transform parent;
 
     [SerializeField] Vector3 target;
 
     [SerializeField] List<GameObject> standbyTail;
-
-    [SerializeField] List<GameObject> monsterList;
 
     private void Start()
     {
@@ -32,6 +32,8 @@ public class DevilsTail : Weapon
         speedBuff = 1;
         range = 2.8f;
         duration = 3;
+
+        flag = true;
 
         parent = GameObject.Find("Attack Manager").transform;
 
@@ -46,22 +48,6 @@ public class DevilsTail : Weapon
         GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(bullet);
 
         StartCoroutine(Fire());
-    }
-
-    private void Update()
-    {
-        if (monsterList.Count>0)
-        {
-            Vector3 offset = monsterList[0].transform.position - Vector3.zero;
-            float sqrLen = offset.sqrMagnitude;
-            foreach (GameObject found in monsterList)
-            {
-                if (sqrLen > found.transform.position.sqrMagnitude)
-                {
-                    target = found.transform.position;
-                }
-            }
-        }        
     }
 
     public void Activate()
@@ -94,7 +80,7 @@ public class DevilsTail : Weapon
 
     private IEnumerator Fire()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         while (true)
         {
             while (GameManager.instance.state)
@@ -110,6 +96,7 @@ public class DevilsTail : Weapon
 
                     standbyTail[0].transform.localScale = new Vector3(range, range, range);
                     standbyTail[0].SetActive(true);
+                    flag = true;
                 }
                 yield return new WaitForSeconds(duration);
             }
@@ -121,18 +108,14 @@ public class DevilsTail : Weapon
         }
     }
 
-    public void MonsterRemove(GameObject obj)
-    {
-        monsterList.Remove(obj);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Monster monster = collision.GetComponent<Monster>();
 
-        if (monster != null)
+        if (monster != null && flag)
         {
-            monsterList.Add(monster.gameObject);
+            target = monster.gameObject.transform.position;
+            flag = false;
         }
     }
 }

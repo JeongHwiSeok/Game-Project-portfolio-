@@ -11,6 +11,7 @@ public class MonsterSearch : MonoBehaviour
     private void OnEnable()
     {
         flag = true;
+        gameObject.GetComponent<CircleCollider2D>().enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,9 +20,8 @@ public class MonsterSearch : MonoBehaviour
 
         if (monster != null && flag)
         {
-            mushroom.target = monster.transform.position;
             mushroom.Target();
-            mushroom.RunOn();
+            gameObject.GetComponent<CircleCollider2D>().enabled = false;
             flag = false;
         }
     }

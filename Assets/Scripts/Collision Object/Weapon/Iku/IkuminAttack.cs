@@ -8,13 +8,14 @@ public class IkuminAttack : Weapon
     [SerializeField] Vector3 direction;
     [SerializeField] Movement movement;
     [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] AnimationCurve curve;
 
     [SerializeField] public Animator animator;
 
     private int count;
     private float time;
     [SerializeField] private float angle;
+
+    [SerializeField] bool returnIkumin;
 
     private void OnEnable()
     {
@@ -30,36 +31,72 @@ public class IkuminAttack : Weapon
 
     private void Update()
     {
-        time += Time.deltaTime;
-        float x0 = 0;
-        float x1 = point.x;
-        float distance = x1 - x0;
-        float nextX = Mathf.MoveTowards(transform.position.x, x1, speed * Time.deltaTime);
-        float baseY = Mathf.Lerp(0, point.y, (nextX - x0) / distance);
-        float arc = (nextX - x0) * (nextX - x1) / (-0.25f * distance * distance);
-        Vector3 nextPosition = new Vector3(nextX, baseY + arc, 0);
-        transform.position = nextPosition;
-        if (nextPosition == point)
+        if (returnIkumin)
         {
+            PositionStatus();
+        }
+        else
+        {
+            time += Time.deltaTime;
+            float x0 = 0;
+            float x1 = point.x;
+            float distance = x1 - x0;
+            float nextX = Mathf.MoveTowards(transform.position.x, x1, speed * Time.deltaTime);
+            float baseY = Mathf.Lerp(0, point.y, (nextX - x0) / distance);
+            float arc = (nextX - x0) * (nextX - x1) / (-0.25f * distance * distance);
+            Vector3 nextPosition = new Vector3(nextX, baseY + arc, 0);
+            transform.position = nextPosition;
+            if (nextPosition == point)
+            {
+                if (GameManager.instance.attackLV == 7)
+                {
 
+                }
+                else
+                {
+                    returnIkumin = true;
+                }
+            }
         }
         Status();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private  void PositionStatus()
     {
-        DisableZone zone = other.GetComponent<DisableZone>();
-        Monster monster = other.GetComponent<Monster>();
+        transform.Translate(direction * speed * Time.deltaTime);
+    }
 
-        if(zone != null)
+    private  void AttackDirection(Vector3 vector3)
+    {
+        direction = transform.position - vector3;
+
+        direction.z = 0f;
+        direction.Normalize();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Monster monster = collision.GetComponent<Monster>();
+
+        if(monster != null && GameManager.instance.attackLV < 7)
+        {
+            AttackDirection(Vector3.zero);
+
+            if (direction.x < 0)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else
+            {
+                spriteRenderer.flipX = false;
+            }
+            speed = 15f;
+            returnIkumin = true;
+            movement = Movement.Move;
+        }
+        if (collision.GetComponent<PlayerManager>() != null)
         {
             gameObject.SetActive(false);
-            //AttackDirection(Vector3.zero);
-            //if (direction.x < 0)
-            //{
-            //    spriteRenderer.flipX = true;
-            //}
-            //movement = Movement.Move;
         }
     }
 

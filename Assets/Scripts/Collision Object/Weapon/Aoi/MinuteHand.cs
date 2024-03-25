@@ -23,6 +23,7 @@ public class MinuteHand : Weapon
 
     private void AttackDirection()
     {
-        transform.RotateAround(Vector3.zero, Vector3.forward, -speed * Weapon.instance.aswSpeedBuff * Weapon.instance.pwsSpeedBuff * Time.deltaTime);
+        transform.RotateAround(Vector3.zero, Vector3.forward, -speed * Weapon.instance.aswSpeedBuff * Weapon.instance.pwsSpeedBuff * Time.deltaTime * AoiWeapon.instance.spdBuff);
+        transform.localScale = new Vector3(4 * AoiWeapon.instance.size, 4 * AoiWeapon.instance.size, 4 * AoiWeapon.instance.size);
     }
 }

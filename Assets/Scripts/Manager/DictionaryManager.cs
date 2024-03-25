@@ -10,13 +10,17 @@ public class DictionaryManager : Singleton<DictionaryManager>
     [SerializeField] TextAsset monsterDataBase;
     [SerializeField] TextAsset characterDataBase;
     [SerializeField] TextAsset shopItemDataBase;
-    [SerializeField] TextAsset[] itemInformaion; 
+    [SerializeField] TextAsset[] itemInformaion;
+    [SerializeField] TextAsset[] skillInformaion;
+    [SerializeField] TextAsset[] atttackInformaion;
 
     private static readonly Dictionary<int, ItemInfo> itemDictionary = new Dictionary<int, ItemInfo>();
     private static readonly Dictionary<string, MonsterInfo> monsterDictionary = new Dictionary<string, MonsterInfo>();
     private static readonly Dictionary<int, CharacterInfo> characterDictionary = new Dictionary<int, CharacterInfo>();
     private static readonly Dictionary<int, ShopItemInfo> shopItemDictionary = new Dictionary<int, ShopItemInfo>();
-    private static readonly Dictionary<string, ItemInformaionText> itemInformaionTextDictionary = new Dictionary<string, ItemInformaionText>();
+    private static readonly Dictionary<string, ItemInformationText> itemInformaionTextDictionary = new Dictionary<string, ItemInformationText>();
+    private static readonly Dictionary<int, SkillInformationText> skillInformaionTextDictionary = new Dictionary<int, SkillInformationText>();
+    private static readonly Dictionary<int, AttackInformationText> attackInformaionTextDictionary = new Dictionary<int, AttackInformationText>();
 
     private void Start()
     {
@@ -100,12 +104,46 @@ public class DictionaryManager : Singleton<DictionaryManager>
         {
             string[] row = itemInforTextLine[i].Split('\t');
 
-            ItemInformaionText itemInformaionText;
+            ItemInformationText itemInformaionText;
 
             if (itemInformaionTextDictionary.TryGetValue(row[0], out itemInformaionText) == false)
             {   
-                itemInformaionText = new ItemInformaionText(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
+                itemInformaionText = new ItemInformationText(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
                 itemInformaionTextDictionary.Add(row[0], itemInformaionText);
+            }
+        }
+        #endregion
+
+        #region 스킬 정보
+        string[] skillInforTextLine = skillInformaion[DataManager.instance.data.language].text.Substring(0, skillInformaion[DataManager.instance.data.language].text.Length - 1).Split('\n');
+
+        for (int i = 0; i < skillInforTextLine.Length; i++)
+        {
+            string[] row = skillInforTextLine[i].Split('\t');
+
+            SkillInformationText skillInformaionText;
+
+            if (skillInformaionTextDictionary.TryGetValue(int.Parse(row[0]), out skillInformaionText) == false)
+            {
+                skillInformaionText = new SkillInformationText(int.Parse(row[0]), row[1], row[2], row[3]);
+                skillInformaionTextDictionary.Add(int.Parse(row[0]), skillInformaionText);
+            }
+        }
+        #endregion
+
+        #region 일반공격 정보
+        string[] attackInforTextLine = atttackInformaion[DataManager.instance.data.language].text.Substring(0, atttackInformaion[DataManager.instance.data.language].text.Length - 1).Split('\n');
+
+        for (int i = 0; i < attackInforTextLine.Length; i++)
+        {
+            string[] row = attackInforTextLine[i].Split('\t');
+
+            AttackInformationText attackInformaionText;
+
+            if (attackInformaionTextDictionary.TryGetValue(int.Parse(row[0]), out attackInformaionText) == false)
+            {
+                attackInformaionText = new AttackInformationText(int.Parse(row[0]), row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
+                attackInformaionTextDictionary.Add(int.Parse(row[0]), attackInformaionText);
             }
         }
         #endregion
@@ -166,9 +204,9 @@ public class DictionaryManager : Singleton<DictionaryManager>
             return null;
         }
     }
-    public ItemInformaionText ItemInformationTextOutput(string name)
+    public ItemInformationText ItemInformationTextOutput(string name)
     {
-        ItemInformaionText itemInformaionText;
+        ItemInformationText itemInformaionText;
 
         if (itemInformaionTextDictionary.TryGetValue(name, out itemInformaionText))
         {
@@ -180,7 +218,34 @@ public class DictionaryManager : Singleton<DictionaryManager>
             return null;
         }
     }
+    public SkillInformationText SkillInformationTextOutput(int number)
+    {
+        SkillInformationText skillInformaionText;
 
+        if (skillInformaionTextDictionary.TryGetValue(number, out skillInformaionText))
+        {
+            skillInformaionText = skillInformaionTextDictionary[number];
+            return skillInformaionText;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    public AttackInformationText AttackInformationTextOutput(int number)
+    {
+        AttackInformationText attackInformaionText;
+
+        if (attackInformaionTextDictionary.TryGetValue(number, out attackInformaionText))
+        {
+            attackInformaionText = attackInformaionTextDictionary[number];
+            return attackInformaionText;
+        }
+        else
+        {
+            return null;
+        }
+    }
     public void ChangeLanguage()
     {
         string[] itemInforTextLine = itemInformaion[DataManager.instance.data.language].text.Substring(0, itemInformaion[DataManager.instance.data.language].text.Length - 1).Split('\n');
@@ -189,7 +254,7 @@ public class DictionaryManager : Singleton<DictionaryManager>
         {
             string[] row = itemInforTextLine[i].Split('\t');
 
-            ItemInformaionText itemInformaionText;
+            ItemInformationText itemInformaionText;
 
             if (itemInformaionTextDictionary.TryGetValue(row[0], out itemInformaionText) == false)
             {
@@ -198,7 +263,7 @@ public class DictionaryManager : Singleton<DictionaryManager>
                 {
                     price[j - 3] = int.Parse(row[j]);
                 }
-                itemInformaionText = new ItemInformaionText(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
+                itemInformaionText = new ItemInformationText(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
                 itemInformaionTextDictionary.Add(row[0], itemInformaionText);
             }
         }
@@ -410,7 +475,7 @@ public class ShopItemInfo
     }
 }
 
-public class ItemInformaionText
+public class ItemInformationText
 {
     string itemName;
     string[] itemLvInformation = new string[7];
@@ -423,7 +488,7 @@ public class ItemInformaionText
     {
         return itemLvInformation[lv];
     }
-    public ItemInformaionText(string _itemName, string _LV0, string _LV1, string _LV2, string _LV3, string _LV4, string _LV5, string _LV6)
+    public ItemInformationText(string _itemName, string _LV0, string _LV1, string _LV2, string _LV3, string _LV4, string _LV5, string _LV6)
     {
         itemName = _itemName;
         itemLvInformation[0] = _LV0;
@@ -433,5 +498,70 @@ public class ItemInformaionText
         itemLvInformation[4] = _LV4;
         itemLvInformation[5] = _LV5;
         itemLvInformation[6] = _LV6;
+    }
+}
+
+public class SkillInformationText
+{
+    int characterNum;
+    string skill1Information;
+    string skill2Information;
+    string skill3Information;
+
+    public int CharacterNum
+    {
+        get { return characterNum; }
+    }
+    public string Skill1Information
+    {
+        get { return skill1Information; }
+    }
+    public string Skill2Information
+    {
+        get { return skill2Information; }
+    }
+    public string Skill3Information
+    {
+        get { return skill3Information; }
+    }
+
+    public SkillInformationText(int _characterNum, string _skill1, string _skill2, string _skill3)
+    {
+        characterNum = _characterNum;
+        skill1Information = _skill1;
+        skill2Information = _skill2;
+        skill3Information = _skill3;
+    }
+}
+
+public class AttackInformationText
+{
+    int characterNum;
+    string attackInformation;
+    string[] attackLvInformation = new string[6];
+
+    public int CharacterNum
+    {
+        get { return characterNum; }
+    }
+    public string AttackInformation
+    {
+        get { return attackInformation; }
+    }
+    public string AttackLvInformation(int num)
+    {
+        return attackLvInformation[num];
+    }
+
+    public AttackInformationText(int _num, string _attackInformation, string _Lv1, string _Lv2, string _Lv3, string _Lv4, string _Lv5, string _Lv6)
+    {
+        characterNum = _num;
+        attackInformation = _attackInformation;
+        attackLvInformation[0] = _Lv1;
+        attackLvInformation[1] = _Lv2;
+        attackLvInformation[2] = _Lv3;
+        attackLvInformation[3] = _Lv4;
+        attackLvInformation[4] = _Lv5;
+        attackLvInformation[5] = _Lv6;
     }
 }

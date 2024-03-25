@@ -136,14 +136,6 @@ public class SpawnManager : MonoBehaviour
                 {
                     standByMonsterList.Remove(standByMonsterList[i]);
 
-                    for (int j = 0; j < GameManager.instance.subWeaponList.Count; j++)
-                    {
-                        if (GameManager.instance.subWeaponList[j].GetComponent<DevilsTail>() != null)
-                        {
-                            GameManager.instance.subWeaponList[j].GetComponent<DevilsTail>().MonsterRemove(deleteObj);
-                        }
-                    }
-
                     Destroy(deleteObj);
 
                     GameObject monster = Instantiate(monsterList[monsterNumber], parent);
@@ -155,7 +147,7 @@ public class SpawnManager : MonoBehaviour
                     changeCount--;
                 }
             }
-            yield return null;
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }

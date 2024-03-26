@@ -7,9 +7,9 @@ public class MinuteHand : Weapon
     private void OnEnable()
     {
         transform.position = new Vector3(0, 1.5f, 0);
-        normalspeed = 240f;
-        atk = 15f;
-        knockBack = 1f;
+        normalspeed = 180f;
+        atk = 10f;
+        knockBack = 0.5f;
         speed = normalspeed;
     }
 
@@ -23,7 +23,7 @@ public class MinuteHand : Weapon
 
     private void AttackDirection()
     {
-        transform.RotateAround(Vector3.zero, Vector3.forward, -speed * Weapon.instance.aswSpeedBuff * Weapon.instance.pwsSpeedBuff * Time.deltaTime * AoiWeapon.instance.spdBuff);
-        transform.localScale = new Vector3(4 * AoiWeapon.instance.size, 4 * AoiWeapon.instance.size, 4 * AoiWeapon.instance.size);
+        transform.RotateAround(Vector3.zero, Vector3.forward, -speed * BuffDebuffManager.instance.aoiP2SpeedBuff * BuffDebuffManager.instance.pwsSpeedBuff * Time.deltaTime * AoiManager.instance.spdBuff);
+        transform.localScale = new Vector3(4 * AoiManager.instance.size, 4 * AoiManager.instance.size, 4 * AoiManager.instance.size);
     }
 }

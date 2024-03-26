@@ -9,9 +9,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected float speed;
     [SerializeField] protected float normalspeed;
 
-    [SerializeField] public float aswSpeedBuff;
-    [SerializeField] public float pwsSpeedBuff;
-
     public static Weapon instance
     {
         get;
@@ -20,8 +17,6 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
-        aswSpeedBuff = 1;
-        pwsSpeedBuff = 1;
         instance = this;
     }
     public virtual float Atk
@@ -49,6 +44,6 @@ public class Weapon : MonoBehaviour
 
     public virtual void SpeedUP()
     {
-        speed = normalspeed * aswSpeedBuff * pwsSpeedBuff;
+        speed = normalspeed * BuffDebuffManager.instance.aoiP2SpeedBuff * BuffDebuffManager.instance.pwsSpeedBuff;
     }
 }

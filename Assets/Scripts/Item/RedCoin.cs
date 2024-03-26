@@ -6,7 +6,7 @@ public class RedCoin : Item
 {
     private void Awake()
     {
-        coin = 10 * JewalBox.instance.Pow;
+        coin = 10 * BuffDebuffManager.instance.jbCoinPow;
         exp = 0;
     }
 }

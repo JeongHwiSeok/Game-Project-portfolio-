@@ -8,21 +8,15 @@ public class ChargeBullet : Weapon
     {
         if (DataManager.instance.subArray[2, 7] == 1)
         {
-            atk = 30 * (MenoWeapon.instance.jewalCount / 200 + 1) * MenoWeapon.instance.pickUpBuff;
+            atk = 30 * (MenoManager.instance.jewalCount / 200 + 1) * MenoManager.instance.pickUpBuff;
         }
         else if (DataManager.instance.subArray[2, 7] == 2)
         {
-            atk = 30 * (MenoWeapon.instance.jewalCount / 100 + 1) * MenoWeapon.instance.pickUpBuff;
+            atk = 30 * (MenoManager.instance.jewalCount / 100 + 1) * MenoManager.instance.pickUpBuff;
         }
         else
         {
-            atk = 30 * (MenoWeapon.instance.jewalCount / 50 + 1) * MenoWeapon.instance.pickUpBuff;
+            atk = 30 * (MenoManager.instance.jewalCount / 50 + 1) * MenoManager.instance.pickUpBuff;
         }
-    }
-
-    public void ObjectOff()
-    {
-        GameObject parent = transform.parent.gameObject;
-        parent.transform.gameObject.SetActive(false);
     }
 }

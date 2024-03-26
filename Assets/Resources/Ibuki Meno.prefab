@@ -10,7 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6942690687133506578}
   - component: {fileID: 6582531734373578519}
-  m_Layer: 0
+  - component: {fileID: 3540450100724474872}
+  - component: {fileID: 653226333309734090}
+  - component: {fileID: 7578759528475727872}
+  m_Layer: 14
   m_Name: Menoshadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,6 +87,82 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &3540450100724474872
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389526503342680153}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &653226333309734090
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389526503342680153}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03, y: -0.2}
+  serializedVersion: 2
+  m_Radius: 1
+--- !u!114 &7578759528475727872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389526503342680153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdfa8eb7a5d489b41b4091b0be52ee3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circleCollider2D: {fileID: 653226333309734090}
+  menoHologram: 0
 --- !u!1 &2983216532911576030
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,9 +172,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8456248876491440470}
-  - component: {fileID: 7695402631668460197}
+  - component: {fileID: 3301008861549467863}
   m_Layer: 0
-  m_Name: MenoWeapon
+  m_Name: MenoManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +195,7 @@ Transform:
   m_Father: {fileID: 6578821009113622145}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7695402631668460197
+--- !u!114 &3301008861549467863
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,13 +204,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2983216532911576030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74b12c877701c404f8d7688a20c8a29d, type: 3}
+  m_Script: {fileID: 11500000, guid: 712f39f5573997d49afd5ec9a3196201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   menoWeapon:
   - {fileID: 6991239775756653914, guid: 8bb6df7e49a874e42b21a3a0094425ad, type: 3}
-  - {fileID: 238969198409213558, guid: c83dd36b178a2c64a94f8aa4ffa8174a, type: 3}
   - {fileID: 7733987478398420901, guid: 90cc7e2a49c474445a9571a99528a482, type: 3}
+  - {fileID: 238969198409213558, guid: c83dd36b178a2c64a94f8aa4ffa8174a, type: 3}
   standbyWeapon: []
   menoBullet: []
   hologram:
@@ -162,7 +241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4612446191993880697
 Transform:
   m_ObjectHideFlags: 0
@@ -396,7 +475,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6578821009113622145}
-  - component: {fileID: 1102726921530130551}
   m_Layer: 0
   m_Name: Weapons
   m_TagString: Untagged
@@ -423,20 +501,6 @@ Transform:
   m_Father: {fileID: 8354453841593804546}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1102726921530130551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6575825000937249160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21db37d513704e94cb0635f42b22f205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapons:
-  - {fileID: 0}
 --- !u!1 &7069508587137980246
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +515,7 @@ GameObject:
   - component: {fileID: 8943933030987337301}
   - component: {fileID: 5391087921713061054}
   - component: {fileID: 7457166436150299578}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ibuki Meno
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -572,9 +636,6 @@ MonoBehaviour:
   shield: 0
   haloShield: 0
   maxShield: 0
-  pwsDamage: 0
-  spAtk: 0
-  shieldDeviceTypeHalo: {fileID: 0}
 --- !u!50 &5391087921713061054
 Rigidbody2D:
   serializedVersion: 4
@@ -665,7 +726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5901614181394682641
 Transform:
   m_ObjectHideFlags: 0
@@ -784,7 +845,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2862871435512741059
 Transform:
   m_ObjectHideFlags: 0

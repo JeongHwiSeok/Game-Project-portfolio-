@@ -5,19 +5,12 @@ using UnityEngine;
 public class Chickennuggie : MonoBehaviour
 {
     [SerializeField] int maxCount;
-    [SerializeField] int count;
     [SerializeField] public int itemLV;
 
     public static Chickennuggie instance
     {
         get;
         private set;
-    }
-
-    public int Count
-    {
-        set { count = value; }
-        get { return count; }
     }
 
     private void Awake()
@@ -28,12 +21,12 @@ public class Chickennuggie : MonoBehaviour
 
     private void Update()
     {
-        if (count >= maxCount)
+        if (GameManager.instance.cnCount >= maxCount)
         {  
             if ((int)(DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp - PlayerManager.instance.Hp) <= (int)(DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp * 0.01f))
             {
                 PlayerManager.instance.Hp = (int)(DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp);
-                count = 0;
+                GameManager.instance.cnCount = 0;
             }
             else
             {
@@ -45,7 +38,7 @@ public class Chickennuggie : MonoBehaviour
                 {
                     PlayerManager.instance.Hp += (int)(DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp * 0.01f);
                 }
-                count = 0;
+                GameManager.instance.cnCount = 0;
             }
         }
     }

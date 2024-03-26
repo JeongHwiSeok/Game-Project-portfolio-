@@ -11,7 +11,7 @@ public class SubWeaponManager : MonoBehaviour
         GameObject supportWeapon = Instantiate(obj, transform);
 
         supportWeaponList.Add(supportWeapon);
-        GameManager.instance.subWeaponList.Add(supportWeapon);
+        GameManager.instance.weaponItemList.Add(supportWeapon);
     }
 
     public GameObject ResearchList(int num)

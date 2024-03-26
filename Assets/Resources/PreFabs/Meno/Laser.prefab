@@ -125,8 +125,7 @@ MonoBehaviour:
   knockBack: 0
   speed: 0
   normalspeed: 0
-  aswSpeedBuff: 0
-  pwsSpeedBuff: 0
+  parent: {fileID: 0}
 --- !u!50 &4632833527933197591
 Rigidbody2D:
   serializedVersion: 4

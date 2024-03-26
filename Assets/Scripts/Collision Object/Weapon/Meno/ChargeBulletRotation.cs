@@ -14,9 +14,12 @@ public class ChargeBulletRotation : Weapon
 
     private void Update()
     {
-        AttackDirection();
-        time += Time.deltaTime;
-        CheckDgree();
+        if (GameManager.instance.state)
+        {
+            AttackDirection();
+            time += Time.deltaTime;
+            CheckDgree();
+        } 
     }
 
     private void CheckDgree()

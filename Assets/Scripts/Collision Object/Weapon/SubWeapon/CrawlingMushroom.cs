@@ -14,8 +14,6 @@ public class CrawlingMushroom : Weapon
     [SerializeField] float duration;
     [SerializeField] float range;
 
-    [SerializeField] bool flag;
-
     [SerializeField] Transform parent;
 
     [SerializeField] Vector3 target;
@@ -34,8 +32,6 @@ public class CrawlingMushroom : Weapon
         range = 1f;
         duration = 3;
 
-        flag = true;
-
         parent = GameObject.Find("Map").transform.GetChild(12).transform;
 
         for (int i = 0; i < 3; i++)
@@ -48,7 +44,7 @@ public class CrawlingMushroom : Weapon
 
             standbyMushRoom.Add(bullet);
 
-            GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(bullet);
+            GameManager.instance.weaponItemList.Add(bullet);
 
             StartCoroutine(Fire());
         }
@@ -92,7 +88,7 @@ public class CrawlingMushroom : Weapon
                 {
                     if (standbyMushRoom[i].activeSelf != true)
                     {
-                        standbyMushRoom[i].GetComponent<Mushroom>().StatInput(30 * atkBuff, normalspeed * speedBuff, knockBack);
+                        standbyMushRoom[i].GetComponent<Mushroom>().StatInput(30 * atkBuff, normalspeed * speedBuff * BuffDebuffManager.instance.pwsSpeedBuff, knockBack);
 
                         spawn = Random.insideUnitSphere * 3;
                         if (Mathf.Abs(spawn.x) < 1 && Mathf.Abs(spawn.y) < 1)
@@ -103,9 +99,8 @@ public class CrawlingMushroom : Weapon
                         standbyMushRoom[i].transform.position = spawn;
 
                         standbyMushRoom[i].GetComponent<Mushroom>().Point(target);
-                        standbyMushRoom[i].GetComponent<Mushroom>().circleCollider2D.radius = 0.1f * range;
+                        standbyMushRoom[i].GetComponent<Mushroom>().range = range;
                         standbyMushRoom[i].SetActive(true);
-                        flag = true;
                     }
                 }
                 yield return new WaitForSeconds(duration);
@@ -122,10 +117,9 @@ public class CrawlingMushroom : Weapon
     {
         Monster monster = collision.GetComponent<Monster>();
 
-        if (monster != null && flag)
+        if (monster != null)
         {
-            target = monster.gameObject.transform.position;
-            flag = false;
+            target = monster.gameObject.transform.localPosition;
         }
     }
 }

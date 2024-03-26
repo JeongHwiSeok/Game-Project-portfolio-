@@ -343,7 +343,6 @@ MonoBehaviour:
   bigMonsterNumber: 0
   changeCount: 0
   monsterMax: 0
-  cbDebuff: 0
 --- !u!4 &51348453
 Transform:
   m_ObjectHideFlags: 0
@@ -538,6 +537,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193194540}
   m_CullTransparentMesh: 1
+--- !u!1 &201325036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 201325038}
+  - component: {fileID: 201325037}
+  m_Layer: 0
+  m_Name: Buff Debuff Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &201325037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201325036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c360c4b009e05144bbe995ed86d8060a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spAttackBuff: 0
+  pwsSpeedBuff: 0
+  aoip2SpeedBuff: 0
+  cbCountDebuff: 0
+  pwsDamageDebuff: 0
+  jbCoinPow: 0
+  pgcExpPow: 0
+  shpPickUpRangePow: 0
+--- !u!4 &201325038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201325036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &265593958
 GameObject:
   m_ObjectHideFlags: 0
@@ -3124,7 +3175,6 @@ MonoBehaviour:
   needExp: 0
   lvDisplay: {fileID: 8837756828115667005, guid: b763bdabcee977c43bbbb4d3db444cb9, type: 3}
   timer: {fileID: 1290281733}
-  time: 0
   flag: 0
 --- !u!1 &1290281731
 GameObject:
@@ -4036,7 +4086,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1627477310}
-  - component: {fileID: 1627477309}
   m_Layer: 0
   m_Name: Attack Manager
   m_TagString: Untagged
@@ -4044,19 +4093,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1627477309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1627477308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21db37d513704e94cb0635f42b22f205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapons: []
 --- !u!4 &1627477310
 Transform:
   m_ObjectHideFlags: 0
@@ -4104,6 +4140,7 @@ MonoBehaviour:
   characterSpeed: 3
   monsterSpeed: 1
   characterName: 
+  attackLV: 0
   state: 1
   monsterSpawn: 1
   weaponcount: 0
@@ -4117,7 +4154,13 @@ MonoBehaviour:
   canvasScaler: {x: 1280, y: 720}
   volume: []
   pwsBuff: 1
+  tcBuff: 0
+  monsterCount: 0
+  ikuminCount: 0
   subWeaponList: []
+  supportItemList: []
+  time: 0
+  cnCount: 0
 --- !u!4 &1653381212
 Transform:
   m_ObjectHideFlags: 0

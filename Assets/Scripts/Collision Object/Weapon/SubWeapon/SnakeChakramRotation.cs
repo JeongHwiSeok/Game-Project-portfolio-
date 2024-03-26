@@ -32,7 +32,7 @@ public class SnakeChakramRotation : Weapon
 
     private void AttackDirection()
     {
-        angle += Time.deltaTime * 4 * pwsSpeedBuff * aswSpeedBuff;
+        angle += Time.deltaTime * 4 * BuffDebuffManager.instance.pwsSpeedBuff * BuffDebuffManager.instance.aoiP2SpeedBuff;
 
         r += Time.deltaTime;
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 196170186299187588}
   - component: {fileID: 379621497683074839}
   m_Layer: 0
-  m_Name: AoiWeapon
+  m_Name: AoiManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,11 +56,12 @@ MonoBehaviour:
   standbyWeapon: []
   standbySpecialWeapon: []
   direction: {x: 0, y: 0, z: 0}
-  weaponManager: {fileID: 0}
   bakamori: {fileID: 8520721172831100117}
   atkBuff: 0
   size: 0
   spdBuff: 0
+  bakamoriBuff: 0
+  timeControllBuff: 0
   attackCount: 0
   buffCheck: 0
   aoiSpecialWeaponTime: 0
@@ -312,7 +313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circleCollider2D: {fileID: 4530152085636450003}
-  specialHairpin: 0
+  menoHologram: 0
 --- !u!1 &1460445215713685433
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,7 +368,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8301347610899920477}
-  - component: {fileID: 6058679173967056511}
   m_Layer: 0
   m_Name: Weapons
   m_TagString: Untagged
@@ -393,20 +393,6 @@ Transform:
   m_Father: {fileID: 2389025351906886904}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6058679173967056511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2862564623131884221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21db37d513704e94cb0635f42b22f205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapons:
-  - {fileID: 0}
 --- !u!1 &6873752197530923397
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,9 +573,6 @@ MonoBehaviour:
   shield: 0
   haloShield: 0
   maxShield: 0
-  pwsDamage: 0
-  spAtk: 0
-  shieldDeviceTypeHalo: {fileID: 0}
 --- !u!50 &1636030481233467802
 Rigidbody2D:
   serializedVersion: 4

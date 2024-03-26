@@ -16,19 +16,19 @@ public class SpecialHairpin : MonoBehaviour
         switch (itemLV)
         {
             case 1:
-                PickUP.instance.specialHairpin = 1.2f;
+                BuffDebuffManager.instance.shpPickUpRangePow = 1.1f;
                 break;
             case 2:
-                PickUP.instance.specialHairpin = 1.4f;
+                BuffDebuffManager.instance.shpPickUpRangePow = 1.2f;
                 break;
             case 3:
-                PickUP.instance.specialHairpin = 1.6f;
+                BuffDebuffManager.instance.shpPickUpRangePow = 1.3f;
                 break;
             case 4:
-                PickUP.instance.specialHairpin = 1.8f;
+                BuffDebuffManager.instance.shpPickUpRangePow = 1.4f;
                 break;
             case 5:
-                PickUP.instance.specialHairpin = 2.0f;
+                BuffDebuffManager.instance.shpPickUpRangePow = 1.5f;
                 break;
         }
         PickUP.instance.PickUPRangeUP();

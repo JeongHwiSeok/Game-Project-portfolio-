@@ -44,7 +44,7 @@ public class TailTypeLaser : Weapon
 
             standbyLaser.Add(bullet);
 
-            GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(bullet);
+            GameManager.instance.weaponItemList.Add(bullet);
         }
 
         StartCoroutine(Fire());
@@ -91,7 +91,7 @@ public class TailTypeLaser : Weapon
                         if (standbyLaser[i].activeSelf != true)
                         {
                             standbyLaser[i].gameObject.transform.position = new Vector3(0, 0, 0);
-                            standbyLaser[i].GetComponent<LaserBullet>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                            standbyLaser[i].GetComponent<LaserBullet>().StatInput(atk * atkBuff, normalspeed * speedBuff * BuffDebuffManager.instance.pwsSpeedBuff, knockBack);
                             standbyLaser[i].GetComponent<LaserBullet>().Target(target);
                             standbyLaser[i].gameObject.transform.localScale = new Vector3(2 * size, 2 * size, 2 * size);
                             standbyLaser[i].SetActive(true);

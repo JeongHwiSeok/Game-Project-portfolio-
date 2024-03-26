@@ -9,21 +9,24 @@ public class InputManager : Singleton<InputManager>
 
     public void Update()
     {
-        if(Input.anyKey == false)
+        if (GameManager.instance.state)
         {
-            if(PlayerManager.instance != null)
+            if (Input.anyKey == false)
             {
-                PlayerManager.instance.Idle();
+                if (PlayerManager.instance != null)
+                {
+                    PlayerManager.instance.Idle();
+                }
+                else
+                {
+                    return;
+                }
             }
-            else
-            {
-                return;
-            }
-        }
 
-        if(keyAction != null)
-        {
-            keyAction.Invoke();
+            if (keyAction != null)
+            {
+                keyAction.Invoke();
+            }
         }
     }
 }

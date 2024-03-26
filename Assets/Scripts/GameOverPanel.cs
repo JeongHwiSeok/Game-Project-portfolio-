@@ -22,8 +22,8 @@ public class GameOverPanel : MonoBehaviour
     private void Awake()
     {
         resultText[0].text = "LV : " + UIManager.instance.PlayerLv.ToString();
-        resultText[1].text = GameManager.instance.monsterCount.ToString();
-        resultText[2].text = UIManager.instance.DropCoin.ToString();
+        resultText[1].text = "Return Fan : " + GameManager.instance.monsterCount.ToString();
+        resultText[2].text = "Coin : " + UIManager.instance.DropCoin.ToString();
         if (GameManager.instance.charNum == 1)
         {
             resultText[3].text = "Return Ikumin : " + GameManager.instance.ikuminCount.ToString();
@@ -40,14 +40,23 @@ public class GameOverPanel : MonoBehaviour
     private void Update()
     {
         Exp();
-        expSlider.value = exp / needExp;
+        expSlider.value = (float)exp / (float)needExp;
         if (exp >= needExp)
         {
             exp -= needExp;
             DataManager.instance.subArray[GameManager.instance.charNum, 1]++;
             count++;
+            DataManager.instance.subArray[GameManager.instance.charNum, 1]++;
+            DataManager.instance.subArray[GameManager.instance.charNum, 6]++;
+            DataManager.instance.subArray[GameManager.instance.charNum, 10]++;
+        }
+        else
+        {
+            DataManager.instance.subArray[GameManager.instance.charNum, 11] = exp;
         }
         lvUP.text = count.ToString() + " LV UP!!";
+
+        DataManager.instance.Save();
     }
 
     private void Exp()

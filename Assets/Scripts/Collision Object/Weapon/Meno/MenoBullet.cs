@@ -10,17 +10,21 @@ public class MenoBullet : Weapon
 
     private void OnEnable()
     {
-        point = MenoWeapon.instance.point;
+        point = MenoManager.instance.point;
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(point.y, point.x) * Mathf.Rad2Deg);
         transform.position = new Vector3(0, 0, 0);
-        atk = 10 * MenoWeapon.instance.pickUpBuff;
-        speed = 8f * GameManager.instance.pwsBuff;
+        atk = 10 * MenoManager.instance.pickUpBuff * MenoManager.instance.atkBuff;
+        speed = 8f * BuffDebuffManager.instance.pwsSpeedBuff * MenoManager.instance.spdBuff;
+        knockBack = MenoManager.instance.knockBack;
         AttackDirection(point);
     }
 
     private void Update()
     {
-        PositionStatus(direction);
+        if (GameManager.instance.state)
+        {
+            PositionStatus(direction);
+        }
     }
 
     private void AttackDirection(Vector3 position)

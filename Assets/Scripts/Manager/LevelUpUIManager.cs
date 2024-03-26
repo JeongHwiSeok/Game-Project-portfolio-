@@ -42,7 +42,7 @@ public class LevelUpUIManager : MonoBehaviour
         for (int i = 0; i < maxSlot; i++)
         {
             GameObject item = itemButton;
-            if (i == 5)
+            if (GameManager.instance.attackLV < 7 && i == 4)
             {
                 item = attackButton;
                 item.GetComponent<ItemButtonUI>().levelUpUIManager = this;
@@ -58,7 +58,7 @@ public class LevelUpUIManager : MonoBehaviour
             item.GetComponent<ItemButtonUI>().levelUpUIManager = this;
             Instantiate(item, parent);
         }
-        if (GameManager.instance.attackLV < 6 && maxSlot < 5)
+        if (GameManager.instance.attackLV < 7 && maxSlot < 5)
         {
             GameObject item = attackButton;
             item.GetComponent<AttackButtonUI>().levelUpUIManager = this;

@@ -42,7 +42,7 @@ public class EternityFlame : Weapon
 
             standbyFlameBullet.Add(bullet);
 
-            GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(bullet);
+            GameManager.instance.weaponItemList.Add(bullet);
 
             StartCoroutine(Fire());
         }
@@ -86,7 +86,7 @@ public class EternityFlame : Weapon
                     if (standbyFlameBullet[i].activeSelf != true)
                     {
                         standbyFlameBullet[i].transform.position = new Vector3(0, 0, 0);
-                        standbyFlameBullet[i].GetComponent<EternityFlameBullet>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                        standbyFlameBullet[i].GetComponent<EternityFlameBullet>().StatInput(atk * atkBuff, normalspeed * speedBuff * BuffDebuffManager.instance.pwsSpeedBuff, knockBack);
 
                         target = Random.insideUnitSphere;
                         target.z = 0;

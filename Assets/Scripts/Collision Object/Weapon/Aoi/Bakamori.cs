@@ -27,6 +27,6 @@ public class Bakamori : MonoBehaviour
             gameObject.GetComponent<Animator>().Play("Fail");
         }
 
-        AoiWeapon.instance.BakaMoriBuffStart(random);
+        AoiManager.instance.BakaMoriBuffStart(random);
     }
 }

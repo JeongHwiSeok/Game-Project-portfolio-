@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AoiWeapon : MonoBehaviour
+public class AoiManager : MonoBehaviour
 {
     [SerializeField] public List<GameObject> aoiWeapon;
 
@@ -11,8 +11,6 @@ public class AoiWeapon : MonoBehaviour
     [SerializeField] List<GameObject> standbySpecialWeapon;
 
     [SerializeField] public Vector3 direction;
-
-    [SerializeField] WeaponManager weaponManager;
 
     [SerializeField] Bakamori bakamori;
 
@@ -34,7 +32,7 @@ public class AoiWeapon : MonoBehaviour
 
     public float bakamoriTime;
 
-    public static AoiWeapon instance
+    public static AoiManager instance
     {
         get;
         private set;
@@ -47,8 +45,6 @@ public class AoiWeapon : MonoBehaviour
             instance = this;
         }
         buffCheck = true;
-
-        weaponManager = GameObject.Find("Attack Manager").GetComponent<WeaponManager>();
     }
 
     private void Start()
@@ -96,7 +92,7 @@ public class AoiWeapon : MonoBehaviour
 
             standbyWeapon.Add(weapon);
 
-            weaponManager.AddWeapon(weapon);
+            GameManager.instance.weaponItemList.Add(weapon);
 
             if (i == 4)
             {
@@ -106,7 +102,7 @@ public class AoiWeapon : MonoBehaviour
 
                 standbyWeapon.Add(weapon);
 
-                weaponManager.AddWeapon(weapon);
+                GameManager.instance.weaponItemList.Add(weapon);
             }
         }
         for (int i = 0; i < 3; i++)
@@ -174,33 +170,33 @@ public class AoiWeapon : MonoBehaviour
                 {
                     if (attackCount >= 1000)
                     {
-                        GameManager.instance.tcBuff = 1.1f;
+                        BuffDebuffManager.instance.aoiP1SpeedBuff = 1.1f;
                     }
                     else
                     {
-                        GameManager.instance.tcBuff = attackCount / 10000 + 1;
+                        BuffDebuffManager.instance.aoiP1SpeedBuff = attackCount / 10000 + 1;
                     }
                 }
                 else if (DataManager.instance.subArray[0, 7] == 2)
                 {
                     if (attackCount >= 1000)
                     {
-                        GameManager.instance.tcBuff = 1.2f;
+                        BuffDebuffManager.instance.aoiP1SpeedBuff = 1.2f;
                     }
                     else
                     {
-                        GameManager.instance.tcBuff = attackCount / 5000 + 1;
+                        BuffDebuffManager.instance.aoiP1SpeedBuff = attackCount / 5000 + 1;
                     }
                 }
                 else
                 {
                     if (attackCount >= 1000)
                     {
-                        GameManager.instance.tcBuff = 1.25f;
+                        BuffDebuffManager.instance.aoiP1SpeedBuff = 1.25f;
                     }
                     else
                     {
-                        GameManager.instance.tcBuff = attackCount / 4000 + 1;
+                        BuffDebuffManager.instance.aoiP1SpeedBuff = attackCount / 4000 + 1;
                     }
                 }
                 
@@ -273,40 +269,40 @@ public class AoiWeapon : MonoBehaviour
 
     private IEnumerator AoiSpecialWeaponBuff()
     {
-        aoiSpecialWeaponTime = UIManager.instance.time;
+        aoiSpecialWeaponTime = GameManager.instance.time;
 
-        while (UIManager.instance.time - aoiSpecialWeaponTime < 15)
+        while (GameManager.instance.time - aoiSpecialWeaponTime < 15)
         {
-            for (int i = 0; i < weaponManager.ListCount(); i++)
+            for (int i = 0; i < GameManager.instance.weaponItemList.Count; i++)
             {
-                if (weaponManager.weaponsFind(i).activeSelf)
+                if (GameManager.instance.weaponItemList[i].activeSelf)
                 {
                     if (maxCount == 1)
                     {
-                        weaponManager.weaponsFind(i).GetComponent<Weapon>().aswSpeedBuff = 1.1f;
-                        weaponManager.weaponsFind(i).GetComponent<Weapon>().SpeedUP();
+                        BuffDebuffManager.instance.aoiP2SpeedBuff = 1.1f;
+                        GameManager.instance.weaponItemList[i].GetComponent<Weapon>().SpeedUP();
                     }
                     else if (maxCount == 2)
                     {
-                        weaponManager.weaponsFind(i).GetComponent<Weapon>().aswSpeedBuff = 1.2f;
-                        weaponManager.weaponsFind(i).GetComponent<Weapon>().SpeedUP();
+                        BuffDebuffManager.instance.aoiP2SpeedBuff = 1.2f;
+                        GameManager.instance.weaponItemList[i].GetComponent<Weapon>().SpeedUP();
                     }
                     else
                     {
-                        weaponManager.weaponsFind(i).GetComponent<Weapon>().aswSpeedBuff = 1.3f;
-                        weaponManager.weaponsFind(i).GetComponent<Weapon>().SpeedUP();
+                        BuffDebuffManager.instance.aoiP2SpeedBuff = 1.3f;
+                        GameManager.instance.weaponItemList[i].GetComponent<Weapon>().SpeedUP();
                     }
                 }
             }
             yield return null;
         }
 
-        for (int i = 0; i < weaponManager.ListCount(); i++)
+        for (int i = 0; i < GameManager.instance.weaponItemList.Count; i++)
         {
-            if (weaponManager.weaponsFind(i).activeSelf)
+            if (GameManager.instance.weaponItemList[i].activeSelf)
             {
-                weaponManager.weaponsFind(i).GetComponent<Weapon>().aswSpeedBuff = 1f;
-                weaponManager.weaponsFind(i).GetComponent<Weapon>().SpeedUP();
+                BuffDebuffManager.instance.aoiP2SpeedBuff = 1f;
+                GameManager.instance.weaponItemList[i].GetComponent<Weapon>().SpeedUP();
             }
         }
         buffCheck = true;
@@ -316,9 +312,9 @@ public class AoiWeapon : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
-        bakamoriTime = UIManager.instance.time;
+        bakamoriTime = GameManager.instance.time;
 
-        while (UIManager.instance.time - bakamoriTime > 30)
+        while (GameManager.instance.time - bakamoriTime > 30)
         {
             if (k == 1)
             {

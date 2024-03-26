@@ -24,8 +24,18 @@ public class AttackButtonUI : MonoBehaviour
     private void itemInput()
     {
         GameManager.instance.attackLV++;
-        AoiWeapon.instance.AttackLVUP();
-
+        switch (GameManager.instance.charNumber)
+        {
+            case CharacterNumber.Aoi:
+                AoiManager.instance.AttackLVUP();
+                break;
+            case CharacterNumber.Iku:
+                IkuManager.instance.AttackLVUP();
+                break;
+            case CharacterNumber.Meno:
+                MenoManager.instance.AttackLVUP();
+                break;
+        }
         GameManager.instance.state = true;
         Destroy(levelUpUIManager.gameObject);
     }

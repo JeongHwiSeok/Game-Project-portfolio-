@@ -32,11 +32,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] public int haloShield;
     [SerializeField] int maxShield;
 
-    [SerializeField] public float pwsDamage;
-    [SerializeField] public float spAtk;
-
-    [SerializeField] public ShieldDeviceTypeHalo shieldDeviceTypeHalo;
-
     public int Hp
     {
         set { hp = value; }
@@ -64,9 +59,11 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
         InputManager.instance.keyAction += Move;
-        spAtk = 1;
-        pwsDamage = 1;
         shield = 0;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
@@ -80,7 +77,6 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        instance = this;
         movement = Movement.Idle;
         GameManager.instance.CharacterSpeed = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Speed;
     }
@@ -134,18 +130,18 @@ public class PlayerManager : MonoBehaviour
 
     public void Damage(float damage)
     {
-        if (shieldDeviceTypeHalo != null)
+        if (ShieldDeviceTypeHalo.instance != null)
         {
-            if (shieldDeviceTypeHalo.FlagCheck() && shieldDeviceTypeHalo.TimeCheck())
+            if (ShieldDeviceTypeHalo.instance.FlagCheck() && ShieldDeviceTypeHalo.instance.TimeCheck())
             {
-                shieldDeviceTypeHalo.Activate();
+                ShieldDeviceTypeHalo.instance.Activate();
             }
             else
             {
-                shieldDeviceTypeHalo.TimeReset();
+                ShieldDeviceTypeHalo.instance.TimeReset();
             }
         }
-        damage *= pwsDamage;
+        damage *= BuffDebuffManager.instance.pwsDamageDebuff;
         if (shield > damage)
         {
             shield -= (int)damage;

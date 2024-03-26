@@ -5,8 +5,6 @@ using UnityEngine;
 public class PickUP : MonoBehaviour
 {
     [SerializeField] CircleCollider2D circleCollider2D;
-
-    [SerializeField] public float specialHairpin;
     [SerializeField] public float menoHologram;
 
     public static PickUP instance
@@ -18,13 +16,12 @@ public class PickUP : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        specialHairpin = 1;
         menoHologram = 1;
     }
 
     public void PickUPRangeUP()
     {
-        circleCollider2D.radius = 1 * specialHairpin * menoHologram;
+        circleCollider2D.radius = 1 * BuffDebuffManager.instance.shpPickUpRangePow * menoHologram;
     }
 
     public float PickUPRange()

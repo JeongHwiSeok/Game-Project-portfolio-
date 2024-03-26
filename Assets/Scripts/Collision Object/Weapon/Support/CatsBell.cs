@@ -16,19 +16,19 @@ public class CatsBell : MonoBehaviour
         switch (itemLV)
         {
             case 1:
-                SpawnManager.instance.cbDebuff = 1.1f;
+                BuffDebuffManager.instance.cbCountDebuff = 1.1f;
                 break;
             case 2:
-                SpawnManager.instance.cbDebuff = 1.25f;
+                BuffDebuffManager.instance.cbCountDebuff = 1.25f;
                 break;
             case 3:
-                SpawnManager.instance.cbDebuff = 1.5f;
+                BuffDebuffManager.instance.cbCountDebuff = 1.5f;
                 break;
             case 4:
-                SpawnManager.instance.cbDebuff = 1.75f;
+                BuffDebuffManager.instance.cbCountDebuff = 1.75f;
                 break;
             case 5:
-                SpawnManager.instance.cbDebuff = 2f;
+                BuffDebuffManager.instance.cbCountDebuff = 2f;
                 break;
         }
     }

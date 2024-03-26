@@ -36,7 +36,7 @@ public class Item : MonoBehaviour
 
             if (PuzzleGameCollection.instance != null)
             {
-                PlayerManager.instance.exp += (exp * PuzzleGameCollection.instance.Pow);
+                PlayerManager.instance.exp += (exp * BuffDebuffManager.instance.pgcExpPow);
             }
             else
             {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IkuWeapon : MonoBehaviour
+public class IkuManager : MonoBehaviour
 {
     [SerializeField] public List<GameObject> ikuWeapon;
 
@@ -14,15 +14,20 @@ public class IkuWeapon : MonoBehaviour
 
     [SerializeField] public Vector3 direction;
 
-    [SerializeField] float ikuminCount;
+    [SerializeField] public float ikuminCount;
 
     [SerializeField] float atkBuff;
     [SerializeField] float atkspdBuff;
     [SerializeField] float spdBuff;
+    [SerializeField] float duration;
+    [SerializeField] float size;
+
+    [SerializeField] public bool ikuminStackFlag;
+    [SerializeField] public bool ikuminBoom;
 
     public int attackCount;
 
-    public static IkuWeapon instance
+    public static IkuManager instance
     {
         get;
         private set;
@@ -38,10 +43,14 @@ public class IkuWeapon : MonoBehaviour
 
     private void Start()
     {
-        parent = GameObject.Find("Attack Manager").GetComponent<Transform>();
+        parent = GameObject.Find("Map").transform.GetChild(12);
         atkBuff = 1;
         atkspdBuff = 1;
         spdBuff = 1;
+        duration = 1;
+        ikuminStackFlag = false;
+        size = 1;
+        ikuminBoom = false;
         Create();
         StartCoroutine(IkuminAttack());
         if (DataManager.instance.subArray[1, 7] > 0)
@@ -70,24 +79,54 @@ public class IkuWeapon : MonoBehaviour
         }
     }
 
+    public void AttackLVUP()
+    {
+        switch (GameManager.instance.attackLV)
+        {
+            case 2:
+                atkBuff = 1.2f;
+                break;
+            case 3:
+                duration = 0.8f;
+                break;
+            case 4:
+                ikuminStackFlag = true;
+                break;
+            case 5:
+                size = 1.2f;
+                break;
+            case 6:
+                atkBuff = 1.4f;
+                break;
+            case 7:
+                ikuminBoom = true;
+                break;
+        }
+    }
+
     public IEnumerator IkuminAttack()
     {
         while (true)
         {
-            
-            for (int i = 0; i < 9; i++)
+            while (GameManager.instance.state)
             {
-                if (standbyWeapon[i].activeSelf == false)
+                for (int i = 0; i < 9; i++)
                 {
-                    standbyWeapon[i].SetActive(true);
-
-                    if (GameManager.instance.attackLV == 7)
+                    if (standbyWeapon[i].activeSelf == false && GameManager.instance.state)
                     {
-                        GameManager.instance.ikuminCount++;
+                        standbyWeapon[i].transform.localScale = new Vector3(0.7f * size, 0.7f * size, 0.7f * size);
+                        standbyWeapon[i].GetComponent<IkuminAttack>().Atk = 30 * atkBuff * BuffDebuffManager.instance.spAttackBuff;
+                        standbyWeapon[i].SetActive(true);
+
+                        if (GameManager.instance.attackLV == 7)
+                        {
+                            GameManager.instance.ikuminCount++;
+                        }
                     }
+                    yield return new WaitForSeconds(duration);
                 }
-                yield return new WaitForSeconds(3f);
             }
+            yield return null;
         }
     }
 

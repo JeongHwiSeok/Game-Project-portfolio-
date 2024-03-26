@@ -29,7 +29,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject lvDisplay;
 
     [SerializeField] Text timer;
-    [SerializeField] public float time;
     private int minute;
     private int second;
 
@@ -72,10 +71,6 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.state)
-        {
-            time += Time.deltaTime;
-        }  
         expBar.value = PlayerManager.instance.exp / needExp;
         hpBar.value = PlayerManager.instance.Hp / DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp;
         if (PlayerManager.instance.MaxShield != 0)
@@ -93,16 +88,12 @@ public class UIManager : MonoBehaviour
         }
         else if (playerLv <= 50)
         {
-            needExp = Mathf.Pow(playerLv, 2) * ((((playerLv + 1) / 3) + 24) / 50);
+            needExp = Mathf.Pow(playerLv, 3) * ((((playerLv + 1) / 3) + 24) / 50);
         }
         else
         {
-            needExp = Mathf.Pow(playerLv, 2) * ((playerLv + 14) / 50);
+            needExp = Mathf.Pow(playerLv, 3) * ((playerLv + 14) / 50);
         }
-        //else
-        //{
-        //    needExp = Mathf.Pow(playerLv, 3) * (((playerLv / 2) + 32) / 50);
-        //}
     }
 
     public void LvUP()
@@ -125,8 +116,8 @@ public class UIManager : MonoBehaviour
     {
         while (true)
         {
-            minute = (int)(time / 60);
-            second = (int)(time % 60);
+            minute = (int)(GameManager.instance.time / 60);
+            second = (int)(GameManager.instance.time % 60);
             timer.text = minute.ToString("00") + " : " + second.ToString("00");
             yield return null;
         }

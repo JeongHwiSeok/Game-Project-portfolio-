@@ -44,7 +44,7 @@ public class TrickCard : Weapon
 
             standbyCardFlooring.Add(bullet);
 
-            GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(bullet);
+            GameManager.instance.weaponItemList.Add(bullet);
 
             StartCoroutine(Fire());
         }
@@ -89,7 +89,7 @@ public class TrickCard : Weapon
                 {
                     if (standbyCardFlooring[i].activeSelf != true)
                     {
-                        standbyCardFlooring[i].GetComponent<CardFlooring>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                        standbyCardFlooring[i].GetComponent<CardFlooring>().StatInput(atk * atkBuff, normalspeed * speedBuff * BuffDebuffManager.instance.pwsSpeedBuff, knockBack);
                         standbyCardFlooring[i].GetComponent<CardFlooring>().time = duration;
 
                         target = Random.insideUnitSphere * 5;

@@ -21,7 +21,6 @@ public class Mike : Weapon
 
     [SerializeField] List<GameObject> standbySoundWave;
 
-
     private void Start()
     {
         atk = 10;
@@ -43,7 +42,7 @@ public class Mike : Weapon
 
         standbySoundWave.Add(bullet);
 
-        GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(bullet);
+        GameManager.instance.weaponItemList.Add(bullet);
 
         StartCoroutine(Fire());
 
@@ -85,7 +84,7 @@ public class Mike : Weapon
                 if (standbySoundWave[0].activeSelf != true)
                 {
                     standbySoundWave[0].transform.position = new Vector3(0, 0, 0);
-                    standbySoundWave[0].GetComponent<SoundWave>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                    standbySoundWave[0].GetComponent<SoundWave>().StatInput(atk * atkBuff, normalspeed * speedBuff * BuffDebuffManager.instance.pwsSpeedBuff, knockBack);
                     standbySoundWave[0].GetComponent<SoundWave>().Slow = slow;
                     standbySoundWave[0].transform.localScale = new Vector3(5.6f * range, 5.6f * range, 5.6f * range);
 

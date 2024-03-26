@@ -14,8 +14,15 @@ public class SpaceFood : MonoBehaviour
     [SerializeField] Transform parent;
 
     [SerializeField] public int itemLV;
+
+    public static SpaceFood instance
+    {
+        get;
+        private set;
+    }
     private void Awake()
     {
+        instance = this;
         flag = false;
         coolTime.itemNum = 13;
         coolTime.CountText("0");
@@ -33,15 +40,12 @@ public class SpaceFood : MonoBehaviour
             switch (itemLV)
             {
                 case 1:
-                    Debug.Log("healing");
                     PlayerManager.instance.Hp += (int)(DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp * 0.2f);
                     break;
                 case 2:
-                    Debug.Log("healing");
                     PlayerManager.instance.Hp += (int)(DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp * 0.3f);
                     break;
                 case 3:
-                    Debug.Log("healing");
                     PlayerManager.instance.Hp += (int)(DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp * 0.5f);
                     break;
             }

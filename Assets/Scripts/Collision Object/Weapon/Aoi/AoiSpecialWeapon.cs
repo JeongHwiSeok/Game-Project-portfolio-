@@ -41,15 +41,15 @@ public class AoiSpecialWeapon : Weapon
 
         if (player != null)
         {
-            if (AoiWeapon.instance.buffCheck)
+            if (AoiManager.instance.buffCheck)
             {
-                AoiWeapon.instance.AoiSpecialWeaponBuffStart();
+                AoiManager.instance.AoiSpecialWeaponBuffStart();
             }
             else
             {
-                AoiWeapon.instance.aoiSpecialWeaponTime = UIManager.instance.time;
+                AoiManager.instance.aoiSpecialWeaponTime = GameManager.instance.time;
             }
-            AoiWeapon.instance.buffCheck = false;
+            AoiManager.instance.buffCheck = false;
             gameObject.SetActive(false);
         }
     }

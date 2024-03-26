@@ -39,6 +39,8 @@ public class BigMonster : MonoBehaviour
     [SerializeField] bool rainDamage;
     [SerializeField] bool trickDamage;
 
+    [SerializeField] bool menoDebuff;
+
     protected virtual void OnEnable()
     {
         parent = transform.parent.parent.GetChild(11);
@@ -110,7 +112,7 @@ public class BigMonster : MonoBehaviour
         spriteRenderer.color = new Color(1, 1, 1, 1);
         if (Chickennuggie.instance != null)
         {
-            Chickennuggie.instance.Count++;
+            GameManager.instance.cnCount++;
         }
         if (firstCheck)
         {
@@ -132,14 +134,37 @@ public class BigMonster : MonoBehaviour
         {
             if (weapon != null)
             {
-                int count = Random.Range(1, 1000);
-                if (count <= PlayerManager.instance.Cri * 10)
+                if (collision.GetComponent<MenoBullet>() != null)
                 {
-                    hp -= (int)((weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk) * 1.5f);
+                    if (GameManager.instance.attackLV > 3)
+                    {
+                        StartCoroutine(MomentSlow(0.3f));
+                    }
+                    if (GameManager.instance.attackLV > 6)
+                    {
+                        menoDebuff = true;
+                    }
                 }
-                else
+                if (collision.GetComponent<MenoLaser>() != null || collision.GetComponent<ChargeBullet>() != null)
                 {
-                    hp -= (int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk);
+                    weapon.Atk *= 1.5f;
+                }
+                if (collision.GetComponent<MinuteHand>() != null || collision.GetComponent<HourHand>() != null)
+                {
+                    AoiManager.instance.attackCount++;
+
+                    if (DataManager.instance.subArray[0, 7] == 1)
+                    {
+                        StartCoroutine(MomentSlow(0.1f));
+                    }
+                    else if (DataManager.instance.subArray[0, 7] == 2)
+                    {
+                        StartCoroutine(MomentSlow(0.2f));
+                    }
+                    else
+                    {
+                        StartCoroutine(MomentSlow(0.3f));
+                    }
                 }
                 if (collision.GetComponent<EternityFlameBullet>() != null)
                 {
@@ -156,64 +181,69 @@ public class BigMonster : MonoBehaviour
                     {
                         rainSlow = true;
                         rainDamage = true;
-                        StartCoroutine(ContinueDamage((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
+                        StartCoroutine(ContinueDamageRain((int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff)));
                         StartCoroutine(ContinueSlow());
                     }
                     else
                     {
                         rainDamage = true;
-                        StartCoroutine(ContinueDamage((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
+                        StartCoroutine(ContinueDamageRain((int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff)));
                     }
                 }
                 if (collision.GetComponent<CardFlooring>() != null)
                 {
                     trickDamage = true;
-                    StartCoroutine(ContinueDamage((int)(weapon.Atk * PlayerManager.instance.Atk * PlayerManager.instance.spAtk)));
+                    StartCoroutine(ContinueDamageCard((int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff)));
                 }
+                Debug.Log("Weapon : " + weapon.name + " / Atk : " + weapon.Atk);
                 knockBack = weapon.KnockBack;
+                int count = Random.Range(1, 1000);
+                if (count <= PlayerManager.instance.Cri * 10)
+                {
+                    hp -= (int)((weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff) * 1.5f);
+                }
+                else
+                {
+                    hp -= (int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff);
+                }
                 if (hp > 0)
                 {
                     damageTime = 0.2f;
+                }
+                if (collision.GetComponent<IkuminAttack>() != null)
+                {
+                    collision.GetComponent<IkuminAttack>().damageFlag = true;
                 }
             }
             if (player != null)
             {
                 player.Damage(atk);
 
-                for (int i = 0; i < player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ListCount(); i++)
+                if (GameManager.instance.charNum == 2)
                 {
-                    if (player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<ClockHat>() != null)
+                    if (MenoManager.instance.hologramCount > 0)
                     {
-                        if (player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<ClockHat>().flag)
+                        if (MenoManager.instance.hologram[MenoManager.instance.hologramCount - 1].activeSelf)
                         {
-                            player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<ClockHat>().Activate();
-                            return;
+                            for (int i = 0; i < MenoManager.instance.hologramCount; i++)
+                            {
+                                MenoManager.instance.hologram[i].SetActive(false);
+                            }
+                            MenoManager.instance.HolograminvincibilityStart();
                         }
                     }
                 }
-                for (int i = 0; i < player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ListCount(); i++)
+                if (ClockHat.instance != null)
                 {
-                    if (player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<SpaceFood>() != null)
-                    {
-                        if (player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<SpaceFood>().flag)
-                        {
-                            player.transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>().ResearchList(i).GetComponent<SpaceFood>().Activate();
-                            return;
-                        }
-                    }
+                    ClockHat.instance.Activate();
+                    return;
+                }
+                if (SpaceFood.instance != null)
+                {
+                    SpaceFood.instance.Activate();
+                    return;
                 }
             }
-        }
-    }
-
-    private IEnumerator LastPosition()
-    {
-        while (true)
-        {
-            previusPosition = currentPosition;
-            currentPosition = transform.position;
-
-            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -231,11 +261,23 @@ public class BigMonster : MonoBehaviour
         }
     }
 
+    private IEnumerator LastPosition()
+    {
+        while (true)
+        {
+            previusPosition = currentPosition;
+            currentPosition = transform.position;
+
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
     private IEnumerator MomentSlow(float slow)
     {
         speed *= slow;
         yield return new WaitForSeconds(3f);
         speed /= slow;
+        menoDebuff = false;
     }
 
     private IEnumerator ContinueSlow()
@@ -247,6 +289,7 @@ public class BigMonster : MonoBehaviour
                 speed = GameManager.instance.MonsterSpeed * 0.5f;
                 if (rainSlow != true)
                 {
+                    speed = GameManager.instance.MonsterSpeed;
                     yield break;
                 }
                 yield return null;
@@ -255,14 +298,30 @@ public class BigMonster : MonoBehaviour
         }
     }
 
-    private IEnumerator ContinueDamage(int damage)
+    private IEnumerator ContinueDamageRain(int damage)
     {
         while (true)
         {
             while (GameManager.instance.state)
             {
                 hp -= damage;
-                if (rainDamage != true && trickDamage != true)
+                if (rainDamage != true)
+                {
+                    yield break;
+                }
+                yield return new WaitForSeconds(0.5f);
+            }
+            yield return null;
+        }
+    }
+    private IEnumerator ContinueDamageCard(int damage)
+    {
+        while (true)
+        {
+            while (GameManager.instance.state)
+            {
+                hp -= damage;
+                if (trickDamage != true)
                 {
                     yield break;
                 }

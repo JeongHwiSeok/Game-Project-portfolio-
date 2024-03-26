@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+    #region 정리 전
     [SerializeField] private float characterSpeed;
     [SerializeField] private float monsterSpeed;
 
@@ -31,14 +32,18 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] public Vector2 canvasScaler;
     [SerializeField] public float[] volume;
 
-    [SerializeField] public float pwsBuff;
-    [SerializeField] public float tcBuff;
-
+    #endregion
+    #region 플레이중에 관리되는 변수
     [SerializeField] public int monsterCount;
 
     [SerializeField] public int ikuminCount;
 
-    [SerializeField] public List<GameObject> subWeaponList;
+    [SerializeField] public float time;
+    [SerializeField] public int cnCount;
+
+    [SerializeField] public List<GameObject> weaponItemList;
+    [SerializeField] public List<GameObject> supportItemList;
+    #endregion
 
     public float MonsterSpeed
     {
@@ -47,8 +52,16 @@ public class GameManager : Singleton<GameManager>
     }
     public float CharacterSpeed
     {
-        get { return characterSpeed * pwsBuff * tcBuff; }
+        get { return characterSpeed * BuffDebuffManager.instance.aoiP1SpeedBuff * BuffDebuffManager.instance.pwsSpeedBuff; }
         set { characterSpeed = value; }
+    }
+
+    private void Update()
+    {
+        if (state)
+        {
+            time += Time.deltaTime;
+        }
     }
 
     public void CharacterNumberCheck()
@@ -84,8 +97,11 @@ public class GameManager : Singleton<GameManager>
                 player = Instantiate(Resources.Load<GameObject>("Ibuki Meno"));
                 break;
         }
+        time = 0;
         monsterCount = 0;
         ikuminCount = 0;
+        cnCount = 0;
+        attackLV = 1;
     }
 
     public void GameOver()

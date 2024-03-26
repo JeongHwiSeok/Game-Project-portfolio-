@@ -12,9 +12,14 @@ public class ClockHat : MonoBehaviour
     [SerializeField] public bool flag;
 
     [SerializeField] float time;
-
+    public static ClockHat instance
+    {
+        get;
+        private set;
+    }
     private void Awake()
     {
+        instance = this;
         flag = true;
         playerBoxCollider2D = transform.parent.parent.parent.GetComponent<BoxCollider2D>();
         coolTime.itemNum = 11;
@@ -25,13 +30,13 @@ public class ClockHat : MonoBehaviour
     {
         if (clockHat.GetComponent<CoolTime>().CooltimeActiveCheck())
         {
-            clockHat.GetComponent<CoolTime>().CoverCoolTime(UIManager.instance.time - time, 30);
+            clockHat.GetComponent<CoolTime>().CoverCoolTime(GameManager.instance.time - time, 30);
         }
-        if (UIManager.instance.time - time >= 1.5f && flag == false)
+        if (GameManager.instance.time - time >= 1.5f && flag == false)
         {
             InvincibilityOff();
         }
-        if (UIManager.instance.time - time >= 30f)
+        if (GameManager.instance.time - time >= 30f)
         {
             flag = true;
         }
@@ -42,7 +47,7 @@ public class ClockHat : MonoBehaviour
         if (flag)
         {
             playerBoxCollider2D.enabled = false;
-            time = UIManager.instance.time;
+            time = GameManager.instance.time;
             flag = false;
         }
     }

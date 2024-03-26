@@ -15,6 +15,7 @@ public class IkuminManager : MonoBehaviour
     private void Update()
     {
         movement = PlayerManager.instance.movement;
+        gameObject.GetComponent<SpriteRenderer>().flipX = PlayerManager.instance.gameObject.GetComponent<SpriteRenderer>().flipX;
         Status();
     }
 

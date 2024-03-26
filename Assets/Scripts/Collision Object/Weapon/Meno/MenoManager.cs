@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenoWeapon : MonoBehaviour
+public class MenoManager : MonoBehaviour
 {
     [SerializeField] public List<GameObject> menoWeapon;
 
-    [SerializeField] public List<GameObject> standbyWeapon;
+    [SerializeField] List<GameObject> standbyWeapon;
     [SerializeField] public List<GameObject> menoBullet;
 
     [SerializeField] public GameObject[] hologram;
@@ -14,6 +14,11 @@ public class MenoWeapon : MonoBehaviour
     [SerializeField] public Vector3 point;
 
     [SerializeField] public Vector3 direction;
+
+    [SerializeField] public float atkBuff;
+    [SerializeField] public float spdBuff;
+    [SerializeField] public float knockBack;
+    [SerializeField] public float duration;
 
     public int hologramCount;
 
@@ -23,7 +28,7 @@ public class MenoWeapon : MonoBehaviour
 
     public float pickUpBuff;
 
-    public static MenoWeapon instance
+    public static MenoManager instance
     {
         get;
         private set;
@@ -39,6 +44,10 @@ public class MenoWeapon : MonoBehaviour
 
     private void Start()
     {
+        atkBuff = 1;
+        spdBuff = 1;
+        knockBack = 0;
+        duration = 0.7f;
         if (DataManager.instance.subArray[2, 7] > 0)
         {
             if (DataManager.instance.subArray[2, 7] == 1)
@@ -85,7 +94,7 @@ public class MenoWeapon : MonoBehaviour
     {
         Transform parent = GameObject.Find("Attack Manager").GetComponent<Transform>();
 
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 15; i++)
         {
             GameObject weapon = Instantiate(menoWeapon[0], parent);
 
@@ -103,27 +112,50 @@ public class MenoWeapon : MonoBehaviour
         }
     }
 
+    public void AttackLVUP()
+    {
+        switch (GameManager.instance.attackLV)
+        {
+            case 2:
+                atkBuff = 1.2f;
+                break;
+            case 3:
+                duration = 0.56f;
+                break;
+            case 4:
+                break;
+            case 5:
+                knockBack = 0.2f;
+                break;
+            case 6:
+                atkBuff = 1.5f;
+                spdBuff = 1.3f;
+                break;
+            case 7:
+                break;
+        }
+    }
+
     private IEnumerator BulletAttack()
     {
         while(true)
         {
-            int count = 0;
-            point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
-            for (int i = 0; i < 9; i++)
-            {
-                if (menoBullet[i].activeSelf == false && count < 3)
+            while (GameManager.instance.state)
+            { 
+                for (int i = 0; i < 15; i++)
                 {
-                    menoBullet[i].SetActive(true);
-                    count++;
+                    if (menoBullet[i].activeSelf == false && GameManager.instance.state)
+                    {
+                        point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
+                        menoBullet[i].SetActive(true);
+                    }
+                    yield return new WaitForSeconds(duration);
                 }
-                else if (count >= 3)
-                {
-                    break;
-                }
-
-                yield return new WaitForSeconds(0.05f);
             }
-            
+            if (GameManager.instance.monsterSpawn == false)
+            {
+                yield break;
+            }
             yield return new WaitForSeconds(1f);
         }
     }
@@ -222,16 +254,15 @@ public class MenoWeapon : MonoBehaviour
 
     private void Laser()
     {
-        if(Input.GetKeyDown(KeyCode.Z) && DataManager.instance.subArray[2, 7] > 0 && standbyWeapon[1].activeSelf == false)
+        if(Input.GetKeyDown(KeyCode.Z) && DataManager.instance.subArray[2, 7] > 0 && standbyWeapon[1].activeSelf == false && jewalCount >= 10)
         {
-            point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
             standbyWeapon[0].SetActive(true);
         }
     }
 
     private void ChargeBullet()
     {
-        if (Input.GetKeyDown(KeyCode.X) && DataManager.instance.subArray[2, 7] > 0 && standbyWeapon[0].activeSelf == false)
+        if (Input.GetKeyDown(KeyCode.X) && DataManager.instance.subArray[2, 7] > 0 && standbyWeapon[0].activeSelf == false && jewalCount >= 10)
         {
             standbyWeapon[1].SetActive(true);
         }

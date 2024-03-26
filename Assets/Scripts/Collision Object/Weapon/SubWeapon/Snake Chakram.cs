@@ -17,7 +17,7 @@ public class SnakeChakram : Weapon
 
     [SerializeField] Transform parent;
 
-    [SerializeField] List<GameObject> standbyChakram;
+    [SerializeField] List<GameObject> standbyChakrams;
 
     private void OnEnable()
     {
@@ -36,9 +36,9 @@ public class SnakeChakram : Weapon
 
         standbyChakram.SetActive(false);
 
-        this.standbyChakram.Add(standbyChakram);
+        standbyChakrams.Add(standbyChakram);
 
-        GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(standbyChakram);
+        GameManager.instance.weaponItemList.Add(standbyChakram);
         
         StartCoroutine(Create());
     }
@@ -79,13 +79,13 @@ public class SnakeChakram : Weapon
         {
             while (GameManager.instance.state)
             {
-                if (standbyChakram[0].activeSelf != true)
+                if (standbyChakrams[0].activeSelf != true)
                 {
-                    standbyChakram[0].transform.position = new Vector3(1, 0, 0) * 3;
-                    standbyChakram[0].GetComponent<SnakeChakramRotation>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
-                    standbyChakram[0].GetComponent<SnakeChakramRotation>().Duration(time);
-                    standbyChakram[0].GetComponent<SnakeChakramRotation>().transform.localScale = new Vector3(size, size, size);
-                    standbyChakram[0].SetActive(true);
+                    standbyChakrams[0].transform.position = new Vector3(1, 0, 0) * 3;
+                    standbyChakrams[0].GetComponent<SnakeChakramRotation>().StatInput(atk * atkBuff, normalspeed * speedBuff * BuffDebuffManager.instance.pwsSpeedBuff, knockBack);
+                    standbyChakrams[0].GetComponent<SnakeChakramRotation>().Duration(time);
+                    standbyChakrams[0].GetComponent<SnakeChakramRotation>().transform.localScale = new Vector3(size, size, size);
+                    standbyChakrams[0].SetActive(true);
                 }
 
                 yield return new WaitForSeconds(duration);

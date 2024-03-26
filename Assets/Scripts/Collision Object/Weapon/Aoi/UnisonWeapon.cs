@@ -12,7 +12,7 @@ public class UnisonWeapon : Weapon
 
     private void OnEnable()
     {
-        transform.position = new Vector3(0, 2.5f, 0);
+        transform.position = new Vector3(0, 1.5f, 0);
     }
 
     private void Update()

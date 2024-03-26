@@ -36,7 +36,7 @@ public class IkuminTransmitter : Weapon
 
             standbyIkuminUfo.Add(standbyChakram);
 
-            GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(standbyChakram);
+            GameManager.instance.weaponItemList.Add(standbyChakram);
         }
         StartCoroutine(Create());
     }
@@ -86,7 +86,7 @@ public class IkuminTransmitter : Weapon
                     if (standbyIkuminUfo[i].activeSelf != true)
                     {
                         standbyIkuminUfo[i].transform.position = new Vector3(Mathf.Cos((i * 360 / count) * Mathf.Deg2Rad), Mathf.Sin((i * 360 / count) * Mathf.Deg2Rad), 0) * dis;
-                        standbyIkuminUfo[i].GetComponent<IkuminUfo>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                        standbyIkuminUfo[i].GetComponent<IkuminUfo>().StatInput(atk * atkBuff, normalspeed * speedBuff * BuffDebuffManager.instance.pwsSpeedBuff, knockBack);
                         standbyIkuminUfo[i].GetComponent<IkuminUfo>().Duration(duration);
                         standbyIkuminUfo[i].SetActive(true);
                     }

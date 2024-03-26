@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 169531930128018591}
   - component: {fileID: 6054742482882727294}
   m_Layer: 0
-  m_Name: IkuWeapon
+  m_Name: IkuManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,7 +215,17 @@ MonoBehaviour:
   ikuWeapon:
   - {fileID: 5118090075272893915, guid: f523eb51318135847b360602bdfe4542, type: 3}
   standbyWeapon: []
+  specialIkumin: []
+  parent: {fileID: 0}
   direction: {x: 0, y: 0, z: 0}
+  ikuminCount: 0
+  atkBuff: 0
+  atkspdBuff: 0
+  spdBuff: 0
+  duration: 0
+  size: 0
+  ikuminStackFlag: 0
+  ikuminBoom: 0
   attackCount: 0
 --- !u!1 &1211670884292861460
 GameObject:
@@ -309,7 +319,7 @@ GameObject:
   - component: {fileID: 9149929780686822410}
   - component: {fileID: 8167975258202584212}
   - component: {fileID: 8611597139075830601}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hoshifuri Iku
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -422,6 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6345801061887867599}
   movement: 0
+  spriteRenderer: {fileID: 0}
   pos: {x: 0, y: 0}
   hp: 0
   atk: 0
@@ -430,10 +441,6 @@ MonoBehaviour:
   shield: 0
   haloShield: 0
   maxShield: 0
-  pwsDamage: 0
-  spAtk: 0
-  shieldDeviceTypeHalo: {fileID: 0}
-  time: 0
 --- !u!50 &8167975258202584212
 Rigidbody2D:
   serializedVersion: 4
@@ -637,7 +644,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4615973059843817246}
-  - component: {fileID: 3922946872947720972}
   m_Layer: 0
   m_Name: Weapons
   m_TagString: Untagged
@@ -663,20 +669,6 @@ Transform:
   m_Father: {fileID: 744610577886652403}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3922946872947720972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6297853101198698954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21db37d513704e94cb0635f42b22f205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapons:
-  - {fileID: 0}
 --- !u!1 &6749161958654742902
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +801,10 @@ GameObject:
   m_Component:
   - component: {fileID: 641183102428547268}
   - component: {fileID: 8480828771913262185}
-  m_Layer: 0
+  - component: {fileID: 3894179327545723815}
+  - component: {fileID: 2297805771514464868}
+  - component: {fileID: 4681769749577244636}
+  m_Layer: 14
   m_Name: ikushadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -883,6 +878,82 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &3894179327545723815
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7865355181478699697}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &2297805771514464868
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7865355181478699697}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03, y: -0.15}
+  serializedVersion: 2
+  m_Radius: 1
+--- !u!114 &4681769749577244636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7865355181478699697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdfa8eb7a5d489b41b4091b0be52ee3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circleCollider2D: {fileID: 2297805771514464868}
+  menoHologram: 0
 --- !u!1 &7959828427850600556
 GameObject:
   m_ObjectHideFlags: 0

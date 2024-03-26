@@ -19,8 +19,6 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] int monsterMax;
 
-    [SerializeField] public float cbDebuff;
-
     public static SpawnManager instance
     {
         get;
@@ -41,8 +39,6 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnMonster());
 
         monsterMax = 300;
-
-        cbDebuff = 1;
     }
 
     private void CreateMonster()
@@ -61,7 +57,7 @@ public class SpawnManager : MonoBehaviour
     {
         while (true)
         {
-            if (standByMonsterList.Count < maxCount * cbDebuff)
+            if (standByMonsterList.Count < maxCount * BuffDebuffManager.instance.cbCountDebuff)
             {
                 CreateMonster();
             }
@@ -81,14 +77,14 @@ public class SpawnManager : MonoBehaviour
                     standByMonsterList[i].SetActive(true);
                 }
             }
-            if (maxCount < monsterMax * cbDebuff && UIManager.instance.time % 30 <= 1 && UIManager.instance.time > 1)
+            if (maxCount < monsterMax * BuffDebuffManager.instance.cbCountDebuff && GameManager.instance.time % 30 <= 1 && GameManager.instance.time > 1)
             {
-                if (maxCount + (int)(10 * cbDebuff) < monsterMax * cbDebuff)
+                if (maxCount + (int)(10 * BuffDebuffManager.instance.cbCountDebuff) < monsterMax * BuffDebuffManager.instance.cbCountDebuff)
                 {
-                    maxCount += (int)(10 * cbDebuff);
+                    maxCount += (int)(10 * BuffDebuffManager.instance.cbCountDebuff);
                 }
             }      
-            if(UIManager.instance.time % 60 < 1 && UIManager.instance.time >= (bigMonsterNumber +1 ) * 60 && UIManager.instance.time > 1)
+            if(GameManager.instance.time % 60 < 1 && GameManager.instance.time >= (bigMonsterNumber +1 ) * 60 && GameManager.instance.time > 1)
             {
                 GameObject monster = Instantiate(bigMonsterList[bigMonsterNumber], parent);
 
@@ -107,7 +103,7 @@ public class SpawnManager : MonoBehaviour
 
                 bigMonsterNumber++;
             }
-            if (UIManager.instance.time % 120 <= 1 && UIManager.instance.time >= 1 && UIManager.instance.time > (monsterNumber +1) *120)
+            if (GameManager.instance.time % 120 <= 1 && GameManager.instance.time >= 1 && GameManager.instance.time > (monsterNumber +1) *120)
             {
                 if(monsterNumber < monsterList.Count - 1)
                 {

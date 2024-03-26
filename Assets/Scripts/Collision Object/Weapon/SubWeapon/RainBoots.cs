@@ -41,7 +41,7 @@ public class RainBoots : Weapon
 
         standbyRainFlooring.Add(bullet);
 
-        GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(bullet);
+        GameManager.instance.weaponItemList.Add(bullet);
 
         StartCoroutine(Fire());
     }
@@ -80,7 +80,7 @@ public class RainBoots : Weapon
             {
                 if (standbyRainFlooring[0].activeSelf != true)
                 {
-                    standbyRainFlooring[0].GetComponent<RainFlooring>().StatInput(atk * atkBuff, normalspeed * speedBuff, knockBack);
+                    standbyRainFlooring[0].GetComponent<RainFlooring>().StatInput(atk * atkBuff, normalspeed * speedBuff * BuffDebuffManager.instance.pwsSpeedBuff, knockBack);
                     standbyRainFlooring[0].GetComponent<RainFlooring>().time = duration;
                     standbyRainFlooring[0].GetComponent<RainFlooring>().gameObject.transform.position = new Vector3(-0.1f, -0.4f, 0);
                     standbyRainFlooring[0].GetComponent<RainFlooring>().itemLV = itemLV;

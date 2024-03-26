@@ -45,7 +45,7 @@ public class DevilsTail : Weapon
 
         standbyTail.Add(bullet);
 
-        GameObject.Find("Attack Manager").GetComponent<WeaponManager>().AddWeapon(bullet);
+        GameManager.instance.weaponItemList.Add(bullet);
 
         StartCoroutine(Fire());
     }
@@ -87,7 +87,7 @@ public class DevilsTail : Weapon
             {
                 if (standbyTail[0].activeSelf != true)
                 { 
-                    standbyTail[0].GetComponent<TailBullet>().StatInput(30 * atkBuff, normalspeed * speedBuff, knockBack2);
+                    standbyTail[0].GetComponent<TailBullet>().StatInput(30 * atkBuff, normalspeed * speedBuff * BuffDebuffManager.instance.pwsSpeedBuff, knockBack2);
                     standbyTail[0].GetComponent<TailBullet>().Target(target);
 
                     target.Normalize();

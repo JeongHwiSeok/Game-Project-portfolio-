@@ -20,9 +20,17 @@ public class ShopItemButton : MonoBehaviour
     {
         transform.GetComponent<Button>().onClick.AddListener(ButtonClick);
         itemImage = transform.GetChild(0).GetComponent<Image>();
-        if(DictionaryManager.instance.ShopItemInfoOutput(int.Parse(gameObject.name)).MaxLv == DataManager.instance.data.shopInfo[int.Parse(gameObject.name)])
+    }
+
+    private void Update()
+    {
+        if (DataManager.instance.data.shopInfo[int.Parse(gameObject.name)] == DictionaryManager.instance.ShopItemInfoOutput(int.Parse(gameObject.name)).MaxLv)
         {
-            transform.GetComponent<Button>().interactable = false;
+            itemLv.text = "Max";
+        }
+        else
+        {
+            itemLv.text = DataManager.instance.data.shopInfo[int.Parse(gameObject.name)].ToString();
         }
     }
 
@@ -35,9 +43,8 @@ public class ShopItemButton : MonoBehaviour
         itemShopManager.itemName.text = DictionaryManager.instance.ShopItemInfoOutput(int.Parse(gameObject.name)).ShopItemName;
 
         itemShopManager.itemPrice.text = DictionaryManager.instance.ShopItemInfoOutput(int.Parse(gameObject.name)).LvUpPrice(DataManager.instance.data.shopInfo[int.Parse(gameObject.name)]).ToString();
-        if(DataManager.instance.data.shopInfo[int.Parse(gameObject.name)] > 0)
-        {
-            itemShopManager.itemLvPrice = DictionaryManager.instance.ShopItemInfoOutput(int.Parse(gameObject.name)).LvUpPrice(DataManager.instance.data.shopInfo[int.Parse(gameObject.name)]-1);
-        }
+        itemShopManager.itemNumber = int.Parse(gameObject.name);
+
+        itemShopManager.itemInformation.text = DictionaryManager.instance.ShopItemInfoOutput(int.Parse(gameObject.name)).ShopItemInformation;
     }
 }

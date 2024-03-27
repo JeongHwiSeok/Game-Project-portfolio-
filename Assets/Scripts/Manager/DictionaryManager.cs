@@ -87,11 +87,11 @@ public class DictionaryManager : Singleton<DictionaryManager>
             if (shopItemDictionary.TryGetValue(int.Parse(row[0]), out shopItemInfo) == false)
             {
                 int[] price = new int[10];
-                for (int j = 3; j < row.Length; j++)
+                for (int j = 3; j < 13; j++)
                 {
                     price[j - 3] = int.Parse(row[j]);
                 }
-                shopItemInfo = new ShopItemInfo(int.Parse(row[0]), row[1], int.Parse(row[2]), price);
+                shopItemInfo = new ShopItemInfo(int.Parse(row[0]), row[1], int.Parse(row[2]), price, row[13]);
                 shopItemDictionary.Add(int.Parse(row[0]), shopItemInfo);
             }
         }
@@ -330,10 +330,10 @@ public class CharacterInfo
     {
         characterNumber = _characterNumber;
         name = _name;
-        hp = _hp + DataManager.instance.subArray[_characterNumber, 2] * 10;
-        atk = _atk + DataManager.instance.subArray[_characterNumber, 3] * 0.5f;
-        speed = _speed + DataManager.instance.subArray[_characterNumber, 4] * 0.1f;
-        cri = _cri + DataManager.instance.subArray[_characterNumber, 5] * 1f;
+        hp = _hp;
+        atk = _atk;
+        speed = _speed;
+        cri = _cri;
         attackName = _attackName;
         skill1Name = _skill1Name;
         skill2Name = _skill2Name;
@@ -448,6 +448,7 @@ public class ShopItemInfo
     string shopItemName;
     int maxLv;
     int[] lvUpPrice;
+    string shopItemInformation;
 
     public int ShopItemNumber
     {
@@ -465,13 +466,18 @@ public class ShopItemInfo
     {
         return lvUpPrice[lv];
     }
+    public string ShopItemInformation
+    {
+        get { return shopItemInformation; }
+    }
 
-    public ShopItemInfo(int _shopItemNumber, string _shopItemName, int _maxLv, int[] _lvUpPrice)
+    public ShopItemInfo(int _shopItemNumber, string _shopItemName, int _maxLv, int[] _lvUpPrice, string _shopItemInformation)
     {
         shopItemNumber = _shopItemNumber;
         shopItemName = _shopItemName;
         maxLv = _maxLv;
         lvUpPrice = _lvUpPrice;
+        shopItemInformation = _shopItemInformation;
     }
 }
 

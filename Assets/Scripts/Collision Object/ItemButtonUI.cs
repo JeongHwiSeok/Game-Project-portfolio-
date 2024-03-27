@@ -21,6 +21,8 @@ public class ItemButtonUI : MonoBehaviour
     [SerializeField] List<GameObject> supportItemList;
     [SerializeField] List<GameObject> subWeaponList;
 
+    [SerializeField] GameObject lockCase;
+
     private bool flag;
 
     private void Awake()
@@ -37,6 +39,16 @@ public class ItemButtonUI : MonoBehaviour
 
     private void itemInput()
     {
+        if (levelUpUIManager.exclusionFlag)
+        {
+            GameManager.instance.itemNumberCheck[itemNumber] = true;
+            transform.GetComponentInChildren<Button>().interactable = false;
+            lockCase.SetActive(true);
+            levelUpUIManager.exclusionFlag = false;
+            BuffDebuffManager.instance.shopExclusion--;
+            levelUpUIManager.commandButtonText[1].text = "Exclusion : " + BuffDebuffManager.instance.shopExclusion.ToString();
+            return;
+        }
         if (DictionaryManager.instance.ItemInfoOutput(itemNumber).ItemType == "weapon")
         {
             for (int i = 0; i < 6; i++)

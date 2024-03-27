@@ -36,6 +36,7 @@ public class StatButton : MonoBehaviour
         if (DataManager.instance.subArray[GameManager.instance.charNum, int.Parse(transform.parent.name)] > 0)
         {
             DataManager.instance.subArray[GameManager.instance.charNum, 6]++;
+            DataManager.instance.subArray[GameManager.instance.charNum, int.Parse(transform.parent.name)]--;
         }
     }
 }

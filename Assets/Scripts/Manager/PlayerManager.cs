@@ -23,6 +23,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] public SpriteRenderer spriteRenderer;
     [SerializeField] public Vector2 pos;
 
+    [SerializeField] int maxHp;
     [SerializeField] int hp;
     [SerializeField] float atk;
     [SerializeField] float cri;
@@ -70,15 +71,20 @@ public class PlayerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        hp = (int)DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp;
-        atk = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Atk;
-        cri = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Cri;
+        hp = (int)DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp + (int)BuffDebuffManager.instance.statHp + (int)BuffDebuffManager.instance.shopHp;
+        maxHp = hp;
+        atk = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Atk + BuffDebuffManager.instance.statAtk + BuffDebuffManager.instance.shopAtk;
+        cri = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Cri + BuffDebuffManager.instance.statCri + BuffDebuffManager.instance.shopCri;
     }
 
     private void Start()
     {
         movement = Movement.Idle;
         GameManager.instance.CharacterSpeed = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Speed;
+        if (BuffDebuffManager.instance.shopRecovery > 0)
+        {
+            StartCoroutine(Recovery(BuffDebuffManager.instance.shopRecovery));
+        }
     }
 
     private void Update()
@@ -142,6 +148,17 @@ public class PlayerManager : MonoBehaviour
             }
         }
         damage *= BuffDebuffManager.instance.pwsDamageDebuff;
+        if (BuffDebuffManager.instance.shopDefence > 0)
+        {
+            if (damage * BuffDebuffManager.instance.shopDefence <= 1)
+            {
+                damage -= 1;
+            }
+            else
+            {
+                damage -= (int)(damage * BuffDebuffManager.instance.shopDefence);
+            }
+        }
         if (shield > damage)
         {
             shield -= (int)damage;
@@ -210,5 +227,25 @@ public class PlayerManager : MonoBehaviour
     private void OnDisable()
     {
         InputManager.instance.keyAction -= Move;
+    }
+
+    private IEnumerator Recovery(float lv)
+    {
+        while (true)
+        {
+            while (GameManager.instance.state)
+            {
+                if (hp < maxHp)
+                {
+                    hp += 1;
+                }
+                yield return new WaitForSeconds(31 - lv);
+            }
+            if (GameManager.instance.monsterSpawn == false)
+            {
+                yield break;
+            }
+            yield return null;
+        }
     }
 }

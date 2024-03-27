@@ -10,15 +10,15 @@ public class MenoLaser : Weapon
     {
         if (DataManager.instance.subArray[2, 7] == 1)
         {
-            atk = 50 * (MenoManager.instance.jewalCount / 100 + 1) * MenoManager.instance.pickUpBuff;
+            atk = 50 * (MenoManager.instance.jewalCount / 100 + 1) * MenoManager.instance.pickUpBuff * BuffDebuffManager.instance.shopSkillAtk;
         }
         else if (DataManager.instance.subArray[2, 7] == 2)
         {
-            atk = 50 * (MenoManager.instance.jewalCount / 50 + 1) * MenoManager.instance.pickUpBuff;
+            atk = 50 * (MenoManager.instance.jewalCount / 50 + 1) * MenoManager.instance.pickUpBuff * BuffDebuffManager.instance.shopSkillAtk;
         }
         else
         {
-            atk = 50 * (MenoManager.instance.jewalCount / 25 + 1) * MenoManager.instance.pickUpBuff;
+            atk = 50 * (MenoManager.instance.jewalCount / 25 + 1) * MenoManager.instance.pickUpBuff * BuffDebuffManager.instance.shopSkillAtk;
         }
         MenoManager.instance.jewalCount = 0;
     }

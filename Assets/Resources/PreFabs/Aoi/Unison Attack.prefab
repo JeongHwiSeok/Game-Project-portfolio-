@@ -106,6 +106,7 @@ MonoBehaviour:
   point: {x: 0, y: 0, z: 0}
   target: {x: 0, y: 0, z: 0}
   direction: {x: 0, y: 0, z: 0}
+  secondHand: {fileID: 4852476273989047762, guid: 38c2e86aa091ac14896bd578975fd206, type: 3}
 --- !u!50 &4353667063451658809
 Rigidbody2D:
   serializedVersion: 4

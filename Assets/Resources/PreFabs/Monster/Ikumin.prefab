@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPosition: {x: 0, y: 0, z: 0}
   previusPosition: {x: 0, y: 0, z: 0}
+  backPosition: {x: 0, y: 0, z: 0}
   maxHp: 0
   hp: 0
   firstCheck: 0
@@ -184,3 +185,11 @@ MonoBehaviour:
   damageTime: 0
   parent: {fileID: 0}
   drop: {fileID: 0}
+  timeBack: 0
+  dotDamage: 0
+  rainSlow: 0
+  rainDamage: 0
+  trickDamage: 0
+  menoDebuff: 0
+  secondHand: {fileID: 0}
+  fire: {fileID: 4058151546459044772, guid: e16fea3ea845ea14b96d72ffc04a9446, type: 3}

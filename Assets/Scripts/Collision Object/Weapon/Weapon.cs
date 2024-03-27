@@ -44,6 +44,6 @@ public class Weapon : MonoBehaviour
 
     public virtual void SpeedUP()
     {
-        speed = normalspeed * BuffDebuffManager.instance.aoiP2SpeedBuff * BuffDebuffManager.instance.pwsSpeedBuff;
+        speed = normalspeed * BuffDebuffManager.instance.aoiP2SpeedBuff * BuffDebuffManager.instance.pwsSpeedBuff * BuffDebuffManager.instance.shopAtkSpeed;
     }
 }

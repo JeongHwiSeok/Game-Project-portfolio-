@@ -6,8 +6,8 @@ public class Watai : Monster
 {
     private void Awake()
     {
-        maxHp = 150; 
+        maxHp = 200; 
         hp = maxHp;
-        atk = 5;
+        atk = 7;
     }
 }

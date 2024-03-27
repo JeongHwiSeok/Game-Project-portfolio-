@@ -215,7 +215,10 @@ MonoBehaviour:
   ikuWeapon:
   - {fileID: 5118090075272893915, guid: f523eb51318135847b360602bdfe4542, type: 3}
   standbyWeapon: []
-  specialIkumin: []
+  standbySpecial: []
+  specialIkumin:
+  - {fileID: 5924685174144411525, guid: 8deaf914b6114144e9213b7d50c1e91a, type: 3}
+  - {fileID: 1912999506136742924, guid: 6d25ba7f436095e48989b1ab90d50675, type: 3}
   parent: {fileID: 0}
   direction: {x: 0, y: 0, z: 0}
   ikuminCount: 0

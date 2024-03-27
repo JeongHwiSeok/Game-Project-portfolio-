@@ -36,6 +36,9 @@ public class UIManager : MonoBehaviour
 
     public bool flag;
 
+    [SerializeField] Text coin;
+    [SerializeField] Text killCount;
+
     public float PlayerLv
     {
         get { return playerLv; }
@@ -71,6 +74,8 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        coin.text = ": " + dropCoin.ToString();
+        killCount.text = ": " + GameManager.instance.monsterCount.ToString();
         expBar.value = PlayerManager.instance.exp / needExp;
         hpBar.value = PlayerManager.instance.Hp / DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp;
         if (PlayerManager.instance.MaxShield != 0)

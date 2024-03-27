@@ -103,16 +103,14 @@ public class IkuminAttack : Weapon
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Monster monster = collision.GetComponent<Monster>();
-
-        if (monster != null && IkuManager.instance.ikuminBoom == false)
+        if ((collision.GetComponent<Monster>() != null || collision.GetComponent<BigMonster>() != null) && IkuManager.instance.ikuminBoom == false)
         {
             AttackDirection(PlayerManager.instance.transform.position);
             speed = 10f;
             returnIkumin = true;
             movement = Movement.Move;
         }
-        else if(monster != null && IkuManager.instance.ikuminBoom)
+        else if((collision.GetComponent<Monster>() != null || collision.GetComponent<BigMonster>() != null) && IkuManager.instance.ikuminBoom)
         {
             gameObject.transform.GetChild(0).GetComponent<IkuminBoom>().StatInput(10, normalspeed, knockBack, transform.localScale.x/0.7f);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;

@@ -8,11 +8,13 @@ public class UnisonWeapon : Weapon
     [SerializeField] Vector3 target;
     [SerializeField] Vector3 direction;
 
+    [SerializeField] GameObject secondHand;
+
     private float time;
 
     private void OnEnable()
     {
-        transform.position = new Vector3(0, 1.5f, 0);
+        transform.position = new Vector3(0, 2f, 0);
     }
 
     private void Update()
@@ -43,5 +45,10 @@ public class UnisonWeapon : Weapon
     {
         transform.position = new Vector3(0, 2.5f, 0);
         transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    public GameObject SecondHand()
+    {
+        return secondHand;
     }
 }

@@ -24,7 +24,7 @@ public class SkillButton : MonoBehaviour
 
     private void SkillUp()
     {
-        if (DataManager.instance.subArray[GameManager.instance.charNum, 10] > 0)
+        if (DataManager.instance.subArray[GameManager.instance.charNum, 10] > 0 && DataManager.instance.subArray[GameManager.instance.charNum, int.Parse(transform.parent.name)] < 3)
         {
             DataManager.instance.subArray[GameManager.instance.charNum, 10]--;
             DataManager.instance.subArray[GameManager.instance.charNum, int.Parse(transform.parent.name)]++;
@@ -36,6 +36,7 @@ public class SkillButton : MonoBehaviour
         if (DataManager.instance.subArray[GameManager.instance.charNum, int.Parse(transform.parent.name)] > 0)
         {
             DataManager.instance.subArray[GameManager.instance.charNum, 10]++;
+            DataManager.instance.subArray[GameManager.instance.charNum, int.Parse(transform.parent.name)]--;
         }
     }
 }

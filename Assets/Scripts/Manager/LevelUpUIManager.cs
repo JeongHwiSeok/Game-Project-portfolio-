@@ -9,6 +9,7 @@ public class LevelUpUIManager : MonoBehaviour
     [SerializeField] GameObject itemButton;
     [SerializeField] GameObject attackButton;
     [SerializeField] Button[] commandButton;
+    [SerializeField] public Text[] commandButtonText;
     [SerializeField] Text[] statText;
     [SerializeField] GameObject canvas;
 
@@ -21,6 +22,8 @@ public class LevelUpUIManager : MonoBehaviour
     [SerializeField] private int[] itemBox;
 
     [SerializeField] bool check;
+
+    [SerializeField] public bool exclusionFlag;
 
     private void Awake()
     {
@@ -70,6 +73,39 @@ public class LevelUpUIManager : MonoBehaviour
         statText[2].text = " * " + PlayerManager.instance.Atk;
         statText[3].text = GameManager.instance.CharacterSpeed.ToString();
         statText[4].text = PlayerManager.instance.Cri.ToString();
+
+        commandButton[0].onClick.AddListener(Reroll);
+        commandButtonText[0].text = "Reroll : " + BuffDebuffManager.instance.shopReturn.ToString();
+        commandButton[1].onClick.AddListener(Exclusion);
+        commandButtonText[1].text = "Exclusion : " + BuffDebuffManager.instance.shopExclusion.ToString();
+    }
+
+    private void Reroll()
+    {
+        if (BuffDebuffManager.instance.shopReturn > 0)
+        {
+            for (int i = 0; i < maxSlot; i++)
+            {
+                gameObject.transform.parent.parent.GetChild(0).GetChild(i).gameObject.SetActive(false);
+                gameObject.transform.parent.parent.GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemNumber = ItemCheck();
+                if (gameObject.transform.parent.parent.GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemNumber == 0)
+                {
+                    gameObject.transform.parent.parent.GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemNumber = SubItemCheck();
+                }
+                gameObject.transform.parent.parent.GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemImage.sprite = SpriteManager.instance.ItemSprite(gameObject.transform.parent.parent.GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemNumber);
+                gameObject.transform.parent.parent.GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().levelUpUIManager = this;
+            }
+            BuffDebuffManager.instance.shopReturn--;
+            commandButtonText[0].text = "Reroll : " + BuffDebuffManager.instance.shopReturn.ToString();
+        }
+    }
+
+    private void Exclusion()
+    {
+        if (BuffDebuffManager.instance.shopExclusion > 0)
+        {
+            exclusionFlag = true;
+        }
     }
 
     private int ItemCheck()

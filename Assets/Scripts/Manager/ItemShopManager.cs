@@ -17,6 +17,8 @@ public class ItemShopManager : MonoBehaviour
     [SerializeField] Text coin;
     [SerializeField] int shopCoin;
     [SerializeField] public int itemLvPrice;
+    [SerializeField] public int itemNumber;
+
     private int rerollNumber;
 
     private void OnEnable()
@@ -26,6 +28,21 @@ public class ItemShopManager : MonoBehaviour
         button[1].onClick.AddListener(Sell);
         shopCoin = DataManager.instance.data.shopCoin;
         coin.text = shopCoin.ToString();
+    }
+
+    private void Update()
+    {
+        shopCoin = DataManager.instance.data.shopCoin;
+        coin.text = shopCoin.ToString();
+        if (DictionaryManager.instance.ShopItemInfoOutput(itemNumber).MaxLv == DataManager.instance.data.shopInfo[itemNumber])
+        {
+            itemPrice.text = "Max LV";
+        }
+        else
+        {
+            itemLvPrice = DictionaryManager.instance.ShopItemInfoOutput(itemNumber).LvUpPrice(DataManager.instance.data.shopInfo[itemNumber]);
+            itemPrice.text = itemLvPrice.ToString();
+        }
     }
 
     private void Buy()
@@ -38,13 +55,16 @@ public class ItemShopManager : MonoBehaviour
                 for (int j = 0; j < maxLv; j++)
                 {
                     shopCoin += DictionaryManager.instance.ShopItemInfoOutput(i).LvUpPrice(j);
+                    DataManager.instance.data.shopCoin = shopCoin;
                     DataManager.instance.data.shopInfo[i]--;
                 }
             }
+            DataManager.instance.Save();
         }
-        else if(int.Parse(itemPrice.text) <= shopCoin)
+        else if(int.Parse(itemPrice.text) <= shopCoin && DataManager.instance.data.shopInfo[int.Parse(itemButtonInfo.gameObject.name)] < 10)
         {
             shopCoin -= int.Parse(itemPrice.text);
+            DataManager.instance.data.shopCoin = shopCoin;
             DataManager.instance.data.shopInfo[int.Parse(itemButtonInfo.gameObject.name)]++;
             DataManager.instance.Save();
         }
@@ -55,7 +75,8 @@ public class ItemShopManager : MonoBehaviour
         if(DataManager.instance.data.shopInfo[int.Parse(itemButtonInfo.gameObject.name)] > 0)
         {
             DataManager.instance.data.shopInfo[int.Parse(itemButtonInfo.gameObject.name)]--;
-            shopCoin += itemLvPrice;
+            shopCoin += DictionaryManager.instance.ShopItemInfoOutput(itemNumber).LvUpPrice(DataManager.instance.data.shopInfo[itemNumber]);
+            DataManager.instance.data.shopCoin = shopCoin;
             DataManager.instance.Save();
         }
     }

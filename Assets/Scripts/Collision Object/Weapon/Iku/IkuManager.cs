@@ -8,6 +8,8 @@ public class IkuManager : MonoBehaviour
 
     [SerializeField] public List<GameObject> standbyWeapon;
 
+    [SerializeField] public List<GameObject> standbySpecial;
+
     [SerializeField] GameObject[] specialIkumin;
 
     [SerializeField] Transform parent;
@@ -76,6 +78,14 @@ public class IkuManager : MonoBehaviour
             weapon.SetActive(false);
 
             standbyWeapon.Add(weapon);
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            GameObject weapon = Instantiate(specialIkumin[i], parent);
+
+            weapon.SetActive(false);
+
+            standbySpecial.Add(weapon);
         }
     }
 
@@ -154,11 +164,17 @@ public class IkuManager : MonoBehaviour
         {
             while (GameManager.instance.state)
             {
-                int random = Random.Range(0, 2);
+                int random = Random.Range(0, 100);
+                if (random < 5)
+                {
+                    random = Random.Range(0, 2);
 
-                Instantiate(specialIkumin[random], parent);
-
-                yield return new WaitForSeconds(10f);
+                    if (standbySpecial[random].activeSelf == false)
+                    {
+                        standbySpecial[random].SetActive(true);
+                    }
+                }
+                yield return new WaitForSeconds(5f);
             }
             if (GameManager.instance.monsterSpawn == false)
             {

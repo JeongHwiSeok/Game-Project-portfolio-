@@ -53,10 +53,10 @@ public class CharacterStatManager : MonoBehaviour
 
     private void Stat()
     {   
-        maxHp = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp - DataManager.instance.subArray[GameManager.instance.charNum, 2] * 10;
-        atk = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Atk - DataManager.instance.subArray[GameManager.instance.charNum, 3] * 0.5f;
-        spd = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Speed - DataManager.instance.subArray[GameManager.instance.charNum, 4] * 0.1f;
-        cri = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Cri - DataManager.instance.subArray[GameManager.instance.charNum, 5] * 1f;
+        maxHp = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp;
+        atk = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Atk;
+        spd = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Speed;
+        cri = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Cri;
 
         stat[0].text = ": " + maxHp.ToString();
         stat[1].text = ": " + atk.ToString();

@@ -6,8 +6,8 @@ public class Mezzo : Monster
 {
     private void Awake()
     {
-        maxHp = 50;
+        maxHp = 120;
         hp = maxHp;
-        atk = 5;
+        atk = 6;
     }
 }

@@ -1783,6 +1783,9 @@ MonoBehaviour:
   commandButton:
   - {fileID: 4389169267617578640}
   - {fileID: 1512586393843829599}
+  commandButtonText:
+  - {fileID: 3478643470127032722}
+  - {fileID: 495462783770499656}
   statText:
   - {fileID: 1934571062179118073}
   - {fileID: 4738635388231413655}
@@ -1819,6 +1822,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7fca49cc0193f6541bdcfe35e6a09990, type: 3}
   itemBox: 
   check: 0
+  exclusionFlag: 0
 --- !u!223 &2020231089961201073
 Canvas:
   m_ObjectHideFlags: 0

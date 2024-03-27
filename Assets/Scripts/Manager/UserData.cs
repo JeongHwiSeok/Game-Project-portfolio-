@@ -26,6 +26,25 @@ public class UserData
      * 캐릭터 선택창 발판
      */
 
+    /*
+     * 상점
+     * 0. hp
+     * 1. atk
+     * 2. spd
+     * 3. cri
+     * 4. pickupRange
+     * 5. atkSpeed
+     * 6. recovery
+     * 7. defence
+     * 8. skillDamage
+     * 9. expUp
+     * 10. coinUp
+     * 11. Damage
+     * 12. return
+     * 13. exclusion
+     * 14. broadCast
+     */
+
     public int shopCoin;
     public int[] AoiInformation = new int[12];
     public int[] IkuInformation = new int[12];

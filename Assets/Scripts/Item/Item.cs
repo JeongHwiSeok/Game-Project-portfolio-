@@ -32,15 +32,15 @@ public class Item : MonoBehaviour
         }
         if (obj.GetComponent<PlayerManager>() != null)
         {
-            UIManager.instance.DropCoin += coin;
+            UIManager.instance.DropCoin += (int)(coin * BuffDebuffManager.instance.shopCoin);
 
             if (PuzzleGameCollection.instance != null)
             {
-                PlayerManager.instance.exp += (exp * BuffDebuffManager.instance.pgcExpPow);
+                PlayerManager.instance.exp += (exp * BuffDebuffManager.instance.pgcExpPow) * BuffDebuffManager.instance.shopExp;
             }
             else
             {
-                PlayerManager.instance.exp += exp;
+                PlayerManager.instance.exp += exp * BuffDebuffManager.instance.shopExp;
             }
 
             if (gameObject.name == "coin(Clone)")

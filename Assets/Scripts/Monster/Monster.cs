@@ -44,6 +44,12 @@ public class Monster : MonoBehaviour
 
     [SerializeField] bool menoDebuff;
 
+    [SerializeField] GameObject secondHand;
+
+    [SerializeField] GameObject fire;
+
+    [SerializeField] bool effectTrigger;
+
     protected virtual void OnEnable()
     {
         parent = transform.parent.parent.GetChild(11);
@@ -55,6 +61,7 @@ public class Monster : MonoBehaviour
         trickDamage = false;
         timeBack = false;
         menoDebuff = false;
+        effectTrigger = true;
         StartCoroutine(LastPosition());
         StartCoroutine(BackPosition());
     }
@@ -65,6 +72,12 @@ public class Monster : MonoBehaviour
         {
             if (hp <= 0)
             {
+                if (effectTrigger)
+                {
+                    GameObject obj = Instantiate(fire, gameObject.transform.parent.parent.GetChild(13));
+                    obj.transform.position = gameObject.transform.position;
+                    effectTrigger = false;
+                }
                 timeCheck += Time.deltaTime;
                 transform.Translate(previusPosition * Time.deltaTime);
                 spriteRenderer.color = new Color(1, 1, 1, 0.5f);
@@ -78,8 +91,15 @@ public class Monster : MonoBehaviour
             }
             else if (timeBack)
             {
-                transform.position = backPosition;
-                timeBack = false;
+                int random = Random.Range(0, 100);
+                if (random < 5)
+                {
+                    StartCoroutine(TimeBack());
+                }
+                else
+                {
+                    timeBack = false;
+                }
             }
             else if (damageTime > 0)
             {
@@ -198,6 +218,7 @@ public class Monster : MonoBehaviour
                 if (collision.GetComponent<UnisonWeapon>() != null && GameManager.instance.attackLV == 7)
                 {
                     timeBack = true;
+                    secondHand = collision.GetComponent<UnisonWeapon>().SecondHand();
                 }
                 if (collision.GetComponent<EternityFlameBullet>() != null)
                 {
@@ -214,30 +235,30 @@ public class Monster : MonoBehaviour
                     {
                         rainSlow = true;
                         rainDamage = true;
-                        StartCoroutine(ContinueDamageRain((int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff)));
+                        StartCoroutine(ContinueDamageRain((int)(weapon.Atk * BuffDebuffManager.instance.shopDamage)));
                         StartCoroutine(ContinueSlow());
                     }
                     else
                     {
                         rainDamage = true;
-                        StartCoroutine(ContinueDamageRain((int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff)));
+                        StartCoroutine(ContinueDamageRain((int)(weapon.Atk * BuffDebuffManager.instance.shopDamage)));
                     }
                 }
                 if (collision.GetComponent<CardFlooring>() != null)
                 {
                     trickDamage = true;
-                    StartCoroutine(ContinueDamageCard((int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff)));
+                    StartCoroutine(ContinueDamageCard((int)(weapon.Atk * BuffDebuffManager.instance.shopDamage)));
                 }
                 Debug.Log("Weapon : " + weapon.name + " / Atk : " + weapon.Atk);
                 knockBack = weapon.KnockBack;
                 int count = Random.Range(1, 1000);
                 if (count <= PlayerManager.instance.Cri * 10)
                 {
-                    hp -= (int)((weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff) * 1.5f);
+                    hp -= (int)((weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff) * 1.5f * BuffDebuffManager.instance.shopDamage);
                 }
                 else
                 {
-                    hp -= (int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff);
+                    hp -= (int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff * BuffDebuffManager.instance.shopDamage);
                 }
                 if (hp > 0)
                 {
@@ -381,6 +402,21 @@ public class Monster : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    private IEnumerator TimeBack()
+    {
+        speed = 0;
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f);
+        GameObject obj = Instantiate(secondHand);
+        obj.transform.position = transform.position;
+        yield return new WaitForSeconds(0.3f);
+        timeBack = false;
+        transform.position = backPosition;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        speed = GameManager.instance.MonsterSpeed;
     }
 
     private void DropItem()

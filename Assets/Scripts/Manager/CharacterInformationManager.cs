@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class CharacterInformationManager : MonoBehaviour
 {
@@ -14,12 +15,19 @@ public class CharacterInformationManager : MonoBehaviour
     [SerializeField] Text[] characterSkillName;  // Ä³¸¯ÅÍ µñ¼Å³Ê¸® Ãß°¡
     [SerializeField] Text[] characterSkillInformation;
 
+    [SerializeField] Text[] skillLv;
+
     [SerializeField] Text[] point;
 
     [SerializeField] Text lv;
 
     [SerializeField] Text[] statLV;
-    [SerializeField] Text[] stat;
+
+    [SerializeField] Button[] statUp;
+    [SerializeField] Button[] statDown;
+
+    [SerializeField] Button[] skillUp;
+    [SerializeField] Button[] skillDown;
 
     private int[] statPoint;
 
@@ -54,10 +62,10 @@ public class CharacterInformationManager : MonoBehaviour
 
         lv.text = DataManager.instance.subArray[characterNumber, 1].ToString();
 
-        for (int i = 0; i < stat.Length; i++)
-        {
-            stat[i].text = DataManager.instance.subArray[characterNumber, i + 2].ToString();
-        }
+        statLV[0].text = (DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp + DataManager.instance.subArray[characterNumber, 2]).ToString();
+        statLV[1].text = (DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Atk + DataManager.instance.subArray[characterNumber, 3]).ToString();
+        statLV[2].text = (DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Speed + DataManager.instance.subArray[characterNumber, 4]).ToString();
+        statLV[3].text = (DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Cri + DataManager.instance.subArray[characterNumber, 5]).ToString();
 
         for (int i = 0; i < 3; i++)
         {
@@ -70,14 +78,17 @@ public class CharacterInformationManager : MonoBehaviour
         characterSkillInformation[0].text = DictionaryManager.instance.SkillInformationTextOutput(characterNumber).Skill1Information;
         characterSkillInformation[1].text = DictionaryManager.instance.SkillInformationTextOutput(characterNumber).Skill2Information;
         characterSkillInformation[2].text = DictionaryManager.instance.SkillInformationTextOutput(characterNumber).Skill3Information;
+
+        skillLv[0].text = DataManager.instance.subArray[GameManager.instance.charNum, 7].ToString();
+        skillLv[1].text = DataManager.instance.subArray[GameManager.instance.charNum, 8].ToString();
+        skillLv[2].text = DataManager.instance.subArray[GameManager.instance.charNum, 9].ToString();
     }
 
     private void Update()
     {
-        for (int i = 0; i < stat.Length; i++)
-        {
-            stat[i].text = DataManager.instance.subArray[characterNumber, i + 2].ToString();
-        }
+        statUpdate();
+        skillUpdate();
+
         if (target != Vector3.zero)
         {
             if (transform.localPosition.x > 1200 || transform.localPosition.x < -1200)
@@ -104,23 +115,22 @@ public class CharacterInformationManager : MonoBehaviour
         transform.GetComponentInParent<InterfaceChanger>().flag = true;
     }
 
-    private void StatUp()
+    private void statUpdate()
     {
-        
+        statLV[0].text = (DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Hp + DataManager.instance.subArray[characterNumber, 2] * 10).ToString();
+        statLV[1].text = (DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Atk + DataManager.instance.subArray[characterNumber, 3] * 0.05f).ToString();
+        statLV[2].text = (DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Speed + DataManager.instance.subArray[characterNumber, 4] * 0.01f).ToString();
+        statLV[3].text = (DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Cri + DataManager.instance.subArray[characterNumber, 5] * 0.5f).ToString();
+        statPoint[0] = DataManager.instance.subArray[characterNumber, 6];
+        point[0].text = statPoint[0].ToString();
     }
 
-    private void StatDown()
+    private void skillUpdate()
     {
-
-    }
-
-    private void SkillUp()
-    {
-
-    }
-
-    private void SkillDown()
-    {
-
+        skillLv[0].text = DataManager.instance.subArray[GameManager.instance.charNum, 7].ToString();
+        skillLv[1].text = DataManager.instance.subArray[GameManager.instance.charNum, 8].ToString();
+        skillLv[2].text = DataManager.instance.subArray[GameManager.instance.charNum, 9].ToString();
+        statPoint[1] = DataManager.instance.subArray[characterNumber, 10];
+        point[1].text = statPoint[1].ToString();
     }
 }

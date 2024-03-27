@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPosition: {x: 0, y: 0, z: 0}
   previusPosition: {x: 0, y: 0, z: 0}
+  backPosition: {x: 0, y: 0, z: 0}
   maxHp: 0
   hp: 0
   firstCheck: 0
@@ -174,8 +175,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   dropItem:
   - {fileID: 2910105076109916669, guid: ae59f6d9a9e5f7247b45ee2434ad63c5, type: 3}
-  - {fileID: 6256063415748685298, guid: c34f4fc044f2fca42b036f39e78b5d54, type: 3}
   - {fileID: 2651416530690363227, guid: 75a75035d07032b4ea8d23216fd14f16, type: 3}
+  - {fileID: 7968660014064408247, guid: 94cf1da2f8ba25f4a8e2753d8d8d6592, type: 3}
   - {fileID: 5180180708486654462, guid: 6b1dc4e009429b34a91f9fc954da1323, type: 3}
   - {fileID: 7658335242257513811, guid: 7c399e1f5b969b541a7af0adf9ffb100, type: 3}
   weapon: {fileID: 0}
@@ -184,3 +185,11 @@ MonoBehaviour:
   damageTime: 0
   parent: {fileID: 0}
   drop: {fileID: 0}
+  timeBack: 0
+  dotDamage: 0
+  rainSlow: 0
+  rainDamage: 0
+  trickDamage: 0
+  menoDebuff: 0
+  secondHand: {fileID: 0}
+  fire: {fileID: 4058151546459044772, guid: e16fea3ea845ea14b96d72ffc04a9446, type: 3}

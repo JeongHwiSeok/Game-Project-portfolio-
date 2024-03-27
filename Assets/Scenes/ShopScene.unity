@@ -3615,6 +3615,7 @@ MonoBehaviour:
   coin: {fileID: 138116508}
   shopCoin: 0
   itemLvPrice: 0
+  itemNumber: 0
 --- !u!1 &698434041
 GameObject:
   m_ObjectHideFlags: 0

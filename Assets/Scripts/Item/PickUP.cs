@@ -21,7 +21,7 @@ public class PickUP : MonoBehaviour
 
     public void PickUPRangeUP()
     {
-        circleCollider2D.radius = 1 * BuffDebuffManager.instance.shpPickUpRangePow * menoHologram;
+        circleCollider2D.radius = 1 * BuffDebuffManager.instance.shpPickUpRangePow * menoHologram * BuffDebuffManager.instance.shopExp;
     }
 
     public float PickUPRange()

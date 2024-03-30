@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameOverPanel : MonoBehaviour
 {
+    [SerializeField] public Text result;
     [SerializeField] Text[] resultText;
     [SerializeField] Image characterImage;
 
@@ -32,7 +33,7 @@ public class GameOverPanel : MonoBehaviour
         {
             resultText[3].text = "";
         }
-        exp = GameManager.instance.monsterCount / 100;
+        exp = GameManager.instance.monsterCount / 100 + DataManager.instance.subArray[GameManager.instance.charNum, 11];
 
         nextButton.onClick.AddListener(ButtonManager.instance.CharacterSelectBack);
     }
@@ -45,10 +46,9 @@ public class GameOverPanel : MonoBehaviour
         {
             exp -= needExp;
             DataManager.instance.subArray[GameManager.instance.charNum, 1]++;
-            count++;
-            DataManager.instance.subArray[GameManager.instance.charNum, 1]++;
             DataManager.instance.subArray[GameManager.instance.charNum, 6]++;
             DataManager.instance.subArray[GameManager.instance.charNum, 10]++;
+            count++;
         }
         else
         {

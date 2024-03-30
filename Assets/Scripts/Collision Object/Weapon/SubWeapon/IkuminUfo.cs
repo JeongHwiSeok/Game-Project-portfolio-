@@ -7,6 +7,11 @@ public class IkuminUfo : Weapon
     [SerializeField] float time;
     [SerializeField] float duration;
 
+    private void OnEnable()
+    {
+        time = 0;
+    }
+
     private void Update()
     {
         if (GameManager.instance.state)
@@ -21,7 +26,6 @@ public class IkuminUfo : Weapon
     {
         if (gameObject.activeSelf && time > duration)
         {
-            time = 0;
             gameObject.SetActive(false);
         }
     }

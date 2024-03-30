@@ -6,6 +6,7 @@ public class DropSpaceFood : MonoBehaviour
 {
     [SerializeField] Vector3 target;
     [SerializeField] GameObject spaceFood;
+    [SerializeField] bool drop;
 
     public Vector3 Target
     {
@@ -15,7 +16,23 @@ public class DropSpaceFood : MonoBehaviour
 
     private void Update()
     {
-        transform.localPosition = Vector3.Lerp(transform.localPosition, target, Time.deltaTime * 5);
+        if (drop)
+        {
+            return;
+        }
+        else
+        {
+            if (GameManager.instance.state)
+            {
+                transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 10);
+
+                if ((transform.position - target).sqrMagnitude < 0.1f)
+                {
+                    transform.position = target;
+                    drop = true;
+                }
+            }
+        }
     }
 
     public void GameObjectInput(GameObject obj)

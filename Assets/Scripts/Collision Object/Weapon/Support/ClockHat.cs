@@ -32,7 +32,7 @@ public class ClockHat : MonoBehaviour
         {
             clockHat.GetComponent<CoolTime>().CoverCoolTime(GameManager.instance.time - time, 30);
         }
-        if (GameManager.instance.time - time >= 1.5f && flag == false)
+        if (GameManager.instance.time - time >= 3f && flag == false)
         {
             InvincibilityOff();
         }

@@ -25,7 +25,7 @@ public class SnakeChakram : Weapon
         normalspeed = 180;
         speed = normalspeed;
         knockBack = 0.1f;
-        size = 2.8f;
+        size = 1f;
         time = 2;
         duration = 5;
         parent = GameObject.Find("Attack Manager").transform;
@@ -50,21 +50,21 @@ public class SnakeChakram : Weapon
             case 1:
                 break;
             case 2:
-                size = 3.36f;
+                size = 1.2f;
                 atkBuff = 1.2f;
                 break;
             case 3:
                 duration = 4;
                 break;
             case 4:
-                size = 4.2f;
+                size = 1.5f;
                 atkBuff = 1.5f;
                 break;
             case 5:
                 time = 3;
                 break;
             case 6:
-                size = 5.6f;
+                size = 2f;
                 break;
             case 7:
                 atkBuff = 2.0f;
@@ -84,7 +84,7 @@ public class SnakeChakram : Weapon
                     standbyChakrams[0].transform.position = new Vector3(1, 0, 0) * 3;
                     standbyChakrams[0].GetComponent<SnakeChakramRotation>().StatInput(atk * atkBuff, normalspeed * speedBuff * BuffDebuffManager.instance.pwsSpeedBuff, knockBack);
                     standbyChakrams[0].GetComponent<SnakeChakramRotation>().Duration(time);
-                    standbyChakrams[0].GetComponent<SnakeChakramRotation>().transform.localScale = new Vector3(size, size, size);
+                    standbyChakrams[0].GetComponent<SnakeChakramRotation>().transform.localScale = new Vector3( 3.5f * size, 3.5f * size, 3.5f * size);
                     standbyChakrams[0].SetActive(true);
                 }
 

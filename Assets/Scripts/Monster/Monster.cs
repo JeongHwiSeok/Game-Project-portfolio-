@@ -153,6 +153,7 @@ public class Monster : MonoBehaviour
                 if (random < MenoManager.instance.jewalRandom)
                 {
                     MenoManager.instance.jewalCount++;
+                    MenoManager.instance.count.text = MenoManager.instance.jewalCount.ToString();
                 }
             }
             if (GameManager.instance.charNum == 1)
@@ -163,6 +164,7 @@ public class Monster : MonoBehaviour
                     if (random < 1)
                     {
                         IkuManager.instance.ikuminCount++;
+                        IkuManager.instance.ikuminText.text = IkuManager.instance.ikuminCount.ToString();
                     }
                 }         
             }
@@ -172,6 +174,11 @@ public class Monster : MonoBehaviour
         {
             firstCheck = true;
         }
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(gameObject);
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)

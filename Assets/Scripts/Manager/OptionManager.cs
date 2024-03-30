@@ -3,9 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionManager : MonoBehaviour
+public enum Language
 {
+    English,
+    Korean,
+    Janpanes
+}
+
+public enum Resolution
+{
+    P720,
+    P900,
+    P1080,
+    P1440,
+}
+
+public class OptionManager : Singleton<OptionManager>
+{
+    [SerializeField] FullScreenMode fullScreenMode;
+    [SerializeField] Resolution resolutionSize;
+
     [SerializeField] Text resolution;
+
+    [SerializeField] Toggle screenMode;
 
     [SerializeField] Button backButton;
     [SerializeField] Button leftButton;
@@ -16,17 +36,23 @@ public class OptionManager : MonoBehaviour
 
     [SerializeField] CanvasScaler canvasScaler;
 
-    private void Awake()
+    private void OnEnable()
     {
         backButton.onClick.AddListener(Esc);
         leftButton.onClick.AddListener(SizeDown);
         rightButton.onClick.AddListener(SizeUp);
 
+        resolutionSize = GameManager.instance.resolution;
+        fullScreenMode = DataManager.instance.data.screenMode;
         canvasScaler = GameObject.Find("Canvas").transform.GetComponent<CanvasScaler>();
-        resolution.text = GameManager.instance.canvasScaler.x.ToString() + " X " + GameManager.instance.canvasScaler.y.ToString();
+
+        screenMode.onValueChanged.AddListener(ChangeWindowType);
+        screenMode.isOn = DataManager.instance.data.fullScreenOnOff;
 
         soundToggle[0].onValueChanged.AddListener(MainVolume);
+        soundToggle[0].isOn = DataManager.instance.data.soundOnOff[0];
         soundToggle[1].onValueChanged.AddListener(BackVolume);
+        soundToggle[1].isOn = DataManager.instance.data.soundOnOff[1];
 
         for (int i = 0; i < 3; i++)
         {
@@ -36,6 +62,7 @@ public class OptionManager : MonoBehaviour
 
     private void Update()
     {
+        resolution.text = canvasScaler.referenceResolution.x.ToString() + " X " + canvasScaler.referenceResolution.y.ToString();
         AudioManager.instance.SoundValue(soundSlider[0].value, soundSlider[1].value, soundSlider[2].value);
     }
 
@@ -46,59 +73,68 @@ public class OptionManager : MonoBehaviour
 
     private void SizeUp()
     {
-        float x = canvasScaler.referenceResolution.x;
-
-        switch (x)
+        switch (resolutionSize)
         {
-            case 1280:
-                canvasScaler.referenceResolution = new Vector2(1600, 900);
-                resolution.text = "1600 X 900";
+            case Resolution.P720:
+                resolutionSize = Resolution.P900;
                 break;
-            case 1600:
-                canvasScaler.referenceResolution = new Vector2(1920, 1080);
-                resolution.text = "1920 X 1080";
+            case Resolution.P900:
+                resolutionSize = Resolution.P1080;
                 break;
-            case 1920:
-                canvasScaler.referenceResolution = new Vector2(2560, 1440);
-                resolution.text = "2560 X 1440";
+            case Resolution.P1080:
+                resolutionSize = Resolution.P1440;
                 break;
-            case 2560:
+            case Resolution.P1440:
                 break;
         }
-        GameManager.instance.canvasScaler = canvasScaler.referenceResolution;
+        GameManager.instance.resolution = resolutionSize;
+        GameManager.instance.ChangeResolution();
 
-        DataManager.instance.data.canvasScalerSize[0] = canvasScaler.referenceResolution.x;
-        DataManager.instance.data.canvasScalerSize[1] = canvasScaler.referenceResolution.y;
+        DataManager.instance.data.resolution = resolutionSize;
 
         DataManager.instance.Save();
     }
 
     private void SizeDown()
     {
-        float x = canvasScaler.referenceResolution.x;
-
-        switch (x)
+        switch (resolutionSize)
         {
-            case 1280:
+            case Resolution.P720:
                 break;
-            case 1600:
-                canvasScaler.referenceResolution = new Vector2(1280, 720);
-                resolution.text = "1280 X 720";
+            case Resolution.P900:
+                resolutionSize = Resolution.P720;
                 break;
-            case 1920:
-                canvasScaler.referenceResolution = new Vector2(1600, 900);
-                resolution.text = "1600 X 900";
+            case Resolution.P1080:
+                resolutionSize = Resolution.P900;
                 break;
-            case 2560:
-                canvasScaler.referenceResolution = new Vector2(1920, 1080);
-                resolution.text = "1920 X 1080";
+            case Resolution.P1440:
+                resolutionSize = Resolution.P1080;
                 break;
         }
-        GameManager.instance.canvasScaler = canvasScaler.referenceResolution;
+        GameManager.instance.resolution = resolutionSize;
+        GameManager.instance.ChangeResolution();
 
-        DataManager.instance.data.canvasScalerSize[0] = canvasScaler.referenceResolution.x;
-        DataManager.instance.data.canvasScalerSize[1] = canvasScaler.referenceResolution.y;
+        DataManager.instance.data.resolution = resolutionSize;
 
+        DataManager.instance.Save();
+    }
+
+    private void ChangeWindowType(bool flag)
+    {
+        switch (flag)
+        {
+            case true:
+                fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                Screen.SetResolution((int)canvasScaler.referenceResolution.x, (int)canvasScaler.referenceResolution.y, fullScreenMode);
+                DataManager.instance.data.fullScreenOnOff = true;
+                break;
+            case false:
+                fullScreenMode = FullScreenMode.Windowed;
+                Screen.SetResolution((int)canvasScaler.referenceResolution.x, (int)canvasScaler.referenceResolution.y, fullScreenMode);
+                DataManager.instance.data.fullScreenOnOff = false;
+                break;
+        }
+        DataManager.instance.data.screenMode = fullScreenMode;
         DataManager.instance.Save();
     }
 
@@ -107,10 +143,12 @@ public class OptionManager : MonoBehaviour
         if (flag)
         {
             AudioManager.instance.MainSoundOn();
+            DataManager.instance.data.soundOnOff[0] = true;
         }
         else
         {
             AudioManager.instance.MainSoundOff();
+            DataManager.instance.data.soundOnOff[0] = false;
         }
     }
 
@@ -119,10 +157,12 @@ public class OptionManager : MonoBehaviour
         if (flag)
         {
             AudioManager.instance.MainSoundOn();
+            DataManager.instance.data.soundOnOff[1] = true;
         }
         else
         {
             AudioManager.instance.MainSoundOff();
+            DataManager.instance.data.soundOnOff[1] = false;
         }
     }
 

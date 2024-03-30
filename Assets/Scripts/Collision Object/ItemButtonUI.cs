@@ -41,7 +41,7 @@ public class ItemButtonUI : MonoBehaviour
     {
         if (levelUpUIManager.exclusionFlag)
         {
-            GameManager.instance.itemNumberCheck[itemNumber] = true;
+            GameManager.instance.itemLvCheck[itemNumber] = 7;
             transform.GetComponentInChildren<Button>().interactable = false;
             lockCase.SetActive(true);
             levelUpUIManager.exclusionFlag = false;
@@ -56,8 +56,15 @@ public class ItemButtonUI : MonoBehaviour
                 if (uIManager.weaponItem[i, 0] == itemNumber)
                 {
                     uIManager.weaponItem[i, 1]++;
-                    GameManager.instance.itemLvCheck[itemNumber]++;
-                    uIManager.weaponLv[i].text = "Lv. " + uIManager.weaponItem[i, 1].ToString();
+                    GameManager.instance.itemLvCheck[itemNumber] = uIManager.weaponItem[i, 1];
+                    if (DictionaryManager.instance.ItemInfoOutput(itemNumber).MaxLV == uIManager.weaponItem[i, 1])
+                    {
+                        uIManager.weaponLv[i].text = "Lv. Max";
+                    }
+                    else
+                    {
+                        uIManager.weaponLv[i].text = "Lv. " + uIManager.weaponItem[i, 1].ToString();
+                    }
                     flag = true;
                     ItemCheck(GameManager.instance.itemLvCheck[itemNumber]);
                     break;
@@ -82,8 +89,15 @@ public class ItemButtonUI : MonoBehaviour
                 if (uIManager.supportItem[i, 0] == itemNumber)
                 {
                     uIManager.supportItem[i, 1]++;
-                    GameManager.instance.itemLvCheck[itemNumber]++;
-                    uIManager.supportLv[i].text = "Lv. " + uIManager.supportItem[i, 1].ToString();
+                    GameManager.instance.itemLvCheck[itemNumber] = uIManager.supportItem[i, 1];
+                    if (DictionaryManager.instance.ItemInfoOutput(itemNumber).MaxLV == uIManager.supportItem[i, 1])
+                    {
+                        uIManager.supportLv[i].text = "Lv. Max";
+                    }
+                    else
+                    {
+                        uIManager.supportLv[i].text = "Lv. " + uIManager.supportItem[i, 1].ToString();
+                    }
                     flag = true;
                     ItemCheck(GameManager.instance.itemLvCheck[itemNumber]);
                     break;

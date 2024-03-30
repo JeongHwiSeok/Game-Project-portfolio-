@@ -69,7 +69,6 @@ public class UIManager : MonoBehaviour
             weaponLv[i].gameObject.SetActive(false);
             supportLv[i].gameObject.SetActive(false);
         }
-        StartCoroutine(Timer());
     }
 
     private void Update()
@@ -83,6 +82,10 @@ public class UIManager : MonoBehaviour
             shieldBar.value = PlayerManager.instance.Shield / PlayerManager.instance.MaxShield;
         }
         LvUP();
+
+        minute = (int)(GameManager.instance.time / 60);
+        second = (int)(GameManager.instance.time % 60);
+        timer.text = minute.ToString("00") + " : " + second.ToString("00");
     }
 
     private void expCheck()
@@ -114,17 +117,6 @@ public class UIManager : MonoBehaviour
                 flag = false;
                 GameManager.instance.state = false;
             }   
-        }
-    }
-
-    private IEnumerator Timer()
-    {
-        while (true)
-        {
-            minute = (int)(GameManager.instance.time / 60);
-            second = (int)(GameManager.instance.time % 60);
-            timer.text = minute.ToString("00") + " : " + second.ToString("00");
-            yield return null;
         }
     }
 }

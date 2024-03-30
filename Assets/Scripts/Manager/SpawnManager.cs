@@ -70,7 +70,7 @@ public class SpawnManager : MonoBehaviour
                 {
                     Vector3 pos = Random.insideUnitCircle * 20f;
 
-                    while ((pos.x >= -10 && pos.x <= 10) && (pos.y >= -5 && pos.y <= 5))
+                    while (Mathf.Abs(pos.x) <= 10 && Mathf.Abs(pos.x) <= 5)
                     {
                         pos = Random.insideUnitCircle * 20f;
                     }
@@ -95,7 +95,7 @@ public class SpawnManager : MonoBehaviour
 
                 Vector3 pos = Random.insideUnitCircle * 20f;
 
-                while ((pos.x >= -10 && pos.x <= 10) && (pos.y >= -5 && pos.y <= 5))
+                while (Mathf.Abs(pos.x) <= 10 && Mathf.Abs(pos.x) <= 5)
                 {
                     pos = Random.insideUnitCircle * 20f;
                 }
@@ -114,7 +114,7 @@ public class SpawnManager : MonoBehaviour
 
                 Vector3 pos = Random.insideUnitCircle * 20f;
 
-                while ((pos.x >= -10 && pos.x <= 10) && (pos.y >= -5 && pos.y <= 5))
+                while (Mathf.Abs(pos.x) <= 10 && Mathf.Abs(pos.y) <= 5)
                 {
                     pos = Random.insideUnitCircle * 20f;
                 }
@@ -159,7 +159,7 @@ public class SpawnManager : MonoBehaviour
 
                 Vector3 pos = Random.insideUnitCircle * 20f;
 
-                while ((pos.x >= -10 && pos.x <= 10) && (pos.y >= -5 && pos.y <= 5))
+                while (Mathf.Abs(pos.x) <= 10 && Mathf.Abs(pos.y) <= 5)
                 {
                     pos = Random.insideUnitCircle * 20f;
                 }

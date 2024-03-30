@@ -10,6 +10,8 @@ public class AoiManager : MonoBehaviour
 
     [SerializeField] List<GameObject> standbySpecialWeapon;
 
+    [SerializeField] GameObject note;
+
     [SerializeField] public Vector3 direction;
 
     [SerializeField] Bakamori bakamori;
@@ -45,6 +47,7 @@ public class AoiManager : MonoBehaviour
             instance = this;
         }
         buffCheck = true;
+        note.SetActive(false);
     }
 
     private void Start()
@@ -236,7 +239,7 @@ public class AoiManager : MonoBehaviour
         {
             while (GameManager.instance.state)
             {
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < maxCount; i++)
                 {
                     if (standbySpecialWeapon[i].activeSelf == false && GameManager.instance.state)
                     {
@@ -249,7 +252,7 @@ public class AoiManager : MonoBehaviour
                             y = Random.insideUnitSphere.y * 3;
                         }
 
-                        standbySpecialWeapon[i].transform.localPosition = new Vector3(x, y + 10, 0);
+                        standbySpecialWeapon[i].transform.position = new Vector3(x, y + 10, 0);
                         standbySpecialWeapon[i].GetComponent<AoiSpecialWeapon>().Target = new Vector3(x, y, 0);
 
                         standbySpecialWeapon[i].SetActive(true);
@@ -277,6 +280,7 @@ public class AoiManager : MonoBehaviour
             {
                 if (GameManager.instance.weaponItemList[i].activeSelf)
                 {
+                    note.SetActive(true);
                     if (maxCount == 1)
                     {
                         BuffDebuffManager.instance.aoiP2SpeedBuff = 1.1f;
@@ -305,6 +309,7 @@ public class AoiManager : MonoBehaviour
                 GameManager.instance.weaponItemList[i].GetComponent<Weapon>().SpeedUP();
             }
         }
+        note.SetActive(false);
         buffCheck = true;
     }
 

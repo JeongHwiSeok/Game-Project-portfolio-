@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum Movement
 {
@@ -32,6 +33,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] int shield;
     [SerializeField] public int haloShield;
     [SerializeField] int maxShield;
+
+    [SerializeField] GameObject hpBar;
 
     public int Hp
     {
@@ -83,8 +86,9 @@ public class PlayerManager : MonoBehaviour
         GameManager.instance.CharacterSpeed = DictionaryManager.instance.CharacterInfoOutput(GameManager.instance.charNum).Speed;
         if (BuffDebuffManager.instance.shopRecovery > 0)
         {
-            StartCoroutine(Recovery(BuffDebuffManager.instance.shopRecovery));
+            StartCoroutine(Recovery());
         }
+        hpBar.SetActive(false);
     }
 
     private void Update()
@@ -167,6 +171,7 @@ public class PlayerManager : MonoBehaviour
         {
             hp += (int)(shield-damage);
             shield = 0;
+            StartCoroutine(HpBar());
         }
         if(hp <= 0)
         {
@@ -229,7 +234,7 @@ public class PlayerManager : MonoBehaviour
         InputManager.instance.keyAction -= Move;
     }
 
-    private IEnumerator Recovery(float lv)
+    private IEnumerator Recovery()
     {
         while (true)
         {
@@ -237,13 +242,40 @@ public class PlayerManager : MonoBehaviour
             {
                 if (hp < maxHp)
                 {
-                    hp += 1;
+                    hp += (int)BuffDebuffManager.instance.shopRecovery;
                 }
-                yield return new WaitForSeconds(31 - lv);
+                yield return new WaitForSeconds(5);
             }
             if (GameManager.instance.monsterSpawn == false)
             {
                 yield break;
+            }
+            yield return null;
+        }
+    }
+
+    private IEnumerator HpBar()
+    {
+        hpBar.SetActive(true);
+        while (true)
+        {
+            int count = 0;
+
+            while (GameManager.instance.state)
+            {
+                if (hp == maxHp)
+                {
+                    count++;
+                    if (count > 3)
+                    {
+                        hpBar.SetActive(false);
+                        yield break;
+                    }
+                    yield return new WaitForSeconds(1f);
+                }
+                hpBar.transform.GetChild(0).GetComponent<Slider>().value = (float)hp / (float)maxHp;
+
+                yield return null;
             }
             yield return null;
         }

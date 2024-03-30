@@ -61,7 +61,15 @@ public class IkuminAttack : Weapon
             time += Time.deltaTime;
             float x0 = 0;
             float x1 = point.x;
-            float distance = x1 - x0;
+            float distance;
+            if (x1 != x0)
+            {
+                distance = x1 - x0;
+            }
+            else
+            {
+                return;
+            }
             float nextX = Mathf.MoveTowards(transform.position.x, x1, speed * Time.deltaTime);
             float baseY = Mathf.Lerp(0, point.y, (nextX - x0) / distance);
             float arc = (nextX - x0) * (nextX - x1) / (-0.2f * distance * distance);
@@ -112,6 +120,7 @@ public class IkuminAttack : Weapon
         }
         else if((collision.GetComponent<Monster>() != null || collision.GetComponent<BigMonster>() != null) && IkuManager.instance.ikuminBoom)
         {
+            point = collision.gameObject.transform.position;
             gameObject.transform.GetChild(0).GetComponent<IkuminBoom>().StatInput(10, normalspeed, knockBack, transform.localScale.x/0.7f);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             gameObject.GetComponent<Animator>().enabled = false;

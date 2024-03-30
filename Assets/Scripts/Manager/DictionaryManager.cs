@@ -98,7 +98,7 @@ public class DictionaryManager : Singleton<DictionaryManager>
         #endregion
 
         #region 아이템 레벨 정보
-        string[] itemInforTextLine = itemInformaion[DataManager.instance.data.language].text.Substring(0, itemInformaion[DataManager.instance.data.language].text.Length - 1).Split('\n');
+        string[] itemInforTextLine = itemInformaion[(int)DataManager.instance.data.language].text.Substring(0, itemInformaion[(int)DataManager.instance.data.language].text.Length - 1).Split('\n');
 
         for (int i = 0; i < itemInforTextLine.Length; i++)
         {
@@ -115,7 +115,7 @@ public class DictionaryManager : Singleton<DictionaryManager>
         #endregion
 
         #region 스킬 정보
-        string[] skillInforTextLine = skillInformaion[DataManager.instance.data.language].text.Substring(0, skillInformaion[DataManager.instance.data.language].text.Length - 1).Split('\n');
+        string[] skillInforTextLine = skillInformaion[(int)DataManager.instance.data.language].text.Substring(0, skillInformaion[(int)DataManager.instance.data.language].text.Length - 1).Split('\n');
 
         for (int i = 0; i < skillInforTextLine.Length; i++)
         {
@@ -132,7 +132,7 @@ public class DictionaryManager : Singleton<DictionaryManager>
         #endregion
 
         #region 일반공격 정보
-        string[] attackInforTextLine = atttackInformaion[DataManager.instance.data.language].text.Substring(0, atttackInformaion[DataManager.instance.data.language].text.Length - 1).Split('\n');
+        string[] attackInforTextLine = atttackInformaion[(int)DataManager.instance.data.language].text.Substring(0, atttackInformaion[(int)DataManager.instance.data.language].text.Length - 1).Split('\n');
 
         for (int i = 0; i < attackInforTextLine.Length; i++)
         {
@@ -248,7 +248,7 @@ public class DictionaryManager : Singleton<DictionaryManager>
     }
     public void ChangeLanguage()
     {
-        string[] itemInforTextLine = itemInformaion[DataManager.instance.data.language].text.Substring(0, itemInformaion[DataManager.instance.data.language].text.Length - 1).Split('\n');
+        string[] itemInforTextLine = itemInformaion[(int)DataManager.instance.data.language].text.Substring(0, itemInformaion[(int)DataManager.instance.data.language].text.Length - 1).Split('\n');
 
         for (int i = 0; i < itemInforTextLine.Length; i++)
         {

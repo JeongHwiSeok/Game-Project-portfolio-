@@ -7,11 +7,23 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
-    #region 정리 전
+    #region Global
+    [SerializeField] public CanvasScaler canvasScaler;
+    [SerializeField] public Resolution resolution;
+    [SerializeField] public float[] volume;
+
+    [SerializeField] public int playChapterNumber;
+    [SerializeField] public CharacterNumber charNumber;
+    public int charNum;
+
+    [SerializeField] GameObject audioSelect;
+    [SerializeField] bool audioSelectCheck;
+    #endregion
+
+    #region 플레이중에 관리되는 변수
     [SerializeField] private float characterSpeed;
     [SerializeField] private float monsterSpeed;
 
-    [SerializeField] public string characterName;
     [SerializeField] public int attackLV;
 
     [SerializeField] public bool state = true;
@@ -22,18 +34,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] public int[] itemLvCheck;
     [SerializeField] public bool[] itemNumberCheck;
 
-    [SerializeField] public CharacterNumber charNumber;
-    public int charNum;
-
     [SerializeField] public GameObject player;
 
-    [SerializeField] public int playChapterNumber;
-
-    [SerializeField] public Vector2 canvasScaler;
-    [SerializeField] public float[] volume;
-
-    #endregion
-    #region 플레이중에 관리되는 변수
     [SerializeField] public int monsterCount;
 
     [SerializeField] public int ikuminCount;
@@ -85,15 +87,12 @@ public class GameManager : Singleton<GameManager>
         switch (charNumber)
         {
             case CharacterNumber.Aoi:
-                characterName = "Tokimori Aoi";
                 player = Instantiate(Resources.Load<GameObject>("Tokimori Aoi"));
                 break;
             case CharacterNumber.Iku:
-                characterName = "Hoshifuri Iku";
                 player = Instantiate(Resources.Load<GameObject>("Hoshifuri Iku"));
                 break;
             case CharacterNumber.Meno:
-                characterName = "Ibuki Meno";
                 player = Instantiate(Resources.Load<GameObject>("Ibuki Meno"));
                 break;
         }
@@ -110,13 +109,49 @@ public class GameManager : Singleton<GameManager>
         monsterSpawn = false;
         DataManager.instance.data.shopCoin += UIManager.instance.DropCoin;
         DataManager.instance.Save();
-        Instantiate(Resources.Load<GameObject>("PreFabs/UI/GameOver"));
+        GameObject obj = Instantiate(Resources.Load<GameObject>("PreFabs/UI/GameOver"));
+        obj.GetComponent<GameOverPanel>().result.text = "Game Over";
+        attackLV = 1;
+    }
+
+    public void GameClear()
+    {
+        state = false;
+        monsterSpawn = false;
+        DataManager.instance.data.shopCoin += UIManager.instance.DropCoin;
+        DataManager.instance.Save();
+        GameObject obj = Instantiate(Resources.Load<GameObject>("PreFabs/UI/GameOver"));
+        obj.GetComponent<GameOverPanel>().result.text = "Game Clear";
         attackLV = 1;
     }
 
     public void ReLoadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ChangeResolution()
+    {
+        Debug.Log(resolution);
+        switch (resolution)
+        {
+            case Resolution.P720:
+                canvasScaler.referenceResolution = new Vector2(1280, 720);
+                Debug.Log("check1");
+                break;
+            case Resolution.P900:
+                canvasScaler.referenceResolution = new Vector2(1600, 900);
+                Debug.Log("check2");
+                break;
+            case Resolution.P1080:
+                canvasScaler.referenceResolution = new Vector2(1920, 1080);
+                Debug.Log("check3");
+                break;
+            case Resolution.P1440:
+                canvasScaler.referenceResolution = new Vector2(2560, 1440);
+                Debug.Log("check4");
+                break;
+        }
     }
 
     private void OnEnable()
@@ -127,8 +162,22 @@ public class GameManager : Singleton<GameManager>
     void onSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Time.timeScale = 1.0f;
-        GameObject.Find("Canvas").GetComponent<CanvasScaler>().referenceResolution = canvasScaler;
-        if(SceneManager.GetActiveScene().name == "PlayScene")
+
+        canvasScaler = GameObject.Find("Canvas").GetComponent<CanvasScaler>();
+        resolution = DataManager.instance.data.resolution;
+        ChangeResolution();
+        Screen.SetResolution((int)canvasScaler.referenceResolution.x, (int)canvasScaler.referenceResolution.y, DataManager.instance.data.screenMode);
+
+        for (int i = 0; i < 3; i++)
+        {
+            volume[i] = DataManager.instance.data.volume[i];
+        }
+        if (SceneManager.GetActiveScene().name == "MainScene" && audioSelectCheck == false)
+        {
+            Instantiate(audioSelect);
+            audioSelectCheck = true;
+        }
+        if (SceneManager.GetActiveScene().name == "PlayScene")
         {
             state = true;
             monsterSpawn = true;

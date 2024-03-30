@@ -1,10 +1,10 @@
-0	Hp	10	100	250	500	1000	1500	2000	3000	5000	10000	20000	HP increases by 5 per level.
+0	Hp	10	100	250	500	1000	1500	2000	3000	5000	10000	20000	Hp increases by 5 per level.
 1	Attack	10	100	250	500	1000	1500	2000	3000	5000	10000	20000	Atk increases by 5% per level.
 2	Speed	10	100	250	500	1000	1500	2000	3000	5000	10000	20000	Speed increases by 1% per level.
 3	Critical	10	100	250	500	1000	2000	5000	10000	20000	30000	50000	Critical increases by 1% per level.
 4	PickUp Range	5	500	1000	2000	5000	10000	0	0	0	0	0	Pick Up Range increases by 5% per level.
 5	Attack Speed	5	500	1000	2000	5000	10000	0	0	0	0	0	Attack Speed increases by 10% per level.
-6	Recovery	5	500	1000	2000	5000	10000	0	0	0	0	0	Recovers LV * 1 stamina every 5 seconds.
+6	Recovery	5	500	1000	2000	5000	10000	0	0	0	0	0	Recovers LV * 1 Hp every 5 seconds.
 7	Defence	10	100	250	500	1000	1500	2000	3000	5000	10000	20000	Damage received per level is reduced by 1%
 8	Skill Attack	10	100	250	500	1000	2000	5000	10000	20000	30000	50000	Skill damage increases by 10% per level
 9	Exp Up	10	100	250	500	1000	2000	5000	10000	20000	30000	50000	Exp gain per level increases by 10%

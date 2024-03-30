@@ -69,7 +69,7 @@ public class SpaceFood : MonoBehaviour
             float x = Random.insideUnitSphere.x * 10;
             float y = Random.insideUnitSphere.y * 6;
 
-            spacefood.transform.localPosition = new Vector3(x, y + 10, 0);
+            spacefood.transform.position = new Vector3(x, y + 10, 0);
 
             spacefood.GetComponent<DropSpaceFood>().Target = new Vector3(x, y, 0);
 

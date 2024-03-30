@@ -5,10 +5,11 @@ using UnityEngine;
 public class AoiSpecialWeapon : Weapon
 {
     [SerializeField] Vector3 target;
-    [SerializeField] Rigidbody2D rigidbody;
     [SerializeField] CapsuleCollider2D capsuleCollider;
 
     [SerializeField] Animator animator;
+
+    [SerializeField] bool drop;
 
     public Vector3 Target
     {
@@ -20,18 +21,30 @@ public class AoiSpecialWeapon : Weapon
     {
         animator.SetBool("Drop", true);
         capsuleCollider.enabled = false;
-        rigidbody.gravityScale = 1;
+        drop = false;
     }
 
     private void Update()
     {
-        if (transform.localPosition.y - target.y <= 0.1f)
+        if (drop)
         {
-            rigidbody.gravityScale = 0;
-            transform.localPosition = target;
-            animator.SetBool("Landing", true);
-            animator.SetBool("Drop", false);
-            capsuleCollider.enabled = true;
+            return;
+        }
+        else
+        {
+            if (GameManager.instance.state)
+            {
+                transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 10);
+
+                if ((transform.position - target).sqrMagnitude < 0.1f)
+                {
+                    transform.position = target;
+                    animator.SetBool("Landing", true);
+                    animator.SetBool("Drop", false);
+                    capsuleCollider.enabled = true;
+                    drop = true;
+                }
+            }
         }
     }
 

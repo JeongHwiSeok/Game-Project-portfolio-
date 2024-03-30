@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenoManager : MonoBehaviour
 {
@@ -25,6 +27,7 @@ public class MenoManager : MonoBehaviour
     public int jewalRandom;
 
     public float jewalCount;
+    [SerializeField] public Text count;
 
     public float pickUpBuff;
 
@@ -40,6 +43,7 @@ public class MenoManager : MonoBehaviour
         {
             instance = this;
         }
+        count.gameObject.SetActive(false);
     }
 
     private void Start()
@@ -50,6 +54,7 @@ public class MenoManager : MonoBehaviour
         duration = 0.7f;
         if (DataManager.instance.subArray[2, 7] > 0)
         {
+            count.gameObject.SetActive(true);
             if (DataManager.instance.subArray[2, 7] == 1)
             {
                 jewalRandom = 1;
@@ -141,16 +146,23 @@ public class MenoManager : MonoBehaviour
         while(true)
         {
             while (GameManager.instance.state)
-            { 
+            {
+                int count = 0;
                 for (int i = 0; i < 15; i++)
                 {
-                    if (menoBullet[i].activeSelf == false && GameManager.instance.state)
+                    if (menoBullet[i].activeSelf == false && GameManager.instance.state && count < 3)
                     {
                         point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
                         menoBullet[i].SetActive(true);
+                        count++;
                     }
-                    yield return new WaitForSeconds(duration);
+                    if (count >= 3)
+                    {
+                        break;
+                    }
+                    yield return new WaitForSeconds(0.3f);
                 }
+                yield return new WaitForSeconds(duration);
             }
             if (GameManager.instance.monsterSpawn == false)
             {

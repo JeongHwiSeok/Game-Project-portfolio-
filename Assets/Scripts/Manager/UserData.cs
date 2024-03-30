@@ -50,7 +50,10 @@ public class UserData
     public int[] IkuInformation = new int[12];
     public int[] MenoInformation = new int[12];
     public int[] shopInfo = new int[30];
-    public int language;
-    public float[] canvasScalerSize = new float[2];
+    public Language language;
+    public Resolution resolution;
+    public FullScreenMode screenMode;
+    public bool fullScreenOnOff;
+    public bool[] soundOnOff = new bool[3];
     public float[] volume = new float[3];
 }

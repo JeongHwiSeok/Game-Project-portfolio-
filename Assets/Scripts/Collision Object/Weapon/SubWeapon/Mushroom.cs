@@ -28,6 +28,7 @@ public class Mushroom : Weapon
         time = 0;
         move = false;
         animator.Play("Summon");
+        StartCoroutine(RunStart());
     }
 
     private void Update()
@@ -50,6 +51,14 @@ public class Mushroom : Weapon
 
     private void PositionStatus(Vector3 direction)
     {
+        if (direction.x >= 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
 
         Vector3 offset = transform.position - point;
@@ -57,18 +66,11 @@ public class Mushroom : Weapon
 
         if (sqrLen <= 0.05f || time > 10)
         {
-            time = 0;
             move = false;
             animator.SetBool("Boom", true);
             gameObject.transform.GetChild(0).GetComponent<MushRoomBoom>().StatInput(subAtk, normalspeed, knockBack, range);
             gameObject.transform.GetChild(0).GetComponent<MushRoomBoom>().gameObject.SetActive(true);
         }
-    }
-
-    public void Run()
-    {
-        animator.SetBool("Run", true);
-        move = true;
     }
 
     public void Point(Vector3 _target)
@@ -97,5 +99,12 @@ public class Mushroom : Weapon
             gameObject.transform.GetChild(0).GetComponent<MushRoomBoom>().StatInput(subAtk, normalspeed, knockBack, range);
             gameObject.transform.GetChild(0).GetComponent<MushRoomBoom>().gameObject.SetActive(true);
         }
+    }
+
+    private IEnumerator RunStart()
+    {
+        yield return new WaitForSeconds(1f);
+        animator.SetBool("Run", true);
+        move = true;
     }
 }

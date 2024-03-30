@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class IkuManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class IkuManager : MonoBehaviour
     [SerializeField] public List<GameObject> standbyWeapon;
 
     [SerializeField] public List<GameObject> standbySpecial;
+
+    [SerializeField] public Text ikuminText;
 
     [SerializeField] GameObject[] specialIkumin;
 
@@ -23,6 +26,7 @@ public class IkuManager : MonoBehaviour
     [SerializeField] float spdBuff;
     [SerializeField] float duration;
     [SerializeField] float size;
+    [SerializeField] float coolTime;
 
     [SerializeField] public bool ikuminStackFlag;
     [SerializeField] public bool ikuminBoom;
@@ -41,6 +45,7 @@ public class IkuManager : MonoBehaviour
         {
             instance = this;
         }
+        ikuminText.gameObject.SetActive(false);
     }
 
     private void Start()
@@ -57,10 +62,23 @@ public class IkuManager : MonoBehaviour
         StartCoroutine(IkuminAttack());
         if (DataManager.instance.subArray[1, 7] > 0)
         {
+            ikuminText.gameObject.SetActive(true);
             StartCoroutine(IkuminStackUp());
         }
         if (DataManager.instance.subArray[1, 8] > 0)
         {
+            if (DataManager.instance.subArray[1, 8] == 1)
+            {
+                coolTime = 15;
+            }
+            else if (DataManager.instance.subArray[1, 8] == 2)
+            {
+                coolTime = 10;
+            }
+            else
+            {
+                coolTime = 5;
+            }
             StartCoroutine(SpecialIkumin());
         }
         if (DataManager.instance.subArray[1, 9] > 0)
@@ -146,7 +164,21 @@ public class IkuManager : MonoBehaviour
         {
             while (GameManager.instance.state)
             {
-                ikuminCount += 3;
+                if (DataManager.instance.subArray[1, 7] == 1)
+                {
+                    ikuminCount += 1;
+                    ikuminText.text = ikuminCount.ToString();
+                }
+                else if (DataManager.instance.subArray[1, 7] == 2)
+                {
+                    ikuminCount += 3;
+                    ikuminText.text = ikuminCount.ToString();
+                }
+                else
+                {
+                    ikuminCount += 5;
+                    ikuminText.text = ikuminCount.ToString();
+                }
 
                 yield return new WaitForSeconds(5f);
             }
@@ -174,7 +206,7 @@ public class IkuManager : MonoBehaviour
                         standbySpecial[random].SetActive(true);
                     }
                 }
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(coolTime);
             }
             if (GameManager.instance.monsterSpawn == false)
             {
@@ -190,18 +222,51 @@ public class IkuManager : MonoBehaviour
         {
             while (GameManager.instance.state)
             {
-                if (ikuminCount <= 100)
+                if (DataManager.instance.subArray[1, 9] == 1)
                 {
-                    atkBuff = ikuminCount / 100 + 1;
-                    atkspdBuff = ikuminCount / 200 + 1;
-                    spdBuff = ikuminCount / 200 + 1;
+                    if (ikuminCount <= 100)
+                    {
+                        atkBuff = ikuminCount / 300 + 1;
+                        atkspdBuff = ikuminCount / 600 + 1;
+                        spdBuff = ikuminCount / 600 + 1;
+                    }
+                    else
+                    {
+                        atkBuff = 2;
+                        atkspdBuff = 1.5f;
+                        spdBuff = 1.5f;
+                    }
+                }
+                else if (DataManager.instance.subArray[1, 9] == 2)
+                {
+                    if (ikuminCount <= 100)
+                    {
+                        atkBuff = ikuminCount / 200 + 1;
+                        atkspdBuff = ikuminCount / 400 + 1;
+                        spdBuff = ikuminCount / 400 + 1;
+                    }
+                    else
+                    {
+                        atkBuff = 2;
+                        atkspdBuff = 1.5f;
+                        spdBuff = 1.5f;
+                    }
                 }
                 else
                 {
-                    atkBuff = 2;
-                    atkspdBuff = 1.5f;
-                    spdBuff = 1.5f;
-                }
+                    if (ikuminCount <= 100)
+                    {
+                        atkBuff = ikuminCount / 100 + 1;
+                        atkspdBuff = ikuminCount / 200 + 1;
+                        spdBuff = ikuminCount / 200 + 1;
+                    }
+                    else
+                    {
+                        atkBuff = 2;
+                        atkspdBuff = 1.5f;
+                        spdBuff = 1.5f;
+                    }
+                } 
 
                 yield return new WaitForSeconds(5f);
             }

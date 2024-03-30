@@ -28,6 +28,7 @@ public class SkillButton : MonoBehaviour
         {
             DataManager.instance.subArray[GameManager.instance.charNum, 10]--;
             DataManager.instance.subArray[GameManager.instance.charNum, int.Parse(transform.parent.name)]++;
+            DataManager.instance.Save();
         }
     }
 
@@ -37,6 +38,7 @@ public class SkillButton : MonoBehaviour
         {
             DataManager.instance.subArray[GameManager.instance.charNum, 10]++;
             DataManager.instance.subArray[GameManager.instance.charNum, int.Parse(transform.parent.name)]--;
+            DataManager.instance.Save();
         }
     }
 }

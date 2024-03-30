@@ -195,7 +195,7 @@ public class BossShiro : BigMonster
         if (firstCheck)
         {
             GameManager.instance.monsterCount++;
-            GameManager.instance.GameOver();
+            GameManager.instance.GameClear();
         }
         else
         {

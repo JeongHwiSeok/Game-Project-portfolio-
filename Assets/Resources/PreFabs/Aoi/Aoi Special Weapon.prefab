@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6611023082830925606}
   - component: {fileID: 4607215308095352319}
   - component: {fileID: 6912445754531652318}
-  - component: {fileID: 5314840313873155841}
   - component: {fileID: 1438078356399245248}
   m_Layer: 7
   m_Name: Aoi Special Weapon
@@ -34,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6611023082830925606
 SpriteRenderer:
@@ -103,10 +102,12 @@ MonoBehaviour:
   atk: 0
   knockBack: 0
   speed: 0
+  normalspeed: 0
   target: {x: 0, y: 0, z: 0}
-  rigidbody: {fileID: 5314840313873155841}
+  rigidbody: {fileID: 0}
   capsuleCollider: {fileID: 1438078356399245248}
   animator: {fileID: 6912445754531652318}
+  drop: 0
 --- !u!95 &6912445754531652318
 Animator:
   serializedVersion: 5
@@ -128,33 +129,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!50 &5314840313873155841
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7109948439240228157}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 5
 --- !u!70 &1438078356399245248
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

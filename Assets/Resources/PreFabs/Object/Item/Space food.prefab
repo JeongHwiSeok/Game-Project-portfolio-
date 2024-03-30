@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
   spaceFood: {fileID: 0}
+  drop: 0
 --- !u!61 &4397350791259016945
 BoxCollider2D:
   m_ObjectHideFlags: 0

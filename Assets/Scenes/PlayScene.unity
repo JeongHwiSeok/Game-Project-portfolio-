@@ -621,6 +621,25 @@ MonoBehaviour:
   jbCoinPow: 0
   pgcExpPow: 0
   shpPickUpRangePow: 0
+  shopHp: 0
+  shopAtk: 0
+  shopSpd: 0
+  shopCri: 0
+  shopPickUpRange: 0
+  shopAtkSpeed: 0
+  shopRecovery: 0
+  shopDefence: 0
+  shopSkillAtk: 0
+  shopExp: 0
+  shopCoin: 0
+  shopDamage: 0
+  shopReturn: 0
+  shopExclusion: 0
+  shopBroadCast: 0
+  statHp: 0
+  statAtk: 0
+  statSpd: 0
+  statCri: 0
 --- !u!4 &201325038
 Transform:
   m_ObjectHideFlags: 0

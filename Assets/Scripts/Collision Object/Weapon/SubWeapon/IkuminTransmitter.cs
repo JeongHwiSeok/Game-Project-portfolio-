@@ -25,6 +25,11 @@ public class IkuminTransmitter : Weapon
         speed = normalspeed;
         knockBack = 0.1f;
         dis = 2;
+        count = 1;
+        duration = 4;
+        atkBuff = 1;
+        speedBuff = 1;
+
         parent = GameObject.Find("Attack Manager").transform;
         for (int i = 0; i < 4; i++)
         {
@@ -46,10 +51,6 @@ public class IkuminTransmitter : Weapon
         switch (itemLV)
         {
             case 1:
-                count = 1;
-                duration = 4;
-                atkBuff = 1;
-                speedBuff = 1;
                 break;
             case 2:
                 count = 2;

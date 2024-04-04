@@ -165,6 +165,7 @@ public class GameManager : Singleton<GameManager>
 
         canvasScaler = GameObject.Find("Canvas").GetComponent<CanvasScaler>();
         resolution = DataManager.instance.data.resolution;
+
         ChangeResolution();
         Screen.SetResolution((int)canvasScaler.referenceResolution.x, (int)canvasScaler.referenceResolution.y, DataManager.instance.data.screenMode);
 

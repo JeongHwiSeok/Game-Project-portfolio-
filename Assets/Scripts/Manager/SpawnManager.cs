@@ -174,7 +174,7 @@ public class SpawnManager : MonoBehaviour
             {
                 yield break;
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
@@ -201,7 +201,7 @@ public class SpawnManager : MonoBehaviour
                     changeCount--;
                 }
             }
-            yield return new WaitForSeconds(0.2f);
+            yield return null;
         }
     }
 

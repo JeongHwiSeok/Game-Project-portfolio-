@@ -8,6 +8,8 @@ public class SafetyOnOffManager : MonoBehaviour
     [SerializeField] GameObject prism;
     [SerializeField] GameObject safe;
 
+    [SerializeField] GameObject songInformation;
+
     [SerializeField] Button prismButton;
     [SerializeField] Button safeButton;
 
@@ -19,15 +21,12 @@ public class SafetyOnOffManager : MonoBehaviour
 
     private void PrismButtom()
     {
-        prism.SetActive(true);
-        Instantiate(prism);
-        GameManager.instance.ReLoadScene();
-        Destroy(gameObject);
+        Instantiate(songInformation);
+        songInformation.GetComponent<SongInformationPanel>().safeSelect = this.gameObject;
     }
 
     private void SafeButton()
     {
-        safe.SetActive(true);
         Instantiate(safe);
         GameManager.instance.ReLoadScene();
         Destroy(gameObject);

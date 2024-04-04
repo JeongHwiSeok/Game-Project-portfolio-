@@ -12,7 +12,7 @@ public class CharacterInformationManager : MonoBehaviour
     [SerializeField] Sprite[,] characterSkill;
 
     [SerializeField] Image[] characterSkillImage;
-    [SerializeField] Text[] characterSkillName;  // Ä³¸¯ÅÍ µñ¼Å³Ê¸® Ãß°¡
+    [SerializeField] Text[] characterSkillName;  
     [SerializeField] Text[] characterSkillInformation;
 
     [SerializeField] Text[] skillLv;

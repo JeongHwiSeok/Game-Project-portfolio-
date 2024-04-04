@@ -55,9 +55,9 @@ public class DataManager : Singleton<DataManager>
 
         string json = JsonUtility.ToJson(data);
 
-        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
+        //byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
 
-        string code = System.Convert.ToBase64String(bytes);
+        //string code = System.Convert.ToBase64String(bytes);
 
         File.WriteAllText(Application.persistentDataPath + "/GameData.json", json);
     }
@@ -68,21 +68,20 @@ public class DataManager : Singleton<DataManager>
 
         string json = JsonUtility.ToJson(data);
 
-        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
+        //byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
 
-        string code = System.Convert.ToBase64String(bytes);
+        //string code = System.Convert.ToBase64String(bytes);
 
         File.WriteAllText(Application.persistentDataPath + "/GameData.json", json);
     }
 
     public void Load()
     {
-        Debug.Log("Load");
         string jsonData = File.ReadAllText(Application.persistentDataPath + "/GameData.json");
 
-        byte[] bytes = System.Convert.FromBase64String(jsonData);
+        //byte[] bytes = System.Convert.FromBase64String(jsonData);
 
-        string code = System.Text.Encoding.UTF8.GetString(bytes);
+        //string code = System.Text.Encoding.UTF8.GetString(bytes);
 
         data = JsonUtility.FromJson<UserData>(jsonData);
 
@@ -160,8 +159,10 @@ public class DataManager : Singleton<DataManager>
                 {
                     subArray[i, j] = 0;
                 }
-                sum = 0;
             }
+
+            sum = 0;
+            
             for (int j = 7; j < 10; j++)
             {
                 sum += subArray[i, j];

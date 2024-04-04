@@ -675,8 +675,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317655d2bfd93f147b3ac50ea972c826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
   prism: {fileID: 7909794369916867778, guid: bddd3ec4b2529fe4c9ee5b8b421fe9f0, type: 3}
   safe: {fileID: 2682026403194770386, guid: 7534eefa2156852448b0a4017290a301, type: 3}
+  songInformation: {fileID: 7168181992239709546, guid: e37f31e5ac85d824e8e32924a7d75afa, type: 3}
   prismButton: {fileID: 8250966071710235738}
   safeButton: {fileID: 3039810176051597488}

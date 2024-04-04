@@ -145,7 +145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &42382496546370631
 Transform:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ Transform:
   - {fileID: 8050660409079561377}
   - {fileID: 7871332741589365253}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &6291504663403734862
 AudioSource:
@@ -272,10 +272,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundScene: 0
-  effectSource: {fileID: 0}
-  scenerySource: {fileID: 0}
-  mainSound: {fileID: 0}
-  playSound: []
+  effectSource: {fileID: 6291504663403734862}
+  scenerySource: {fileID: 7424995989152148686}
+  mainSound: {fileID: 8300000, guid: 805df5c1f7052430b8758926bdbabc56, type: 3}
+  playSound:
+  - {fileID: 8300000, guid: 0ce882d1c3022499f82b292bd7197a93, type: 3}
 --- !u!1 &7564454206573168593
 GameObject:
   m_ObjectHideFlags: 0

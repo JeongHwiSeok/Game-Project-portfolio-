@@ -178,6 +178,7 @@ public class Monster : MonoBehaviour
 
     private void OnDestroy()
     {
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
         Destroy(gameObject);
     }
 

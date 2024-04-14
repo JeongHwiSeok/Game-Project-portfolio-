@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3219818503750202071}
   - component: {fileID: 9035654361197167041}
   - component: {fileID: 3862712427813934454}
-  - component: {fileID: 2544343084986251678}
   - component: {fileID: 1952125235892386131}
+  - component: {fileID: 3843612713703705506}
   m_Layer: 7
   m_Name: Speeker
   m_TagString: Untagged
@@ -99,7 +99,7 @@ Animator:
   m_GameObject: {fileID: 3846646504651183152}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 559609fede943194ebab42e913dce988, type: 2}
+  m_Controller: {fileID: 9100000, guid: c51a954905261514eaf365e89843c2f1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -110,8 +110,47 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!58 &2544343084986251678
-CircleCollider2D:
+--- !u!114 &1952125235892386131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3846646504651183152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b52864381fa034ab5fcdf2c3ddcb67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPosition: {x: 0, y: 0, z: 0}
+  previusPosition: {x: 0, y: 0, z: 0}
+  maxHp: 0
+  hp: 0
+  speed: 0
+  firstCheck: 0
+  redCoin: 0
+  direction: {x: 0, y: 0, z: 0}
+  spriteRenderer: {fileID: 0}
+  dropItem:
+  - {fileID: 7831105439901469306, guid: 02800f357e5909b469add9ca4b5b8d4d, type: 3}
+  weapon: {fileID: 0}
+  player: {fileID: 0}
+  timeCheck: 0
+  damageTime: 0
+  parent: {fileID: 0}
+  drop: {fileID: 0}
+  dotDamage: 0
+  rainSlow: 0
+  rainDamage: 0
+  trickDamage: 0
+  menoDebuff: 0
+  attack: {fileID: 7332101211617677111}
+  attackRange: {fileID: 5711893040849283406}
+  animators:
+  - {fileID: 3053801067602654820}
+  - {fileID: 8590658333995455264}
+--- !u!61 &3843612713703705506
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -142,47 +181,19 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04, y: 0.03}
+  m_Offset: {x: -0.04784575, y: 0.02518186}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 2, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.48372865
---- !u!114 &1952125235892386131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3846646504651183152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4b52864381fa034ab5fcdf2c3ddcb67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentPosition: {x: 0, y: 0, z: 0}
-  previusPosition: {x: 0, y: 0, z: 0}
-  maxHp: 0
-  hp: 0
-  firstCheck: 0
-  redCoin: 0
-  direction: {x: 0, y: 0, z: 0}
-  spriteRenderer: {fileID: 0}
-  dropItem:
-  - {fileID: 7831105439901469306, guid: 02800f357e5909b469add9ca4b5b8d4d, type: 3}
-  weapon: {fileID: 0}
-  player: {fileID: 0}
-  timeCheck: 0
-  damageTime: 0
-  parent: {fileID: 0}
-  drop: {fileID: 0}
-  dotDamage: 0
-  rainSlow: 0
-  rainDamage: 0
-  trickDamage: 0
-  menoDebuff: 0
-  attack: {fileID: 7332101211617677111}
-  attackRange: {fileID: 5711893040849283406}
-  animators:
-  - {fileID: 3053801067602654820}
-  - {fileID: 8590658333995455264}
+  m_Size: {x: 0.72579235, y: 0.7207561}
+  m_EdgeRadius: 0
 --- !u!1 &5711893040849283406
 GameObject:
   m_ObjectHideFlags: 0

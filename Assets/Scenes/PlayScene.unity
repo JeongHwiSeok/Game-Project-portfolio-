@@ -4442,9 +4442,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6083082588772cc40b8c44a518e86a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasScaler: {fileID: 0}
+  resolution: 0
+  volume: []
+  playChapterNumber: 0
+  charNumber: 0
+  charNum: 0
+  audioSelect: {fileID: 0}
+  audioSelectCheck: 0
   characterSpeed: 3
   monsterSpeed: 1
-  characterName: 
   attackLV: 0
   state: 1
   monsterSpawn: 1
@@ -4452,12 +4459,7 @@ MonoBehaviour:
   supportcount: 0
   itemLvCheck: 
   itemNumberCheck: 
-  charNumber: 0
-  charNum: 0
   player: {fileID: 0}
-  playChapterNumber: 0
-  canvasScaler: {x: 1280, y: 720}
-  volume: []
   monsterCount: 0
   ikuminCount: 0
   time: 0

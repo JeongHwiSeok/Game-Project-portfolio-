@@ -200,10 +200,12 @@ public class BigMonster : MonoBehaviour
                 if (count <= PlayerManager.instance.Cri * 10)
                 {
                     hp -= (int)((weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff) * 1.5f * BuffDebuffManager.instance.shopDamage);
+                    StartCoroutine(InvincibleTime());
                 }
                 else
                 {
                     hp -= (int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff * BuffDebuffManager.instance.shopDamage);
+                    StartCoroutine(InvincibleTime());
                 }
                 if (hp > 0)
                 {
@@ -295,6 +297,13 @@ public class BigMonster : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    protected virtual IEnumerator InvincibleTime()
+    {
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        yield return new WaitForSeconds(0.01f);
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
     }
 
     protected virtual IEnumerator ContinueDamageRain(int damage)

@@ -29,11 +29,11 @@ Transform:
   m_GameObject: {fileID: 6328658018071511788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2057870408756737966
 SpriteRenderer:
@@ -97,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 6328658018071511788}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1fb76ffe5deb2d64fa1a28b20c15b23a, type: 2}
+  m_Controller: {fileID: 22100000, guid: d7c23df0647ec1c4c9ddb6a4a0f17c70, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -148,6 +148,7 @@ MonoBehaviour:
   menoDebuff: 0
   secondHand: {fileID: 0}
   fire: {fileID: 4058151546459044772, guid: e16fea3ea845ea14b96d72ffc04a9446, type: 3}
+  effectTrigger: 0
 --- !u!61 &5255975554590432531
 BoxCollider2D:
   m_ObjectHideFlags: 0

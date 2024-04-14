@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 606713367928218823}
   - component: {fileID: 5906694752780656234}
   - component: {fileID: 7621998208819007031}
-  - component: {fileID: 1525247995366800396}
+  - component: {fileID: -3850729117039861742}
   m_Layer: 7
   m_Name: Shiro
   m_TagString: Untagged
@@ -453,6 +453,7 @@ MonoBehaviour:
   previusPosition: {x: 0, y: 0, z: 0}
   maxHp: 0
   hp: 0
+  speed: 0
   firstCheck: 0
   redCoin: 0
   direction: {x: 0, y: 0, z: 0}
@@ -477,8 +478,8 @@ MonoBehaviour:
   - {fileID: 6291164270080092845}
   attackFlag: 0
   attackStap: 000000
---- !u!58 &1525247995366800396
-CircleCollider2D:
+--- !u!61 &-3850729117039861742
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -509,6 +510,16 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04002719, y: 0.16221558}
+  m_Offset: {x: -0.05136908, y: 0.12842211}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 2, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.3132175
+  m_Size: {x: 0.4589321, y: 0.5340097}
+  m_EdgeRadius: 0

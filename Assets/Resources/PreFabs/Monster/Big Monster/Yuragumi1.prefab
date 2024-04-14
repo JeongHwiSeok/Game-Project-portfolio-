@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5176154011047967619}
   - component: {fileID: 1649325404739949658}
   - component: {fileID: 1130385032073280711}
-  - component: {fileID: 5037919202939817697}
   - component: {fileID: 2135625808581924069}
+  - component: {fileID: 7140742349338429632}
   m_Layer: 7
   m_Name: Yuragumi1
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1649325404739949658
 SpriteRenderer:
@@ -97,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 8183214469845250336}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7ef7c8e5f321fde469fbceb9b1b1d638, type: 2}
+  m_Controller: {fileID: 22100000, guid: 6c59987ce5a39a948b294058285ad72b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -108,8 +108,42 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!58 &5037919202939817697
-CircleCollider2D:
+--- !u!114 &2135625808581924069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8183214469845250336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c5aac93035b7e47b6c5df4a5bcc288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPosition: {x: 0, y: 0, z: 0}
+  previusPosition: {x: 0, y: 0, z: 0}
+  maxHp: 0
+  hp: 0
+  speed: 0
+  firstCheck: 0
+  redCoin: 0
+  direction: {x: 0, y: 0, z: 0}
+  spriteRenderer: {fileID: 0}
+  dropItem:
+  - {fileID: 7831105439901469306, guid: 02800f357e5909b469add9ca4b5b8d4d, type: 3}
+  weapon: {fileID: 0}
+  player: {fileID: 0}
+  timeCheck: 0
+  damageTime: 0
+  parent: {fileID: 0}
+  drop: {fileID: 0}
+  dotDamage: 0
+  rainSlow: 0
+  rainDamage: 0
+  trickDamage: 0
+  menoDebuff: 0
+--- !u!61 &7140742349338429632
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -140,39 +174,16 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.06840606}
+  m_Offset: {x: 0.0024045072, y: -0.060513318}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.32}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.091593936
---- !u!114 &2135625808581924069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8183214469845250336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30c5aac93035b7e47b6c5df4a5bcc288, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentPosition: {x: 0, y: 0, z: 0}
-  previusPosition: {x: 0, y: 0, z: 0}
-  maxHp: 0
-  hp: 0
-  firstCheck: 0
-  redCoin: 0
-  direction: {x: 0, y: 0, z: 0}
-  spriteRenderer: {fileID: 0}
-  dropItem:
-  - {fileID: 7831105439901469306, guid: 02800f357e5909b469add9ca4b5b8d4d, type: 3}
-  weapon: {fileID: 0}
-  player: {fileID: 0}
-  timeCheck: 0
-  damageTime: 0
-  parent: {fileID: 0}
-  drop: {fileID: 0}
-  dotDamage: 0
-  rainSlow: 0
-  rainDamage: 0
-  trickDamage: 0
-  menoDebuff: 0
+  m_Size: {x: 0.15809676, y: 0.13966227}
+  m_EdgeRadius: 0

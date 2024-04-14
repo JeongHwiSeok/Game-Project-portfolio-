@@ -87,7 +87,7 @@ public class SpawnManager : MonoBehaviour
                     maxCount += (int)(10 * BuffDebuffManager.instance.cbCountDebuff * BuffDebuffManager.instance.shopBroadCast);
                 }
             }      
-            if(GameManager.instance.time % 90 < 1 && GameManager.instance.time >= (bigMonsterNumber +1 ) * 90 && GameManager.instance.time > 1 && GameManager.instance.time < 610)
+            if(GameManager.instance.time >= (bigMonsterNumber +1 ) * 90 && GameManager.instance.time > 1 && GameManager.instance.time < 610)
             {
                 GameObject monster = Instantiate(bigMonsterList[bigMonsterNumber], parent);
 
@@ -106,7 +106,7 @@ public class SpawnManager : MonoBehaviour
 
                 bigMonsterNumber++;
             }
-            else if ((GameManager.instance.time - 60) % 90 < 1 && GameManager.instance.time >= ((bigMonsterNumber + 1) * 90) + 60 && GameManager.instance.time < 1210)
+            else if (GameManager.instance.time >= ((bigMonsterNumber + 1) * 90) + 60 && GameManager.instance.time < 1210)
             {
                 GameObject monster = Instantiate(bigMonsterList[bigMonsterNumber], parent);
 
@@ -125,7 +125,7 @@ public class SpawnManager : MonoBehaviour
 
                 bigMonsterNumber++;
             }
-            if (GameManager.instance.time % 90 <= 1 && GameManager.instance.time >= 1 && GameManager.instance.time > (monsterNumber +1) *90 && GameManager.instance.time < 610)
+            if (GameManager.instance.time >= 1 && GameManager.instance.time > (monsterNumber +1) *90 && GameManager.instance.time < 610)
             {
                 if(monsterNumber < monsterList.Count - 1)
                 {
@@ -134,9 +134,9 @@ public class SpawnManager : MonoBehaviour
                 changeCount = standByMonsterList.Count / 2;
                 StartCoroutine(ChangeMonster());
             }
-            else if ((GameManager.instance.time - 60) % 90 <= 1 && GameManager.instance.time > ((monsterNumber + 1) * 90) + 60 && GameManager.instance.time < 1200)
+            else if (GameManager.instance.time > ((monsterNumber + 1) * 90) + 60 && GameManager.instance.time < 1200)
             {
-                if (monsterNumber < monsterList.Count - 1)
+                if (monsterNumber < monsterList.Count)
                 {
                     monsterNumber++;
                 }
@@ -151,7 +151,7 @@ public class SpawnManager : MonoBehaviour
                     StartCoroutine(EndChangeMonster());
                 }
             }
-            if (GameManager.instance.time % 600 <= 1 && GameManager.instance.time >= 1 && GameManager.instance.time > (bossMonsterNumber +1) * 600 && bossMonsterNumber < bossMonsterList.Count)
+            if (GameManager.instance.time > (bossMonsterNumber +1) * 600 && bossMonsterNumber < bossMonsterList.Count && GameManager.instance.time < 1800)
             {
                 GameObject monster = Instantiate(bossMonsterList[bossMonsterNumber], parent);
 

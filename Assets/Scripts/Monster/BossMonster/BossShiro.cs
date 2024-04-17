@@ -93,7 +93,7 @@ public class BossShiro : BigMonster
     }
     protected void UpTarget()
     {
-        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Vector3 point = transform.position;
         point.y = 11.5f;
         transform.position = Vector3.Lerp(transform.position, point, 3 * Time.deltaTime);
@@ -138,7 +138,7 @@ public class BossShiro : BigMonster
             attackStap[2] = false;
             attackFlag = false;
             speed = 1;
-            gameObject.GetComponent<CircleCollider2D>().enabled = true;
+            gameObject.GetComponent<BoxCollider2D>().enabled = true;
         }
     }
 

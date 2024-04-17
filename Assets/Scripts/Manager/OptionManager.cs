@@ -63,7 +63,14 @@ public class OptionManager : Singleton<OptionManager>
     private void Update()
     {
         resolution.text = canvasScaler.referenceResolution.x.ToString() + " X " + canvasScaler.referenceResolution.y.ToString();
-        AudioManager.instance.SoundValue(soundSlider[0].value, soundSlider[1].value, soundSlider[2].value);
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.SoundValue(soundSlider[0].value, soundSlider[1].value, soundSlider[2].value);
+        }
+        else if (SafeAudioManager.instance != null)
+        {
+            SafeAudioManager.instance.SoundValue(soundSlider[0].value, soundSlider[1].value, soundSlider[2].value);
+        }
     }
 
     private void Esc()

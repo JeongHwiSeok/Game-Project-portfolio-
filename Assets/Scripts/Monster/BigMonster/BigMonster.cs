@@ -209,7 +209,14 @@ public class BigMonster : MonoBehaviour
                 }
                 if (hp > 0)
                 {
-                    damageTime = 0.2f;
+                    if (weapon.KnockBack == 0)
+                    {
+                        damageTime = 0;
+                    }
+                    else
+                    {
+                        damageTime = 0.2f;
+                    }
                 }
                 if (collision.GetComponent<IkuminAttack>() != null)
                 {
@@ -302,7 +309,7 @@ public class BigMonster : MonoBehaviour
     protected virtual IEnumerator InvincibleTime()
     {
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.1f);
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
     }
 

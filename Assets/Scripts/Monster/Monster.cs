@@ -52,6 +52,7 @@ public class Monster : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
         parent = transform.parent.parent.GetChild(11);
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
         dropItemManager = transform.parent.parent.GetChild(11).GetComponent<DropItemManager>();
@@ -169,6 +170,7 @@ public class Monster : MonoBehaviour
                 }         
             }
             DropItem();
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
         else
         {

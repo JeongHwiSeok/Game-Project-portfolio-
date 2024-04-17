@@ -131,7 +131,7 @@ public class SpawnManager : MonoBehaviour
                 {
                     monsterNumber++;
                 }
-                changeCount = standByMonsterList.Count / 2;
+                changeCount = standByMonsterList.Count / 2 + 1;
                 StartCoroutine(ChangeMonster());
             }
             else if (GameManager.instance.time > ((monsterNumber + 1) * 90) + 60 && GameManager.instance.time < 1200)
@@ -142,7 +142,7 @@ public class SpawnManager : MonoBehaviour
                 }
                 if (monsterNumber < 13)
                 {
-                    changeCount = standByMonsterList.Count / 2;
+                    changeCount = standByMonsterList.Count / 2 + 1;
                     StartCoroutine(ChangeMonster());
                 }
                 else

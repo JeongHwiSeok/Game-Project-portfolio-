@@ -148,7 +148,7 @@ public class DataManager : Singleton<DataManager>
         {
             int sum = 0;
 
-            for (int j = 2; j < 6; j++)
+            for (int j = 2; j < 7; j++)
             {
                 sum += subArray[i, j];
             }
@@ -163,7 +163,7 @@ public class DataManager : Singleton<DataManager>
 
             sum = 0;
             
-            for (int j = 7; j < 10; j++)
+            for (int j = 7; j < 11; j++)
             {
                 sum += subArray[i, j];
             }

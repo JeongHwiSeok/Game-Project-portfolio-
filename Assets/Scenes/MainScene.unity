@@ -622,6 +622,7 @@ MonoBehaviour:
   charNum: 0
   audioSelect: {fileID: 8844679108256255926, guid: 71371b3280b52644baae3a4f70535c2c, type: 3}
   audioSelectCheck: 0
+  soundOnOff: 000000
   characterSpeed: 1
   monsterSpeed: 0.8
   attackLV: 1

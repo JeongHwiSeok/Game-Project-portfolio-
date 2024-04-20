@@ -25,7 +25,7 @@ public class ItemButtonUI : MonoBehaviour
 
     private bool flag;
 
-    private void Awake()
+    private void OnEnable()
     {
         supportItemManager = GameObject.FindWithTag("Player").transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>();
         subWeaponManager = GameObject.FindWithTag("Player").transform.GetChild(2).GetChild(1).GetComponent<SubWeaponManager>();
@@ -41,7 +41,7 @@ public class ItemButtonUI : MonoBehaviour
     {
         if (levelUpUIManager.exclusionFlag)
         {
-            GameManager.instance.itemLvCheck[itemNumber] = 7;
+            GameManager.instance.itemLvCheck[itemNumber] = DictionaryManager.instance.ItemInfoOutput(itemNumber).MaxLV;
             transform.GetComponentInChildren<Button>().interactable = false;
             lockCase.SetActive(true);
             levelUpUIManager.exclusionFlag = false;

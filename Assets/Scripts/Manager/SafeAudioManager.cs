@@ -17,6 +17,22 @@ public class SafeAudioManager : Singleton<SafeAudioManager>
     {
         scenerySource.volume = GameManager.instance.volume[0] * GameManager.instance.volume[1];
         effectSource.volume = GameManager.instance.volume[0] * GameManager.instance.volume[2];
+
+        SoundOnOffCheck();
+    }
+
+    private void SoundOnOffCheck()
+    {
+        if (GameManager.instance.soundOnOff[0])
+        {
+            MainSoundOff();
+        }
+        else
+        {
+            MainSoundOn();
+            scenerySource.mute = GameManager.instance.soundOnOff[1];
+            effectSource.mute = GameManager.instance.soundOnOff[2];
+        }
     }
 
     public void EffectSound(AudioClip audioClip)

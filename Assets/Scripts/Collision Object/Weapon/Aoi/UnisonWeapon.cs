@@ -34,7 +34,7 @@ public class UnisonWeapon : Weapon
 
     private void CheckDgree()
     {
-        if(gameObject.activeSelf && time > 1f)
+        if(gameObject.activeSelf && time > 1.5f)
         {
             time = 0;
             gameObject.SetActive(false);

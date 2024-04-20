@@ -18,9 +18,11 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] GameObject audioSelect;
     [SerializeField] bool audioSelectCheck;
+
+    [SerializeField] public bool[] soundOnOff;
     #endregion
 
-    #region 플레이중에 관리되는 변수
+    #region Play
     [SerializeField] private float characterSpeed;
     [SerializeField] private float monsterSpeed;
 
@@ -165,6 +167,11 @@ public class GameManager : Singleton<GameManager>
 
         canvasScaler = GameObject.Find("Canvas").GetComponent<CanvasScaler>();
         resolution = DataManager.instance.data.resolution;
+
+        for (int i = 0; i < 3; i++)
+        {
+            soundOnOff[i] = DataManager.instance.data.soundOnOff[i];
+        }
 
         ChangeResolution();
         Screen.SetResolution((int)canvasScaler.referenceResolution.x, (int)canvasScaler.referenceResolution.y, DataManager.instance.data.screenMode);

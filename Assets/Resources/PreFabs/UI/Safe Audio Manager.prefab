@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundScene: 0
-  effectSource: {fileID: 6291504663403734862}
+  effectSource: {fileID: 9147914047354973695}
   scenerySource: {fileID: 7424995989152148686}
   mainSound: {fileID: 8300000, guid: 805df5c1f7052430b8758926bdbabc56, type: 3}
   playSound:

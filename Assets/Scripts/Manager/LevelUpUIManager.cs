@@ -86,14 +86,15 @@ public class LevelUpUIManager : MonoBehaviour
         {
             for (int i = 0; i < maxSlot; i++)
             {
-                gameObject.transform.parent.parent.GetChild(0).GetChild(i).gameObject.SetActive(false);
-                gameObject.transform.parent.parent.GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemNumber = ItemCheck();
-                if (gameObject.transform.parent.parent.GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemNumber == 0)
+                gameObject.transform.GetChild(0).GetChild(0).GetChild(i).gameObject.SetActive(false);
+                gameObject.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemNumber = ItemCheck();
+                if (gameObject.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemNumber == 0)
                 {
-                    gameObject.transform.parent.parent.GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemNumber = SubItemCheck();
+                    gameObject.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemNumber = SubItemCheck();
                 }
-                gameObject.transform.parent.parent.GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemImage.sprite = SpriteManager.instance.ItemSprite(gameObject.transform.parent.parent.GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemNumber);
-                gameObject.transform.parent.parent.GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().levelUpUIManager = this;
+                gameObject.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemImage.sprite = SpriteManager.instance.ItemSprite(gameObject.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().itemNumber);
+                gameObject.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<ItemButtonUI>().levelUpUIManager = this;
+                gameObject.transform.GetChild(0).GetChild(0).GetChild(i).gameObject.SetActive(true);
             }
             BuffDebuffManager.instance.shopReturn--;
             commandButtonText[0].text = "Reroll : " + BuffDebuffManager.instance.shopReturn.ToString();
@@ -105,7 +106,18 @@ public class LevelUpUIManager : MonoBehaviour
         if (BuffDebuffManager.instance.shopExclusion > 0)
         {
             exclusionFlag = true;
+            commandButtonText[1].text = "Cancle";
+            commandButton[1].onClick.RemoveListener(Exclusion);
+            commandButton[1].onClick.AddListener(Cancle);
         }
+    }
+
+    private void Cancle()
+    {
+        exclusionFlag = false;
+        commandButtonText[1].text = "Exclusion : " + BuffDebuffManager.instance.shopExclusion.ToString();
+        commandButton[1].onClick.RemoveListener(Cancle);
+        commandButton[1].onClick.AddListener(Exclusion);
     }
 
     private int ItemCheck()

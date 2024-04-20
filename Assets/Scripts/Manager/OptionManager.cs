@@ -50,13 +50,12 @@ public class OptionManager : Singleton<OptionManager>
         screenMode.isOn = DataManager.instance.data.fullScreenOnOff;
 
         soundToggle[0].onValueChanged.AddListener(MainVolume);
-        soundToggle[0].isOn = DataManager.instance.data.soundOnOff[0];
         soundToggle[1].onValueChanged.AddListener(BackVolume);
-        soundToggle[1].isOn = DataManager.instance.data.soundOnOff[1];
 
         for (int i = 0; i < 3; i++)
         {
             soundSlider[i].value = GameManager.instance.volume[i];
+            soundToggle[i].isOn = !GameManager.instance.soundOnOff[i];
         }
     }
 
@@ -149,28 +148,58 @@ public class OptionManager : Singleton<OptionManager>
     {
         if (flag)
         {
-            AudioManager.instance.MainSoundOn();
-            DataManager.instance.data.soundOnOff[0] = true;
+            if (AudioManager.instance != null)
+            {
+                AudioManager.instance.MainSoundOn();
+            }
+            else if (SafeAudioManager.instance != null)
+            {
+                SafeAudioManager.instance.MainSoundOn();
+            }
+            DataManager.instance.data.soundOnOff[0] = false;
         }
         else
         {
-            AudioManager.instance.MainSoundOff();
-            DataManager.instance.data.soundOnOff[0] = false;
+            if (AudioManager.instance != null)
+            {
+                AudioManager.instance.MainSoundOff();
+            }
+            else if (SafeAudioManager.instance != null)
+            {
+                SafeAudioManager.instance.MainSoundOff();
+            }
+            DataManager.instance.data.soundOnOff[0] = true;
         }
+        DataManager.instance.Save();
     }
 
     private void BackVolume(bool flag)
     {
         if (flag)
         {
-            AudioManager.instance.MainSoundOn();
-            DataManager.instance.data.soundOnOff[1] = true;
+            if (AudioManager.instance != null)
+            {
+                AudioManager.instance.BackSoundOn();
+            }
+            else if(SafeAudioManager.instance != null)
+            {
+                SafeAudioManager.instance.BackSoundOn();
+            }
+            DataManager.instance.data.soundOnOff[1] = false;
         }
         else
         {
-            AudioManager.instance.MainSoundOff();
-            DataManager.instance.data.soundOnOff[1] = false;
+            if (AudioManager.instance != null)
+            {
+                AudioManager.instance.BackSoundOff();
+            }
+            else if (SafeAudioManager.instance != null)
+            {
+                SafeAudioManager.instance.BackSoundOff();
+            }
+            DataManager.instance.data.soundOnOff[1] = true;
         }
+        DataManager.instance.Save();
     }
 
     private void EffectVolume()

@@ -37,13 +37,13 @@ public class HourHand : Weapon
             {
                 AoiManager.instance.standbyWeapon[3].gameObject.SetActive(true);
                 AoiManager.instance.standbyWeapon[3].gameObject.GetComponent<Weapon>().Atk = atk * 2;
-                AoiManager.instance.standbyWeapon[3].gameObject.GetComponent<Weapon>().NormalSpeed = normalspeed * BuffDebuffManager.instance.aoiP2SpeedBuff * BuffDebuffManager.instance.pwsSpeedBuff * 18 * AoiManager.instance.spdBuff;
+                AoiManager.instance.standbyWeapon[3].gameObject.GetComponent<Weapon>().NormalSpeed = normalspeed * BuffDebuffManager.instance.aoiP2SpeedBuff * BuffDebuffManager.instance.pwsSpeedBuff * 12 * AoiManager.instance.spdBuff;
             }
             else if (AoiManager.instance.standbyWeapon[5].activeSelf == false)
             {
                 AoiManager.instance.standbyWeapon[5].gameObject.SetActive(true);
                 AoiManager.instance.standbyWeapon[5].gameObject.GetComponent<Weapon>().Atk = atk * 2;
-                AoiManager.instance.standbyWeapon[5].gameObject.GetComponent<Weapon>().NormalSpeed = normalspeed * BuffDebuffManager.instance.aoiP2SpeedBuff * BuffDebuffManager.instance.pwsSpeedBuff * 18 * AoiManager.instance.spdBuff;
+                AoiManager.instance.standbyWeapon[5].gameObject.GetComponent<Weapon>().NormalSpeed = normalspeed * BuffDebuffManager.instance.aoiP2SpeedBuff * BuffDebuffManager.instance.pwsSpeedBuff * 12 * AoiManager.instance.spdBuff;
             }
         }
     }

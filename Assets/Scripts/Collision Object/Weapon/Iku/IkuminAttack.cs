@@ -79,6 +79,7 @@ public class IkuminAttack : Weapon
             {
                 if (IkuManager.instance.ikuminBoom)
                 {
+                    transform.position = point;
                     gameObject.transform.GetChild(0).GetComponent<IkuminBoom>().StatInput(10, normalspeed, knockBack, transform.localScale.x/0.7f);
                     gameObject.GetComponent<SpriteRenderer>().enabled = false;
                     gameObject.GetComponent<Animator>().enabled = false;

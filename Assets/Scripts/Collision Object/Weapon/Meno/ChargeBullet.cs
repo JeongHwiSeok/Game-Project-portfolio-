@@ -18,5 +18,6 @@ public class ChargeBullet : Weapon
         {
             atk = 30 * (MenoManager.instance.jewalCount / 50 + 1) * MenoManager.instance.pickUpBuff * BuffDebuffManager.instance.shopSkillAtk;
         }
+        MenoManager.instance.jewalCount = 0;
     }
 }

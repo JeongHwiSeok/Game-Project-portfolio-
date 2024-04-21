@@ -197,7 +197,8 @@ public class IkuManager : MonoBehaviour
             while (GameManager.instance.state)
             {
                 int random = Random.Range(0, 100);
-                if (random < 5)
+                Debug.Log(random);
+                if (random < 100)
                 {
                     random = Random.Range(0, 2);
 

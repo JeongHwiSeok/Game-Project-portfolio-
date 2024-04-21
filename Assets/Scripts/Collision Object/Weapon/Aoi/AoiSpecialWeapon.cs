@@ -43,6 +43,7 @@ public class AoiSpecialWeapon : Weapon
                     animator.SetBool("Drop", false);
                     capsuleCollider.enabled = true;
                     drop = true;
+                    StartCoroutine(DeleteTime());
                 }
             }
         }
@@ -65,5 +66,11 @@ public class AoiSpecialWeapon : Weapon
             AoiManager.instance.buffCheck = false;
             gameObject.SetActive(false);
         }
+    }
+
+    private IEnumerator DeleteTime()
+    {
+        yield return new WaitForSeconds(30f);
+        gameObject.SetActive(false);
     }
 }

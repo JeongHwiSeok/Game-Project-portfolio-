@@ -193,6 +193,16 @@ public class Monster : MonoBehaviour
         {
             if (weapon != null)
             {
+                float damage;
+                int count = Random.Range(1, 1001);
+                if (count <= PlayerManager.instance.Cri * 10)
+                {
+                    damage = (int)((weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff) * 1.5f * BuffDebuffManager.instance.shopDamage);
+                }
+                else
+                {
+                    damage = (int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff * BuffDebuffManager.instance.shopDamage);
+                }
                 if (collision.GetComponent<MenoBullet>() != null)
                 {
                     if (GameManager.instance.attackLV > 3)
@@ -206,7 +216,10 @@ public class Monster : MonoBehaviour
                 }
                 if (collision.GetComponent<MenoLaser>() != null || collision.GetComponent<ChargeBullet>() != null)
                 {
-                    weapon.Atk *= 1.5f;
+                    if (menoDebuff)
+                    {
+                        damage *= 1.5f;
+                    }
                 }
                 if (collision.GetComponent<MinuteHand>() != null || collision.GetComponent<HourHand>() != null)
                 {
@@ -261,15 +274,7 @@ public class Monster : MonoBehaviour
                 }
                 Debug.Log("Weapon : " + weapon.name + " / Atk : " + weapon.Atk);
                 knockBack = weapon.KnockBack;
-                int count = Random.Range(1, 1000);
-                if (count <= PlayerManager.instance.Cri * 10)
-                {
-                    hp -= (int)((weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff) * 1.5f * BuffDebuffManager.instance.shopDamage);
-                }
-                else
-                {
-                    hp -= (int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff * BuffDebuffManager.instance.shopDamage);
-                }
+                hp -= (int)damage;
                 if (hp > 0)
                 {
                     damageTime = 0.2f;
@@ -281,8 +286,6 @@ public class Monster : MonoBehaviour
             }
             if (player != null)
             {
-                player.Damage(atk);
-
                 if (GameManager.instance.charNum == 2)
                 {
                     if (MenoManager.instance.hologramCount > 0)
@@ -294,9 +297,11 @@ public class Monster : MonoBehaviour
                                 MenoManager.instance.hologram[i].SetActive(false);
                             }
                             MenoManager.instance.HolograminvincibilityStart();
+                            return;
                         }
                     }
                 }
+                player.Damage(atk);
                 if (ClockHat.instance != null)
                 {
                     ClockHat.instance.Activate();
@@ -317,6 +322,10 @@ public class Monster : MonoBehaviour
         {
             rainSlow = false;
             rainDamage = false;
+        }
+        else if (collision.GetComponent<CardFlooring>() != null)
+        {
+            trickDamage = false;
         }
     }
 

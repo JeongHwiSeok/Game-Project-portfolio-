@@ -25,6 +25,7 @@ public class SnakeChakram : Weapon
         normalspeed = 180;
         speed = normalspeed;
         knockBack = 0.1f;
+        atkBuff = 1.0f;
         size = 1f;
         time = 2;
         duration = 5;

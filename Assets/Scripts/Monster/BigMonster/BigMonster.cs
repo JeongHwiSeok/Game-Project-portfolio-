@@ -41,6 +41,8 @@ public class BigMonster : MonoBehaviour
 
     [SerializeField] protected bool menoDebuff;
 
+    [SerializeField] protected bool invincible;
+
     protected virtual void OnEnable()
     {
         parent = transform.parent.parent.GetChild(11);
@@ -50,6 +52,7 @@ public class BigMonster : MonoBehaviour
         rainSlow = false;
         rainDamage = false;
         trickDamage = false;
+        invincible = true;
         StartCoroutine(LastPosition());
     }
 
@@ -131,8 +134,18 @@ public class BigMonster : MonoBehaviour
 
         if (GameManager.instance.state)
         {
-            if (weapon != null)
+            if (weapon != null && invincible)
             {
+                float damage;
+                int count = Random.Range(1, 1001);
+                if (count <= PlayerManager.instance.Cri * 10)
+                {
+                    damage = (int)((weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff) * 1.5f * BuffDebuffManager.instance.shopDamage);
+                }
+                else
+                {
+                    damage = (int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff * BuffDebuffManager.instance.shopDamage);
+                }
                 if (collision.GetComponent<MenoBullet>() != null)
                 {
                     if (GameManager.instance.attackLV > 3)
@@ -146,7 +159,10 @@ public class BigMonster : MonoBehaviour
                 }
                 if (collision.GetComponent<MenoLaser>() != null || collision.GetComponent<ChargeBullet>() != null)
                 {
-                    weapon.Atk *= 1.5f;
+                    if (menoDebuff)
+                    {
+                        damage *= 1.5f;
+                    }
                 }
                 if (collision.GetComponent<MinuteHand>() != null || collision.GetComponent<HourHand>() != null)
                 {
@@ -196,17 +212,8 @@ public class BigMonster : MonoBehaviour
                 }
                 Debug.Log("Weapon : " + weapon.name + " / Atk : " + weapon.Atk);
                 knockBack = weapon.KnockBack;
-                int count = Random.Range(1, 1000);
-                if (count <= PlayerManager.instance.Cri * 10)
-                {
-                    hp -= (int)((weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff) * 1.5f * BuffDebuffManager.instance.shopDamage);
-                    StartCoroutine(InvincibleTime());
-                }
-                else
-                {
-                    hp -= (int)(weapon.Atk * PlayerManager.instance.Atk * BuffDebuffManager.instance.spAttackBuff * BuffDebuffManager.instance.shopDamage);
-                    StartCoroutine(InvincibleTime());
-                }
+                hp -= (int)damage;
+                StartCoroutine(InvincibleTime());
                 if (hp > 0)
                 {
                     if (weapon.KnockBack == 0)
@@ -225,8 +232,6 @@ public class BigMonster : MonoBehaviour
             }
             if (player != null)
             {
-                player.Damage(atk);
-
                 if (GameManager.instance.charNum == 2)
                 {
                     if (MenoManager.instance.hologramCount > 0)
@@ -238,9 +243,11 @@ public class BigMonster : MonoBehaviour
                                 MenoManager.instance.hologram[i].SetActive(false);
                             }
                             MenoManager.instance.HolograminvincibilityStart();
+                            return;
                         }
                     }
                 }
+                player.Damage(atk);
                 if (ClockHat.instance != null)
                 {
                     ClockHat.instance.Activate();
@@ -252,6 +259,19 @@ public class BigMonster : MonoBehaviour
                     return;
                 }
             }
+        }
+    }
+
+    protected virtual void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<RainFlooring>() != null)
+        {
+            rainSlow = false;
+            rainDamage = false;
+        }
+        else if (collision.GetComponent<CardFlooring>() != null)
+        {
+            trickDamage = false;
         }
     }
 
@@ -308,16 +328,16 @@ public class BigMonster : MonoBehaviour
 
     protected virtual IEnumerator InvincibleTime()
     {
-        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        invincible = false;
         yield return new WaitForSeconds(0.1f);
-        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        invincible = true;
     }
 
     protected virtual IEnumerator ContinueDamageRain(int damage)
     {
         while (true)
         {
-            while (GameManager.instance.state)
+            while (GameManager.instance.state && invincible)
             {
                 hp -= damage;
                 if (rainDamage != true)
@@ -333,7 +353,7 @@ public class BigMonster : MonoBehaviour
     {
         while (true)
         {
-            while (GameManager.instance.state)
+            while (GameManager.instance.state && invincible)
             {
                 hp -= damage;
                 if (trickDamage != true)

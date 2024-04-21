@@ -5,6 +5,7 @@ using UnityEngine;
 public class IkuminBlackAttack : Weapon
 {
     [SerializeField] Vector3 direction;
+    [SerializeField] bool move;
 
     private void OnEnable()
     {
@@ -12,6 +13,7 @@ public class IkuminBlackAttack : Weapon
         atk = 0f;
         knockBack = 1f;
         speed = normalspeed;
+        move = true;
         direction = Random.insideUnitSphere;
         direction.z = 0;
         Target();
@@ -19,7 +21,7 @@ public class IkuminBlackAttack : Weapon
 
     protected virtual void Update()
     {
-        if (GameManager.instance.state)
+        if (GameManager.instance.state && move)
         {
             Target();
             PositionStatus(direction);
@@ -30,11 +32,11 @@ public class IkuminBlackAttack : Weapon
     {
         if (direction.x >= 0)
         {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
         else
         {
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
     }
 
@@ -47,9 +49,11 @@ public class IkuminBlackAttack : Weapon
     {
         if (collision.GetComponent<Monster>() != null || collision.GetComponent<BigMonster>() != null)
         {
+            move = false;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             gameObject.GetComponent<Animator>().enabled = false;
             gameObject.transform.GetChild(0).GetComponent<IkuminBlackBoom>().gameObject.SetActive(true);
+            gameObject.transform.GetChild(0).GetComponent<Animator>().SetBool("Boom", true);
         }
     }
 }

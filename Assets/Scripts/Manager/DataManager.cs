@@ -128,7 +128,7 @@ public class DataManager : Singleton<DataManager>
         {
             data.AoiInformation[i] = subArray[0, i];
             data.IkuInformation[i] = subArray[1, i];
-            data.MenoInformation[1] = subArray[2, 1];
+            data.MenoInformation[i] = subArray[2, i];
         }
     }
 

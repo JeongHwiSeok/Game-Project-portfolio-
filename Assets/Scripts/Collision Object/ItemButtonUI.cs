@@ -30,6 +30,8 @@ public class ItemButtonUI : MonoBehaviour
         supportItemManager = GameObject.FindWithTag("Player").transform.GetChild(2).GetChild(2).GetComponent<SupportItemManager>();
         subWeaponManager = GameObject.FindWithTag("Player").transform.GetChild(2).GetChild(1).GetComponent<SubWeaponManager>();
         uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        gameObject.GetComponentInChildren<Button>().interactable = true;
+        lockCase.SetActive(false);
         itemName.text = DictionaryManager.instance.ItemInfoOutput(itemNumber).Name;
         itemInfo.text = ItemInfo();
 

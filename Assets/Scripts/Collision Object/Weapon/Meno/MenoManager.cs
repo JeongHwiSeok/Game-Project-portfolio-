@@ -57,7 +57,7 @@ public class MenoManager : MonoBehaviour
             count.gameObject.SetActive(true);
             if (DataManager.instance.subArray[2, 7] == 1)
             {
-                jewalRandom = 1;
+                jewalRandom = 2;
             }
             else if (DataManager.instance.subArray[2, 7] == 2)
             {
@@ -180,7 +180,7 @@ public class MenoManager : MonoBehaviour
                 int count = hologramCount-1;
                 while (count > -1)
                 {
-                    if (hologram[count].activeSelf != true)
+                    if (hologram[count].activeSelf == false)
                     {
                         hologram[count].transform.position = new Vector3(Mathf.Cos(((count + 1) * 360 / hologramCount) * Mathf.Deg2Rad), Mathf.Sin(((count + 1) * 360 / hologramCount) * Mathf.Deg2Rad), 0) * 3;
                         hologram[count].SetActive(true);

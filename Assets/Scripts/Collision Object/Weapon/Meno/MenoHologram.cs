@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MenoHologram : MonoBehaviour
 {
-    private void OnEnable()
+    private void Update()
     {
         gameObject.GetComponent<SpriteRenderer>().flipX = PlayerManager.instance.gameObject.GetComponent<SpriteRenderer>().flipX;
     }

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] Transform parent;
-    [SerializeField] List<GameObject> monsterList;
+
+    [SerializeField] GameObject baseMonster;
     
     [SerializeField] List<GameObject> bigMonsterList;
 
@@ -48,7 +50,7 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < 50; i++)
         {
-            GameObject monster = Instantiate(monsterList[monsterNumber], parent);
+            GameObject monster = Instantiate(baseMonster, parent);
 
             monster.SetActive(false);
 
@@ -127,29 +129,22 @@ public class SpawnManager : MonoBehaviour
             }
             if (GameManager.instance.time >= 1 && GameManager.instance.time > (monsterNumber +1) *90 && GameManager.instance.time < 610)
             {
-                if(monsterNumber < monsterList.Count - 1)
-                {
-                    monsterNumber++;
-                }
+                monsterNumber++;
                 changeCount = standByMonsterList.Count / 2 + 1;
-                StartCoroutine(ChangeMonster());
+                ChangeMonster();
             }
             else if (GameManager.instance.time > ((monsterNumber + 1) * 90) + 60 && GameManager.instance.time < 1200)
             {
-                if (monsterNumber < monsterList.Count)
-                {
-                    monsterNumber++;
-                }
-                if (monsterNumber < 13)
+                monsterNumber++;
+                if (monsterNumber < 12)
                 {
                     changeCount = standByMonsterList.Count / 2 + 1;
-                    StartCoroutine(ChangeMonster());
                 }
                 else
                 {
                     changeCount = standByMonsterList.Count;
-                    StartCoroutine(EndChangeMonster());
                 }
+                ChangeMonster();
             }
             if (GameManager.instance.time > (bossMonsterNumber +1) * 600 && bossMonsterNumber < bossMonsterList.Count && GameManager.instance.time < 1800)
             {
@@ -178,57 +173,17 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private IEnumerator ChangeMonster()
+    private void ChangeMonster()
     {
-        while (changeCount > 0)
+        for (int i = 0; i < changeCount; i++)
         {
-            for (int i = 0; i < changeCount; i++)
-            {
-                GameObject deleteObj = standByMonsterList[i].gameObject;
+            GameObject monster = standByMonsterList[i].gameObject;
 
-                if (deleteObj.activeSelf == false)
-                {
-                    standByMonsterList.Remove(standByMonsterList[i]);
-
-                    Destroy(deleteObj);
-
-                    GameObject monster = Instantiate(monsterList[monsterNumber], parent);
-
-                    monster.SetActive(false);
-
-                    standByMonsterList.Add(monster);
-
-                    changeCount--;
-                }
-            }
-            yield return null;
+            monster.GetComponent<Monster>().MonsterNumber = monsterNumber;
         }
-    }
 
-    private IEnumerator EndChangeMonster()
-    {
-        while (changeCount > 0)
-        {
-            for (int i = 0; i < changeCount; i++)
-            {
-                GameObject deleteObj = standByMonsterList[i].gameObject;
-
-                if (deleteObj.activeSelf == false)
-                {
-                    standByMonsterList.Remove(standByMonsterList[i]);
-
-                    Destroy(deleteObj);
-
-                    GameObject monster = Instantiate(monsterList[monsterNumber], parent);
-
-                    monster.SetActive(false);
-
-                    standByMonsterList.Add(monster);
-
-                    changeCount--;
-                }
-            }
-            yield return new WaitForSeconds(0.2f);
-        }
+        standByMonsterList = standByMonsterList.OrderBy(p => p.GetComponent<Monster>().MonsterNumber).ToList();
+        Debug.Log("Test");
+        Debug.Log(standByMonsterList);
     }
 }

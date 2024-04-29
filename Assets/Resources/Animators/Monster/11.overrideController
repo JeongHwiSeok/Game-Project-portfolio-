@@ -6,8 +6,8 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mezzo-red
+  m_Name: 11
   m_Controller: {fileID: 9100000, guid: e4a67c82d1eba5f46800179a40565b92, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 6ac5d6efabf4c1b4b9e226d6f6421b00, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: b9b6b0f1ba8503240b2977f40f6d75d1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: cc62ad012df45f646add7438cdeba5d2, type: 2}

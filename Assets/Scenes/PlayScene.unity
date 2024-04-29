@@ -321,20 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 51348453}
-  monsterList:
-  - {fileID: 5946397055988672714, guid: a315383541491dc49b6e9ed5f439059e, type: 3}
-  - {fileID: 9068307386319856875, guid: 0e0cd79dec1d59e4492e70ea83d68e92, type: 3}
-  - {fileID: 1197318279731412531, guid: 5211eb3072291bb47ad7a1b4d2554e50, type: 3}
-  - {fileID: 817921712255490136, guid: 140d89f2161383248baa5b4faa3b0160, type: 3}
-  - {fileID: 6821028258885041566, guid: e6a5707d4147bdb49be93bf6717de7fc, type: 3}
-  - {fileID: 6188346252362876285, guid: 57a6a94b96d4e924ea5891c169c3092c, type: 3}
-  - {fileID: 6633652687751399635, guid: 33d44cddeccbdd545b27cabdae46654d, type: 3}
-  - {fileID: 8925060283810959677, guid: 1580abdc02931ae4c8d818c3f90b67ed, type: 3}
-  - {fileID: 2077594002218755352, guid: 08e1ba1b0d1e58143a7003645c970d2f, type: 3}
-  - {fileID: 8023297160230784685, guid: 15aafaa6857bc594fb10c9629e1d07ef, type: 3}
-  - {fileID: 2642597744961640085, guid: 168be8fc6cd438b48bac1e99ec8759aa, type: 3}
-  - {fileID: 6328658018071511788, guid: d3e80c0ee837cd84ca841b3e468962af, type: 3}
-  - {fileID: 8080361572134893558, guid: 5c59419bb883983439a1f08973563c3d, type: 3}
+  baseMonster: {fileID: 5946397055988672714, guid: 2ce2c1943a1b30d4599ec4a6fdec4dc3, type: 3}
   bigMonsterList:
   - {fileID: 8699563232384528107, guid: 4844e0a386bf2204c96587cbb3310324, type: 3}
   - {fileID: 636245044415389623, guid: d0360a7a883f7f2458aad287766e1981, type: 3}
@@ -4450,6 +4437,7 @@ MonoBehaviour:
   charNum: 0
   audioSelect: {fileID: 0}
   audioSelectCheck: 0
+  soundOnOff: 
   characterSpeed: 3
   monsterSpeed: 1
   attackLV: 0

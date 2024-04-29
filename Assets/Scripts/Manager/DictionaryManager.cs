@@ -15,7 +15,7 @@ public class DictionaryManager : Singleton<DictionaryManager>
     [SerializeField] TextAsset[] atttackInformaion;
 
     private static readonly Dictionary<int, ItemInfo> itemDictionary = new Dictionary<int, ItemInfo>();
-    private static readonly Dictionary<string, MonsterInfo> monsterDictionary = new Dictionary<string, MonsterInfo>();
+    private static readonly Dictionary<int, MonsterInfo> monsterDictionary = new Dictionary<int, MonsterInfo>();
     private static readonly Dictionary<int, CharacterInfo> characterDictionary = new Dictionary<int, CharacterInfo>();
     private static readonly Dictionary<int, ShopItemInfo> shopItemDictionary = new Dictionary<int, ShopItemInfo>();
     private static readonly Dictionary<string, ItemInformationText> itemInformaionTextDictionary = new Dictionary<string, ItemInformationText>();
@@ -67,10 +67,10 @@ public class DictionaryManager : Singleton<DictionaryManager>
 
             MonsterInfo monsterInfo;
 
-            if (monsterDictionary.TryGetValue(row[2], out monsterInfo) == false)
+            if (monsterDictionary.TryGetValue(int.Parse(row[0]), out monsterInfo) == false)
             {
-                monsterInfo = new MonsterInfo(int.Parse(row[0]), row[1], float.Parse(row[2]), int.Parse(row[3]));
-                monsterDictionary.Add(row[1], monsterInfo);
+                monsterInfo = new MonsterInfo(int.Parse(row[0]), row[1], int.Parse(row[2]), int.Parse(row[3]), float.Parse(row[4]), float.Parse(row[5]), float.Parse(row[6]), float.Parse(row[7]), float.Parse(row[8]));
+                monsterDictionary.Add(int.Parse(row[0]), monsterInfo);
             }
         }
         #endregion
@@ -176,13 +176,13 @@ public class DictionaryManager : Singleton<DictionaryManager>
             return null;
         }
     }
-    public MonsterInfo MonsterInfoOutput(string name)
+    public MonsterInfo MonsterInfoOutput(int number)
     {
         MonsterInfo monsterInfo;
 
-        if (monsterDictionary.TryGetValue(name, out monsterInfo))
+        if (monsterDictionary.TryGetValue(number, out monsterInfo))
         {
-            monsterInfo = monsterDictionary[name];
+            monsterInfo = monsterDictionary[number];
             return monsterInfo;
         }
         else
@@ -345,8 +345,13 @@ public class MonsterInfo
 {
     int monsterNumber;
     string name;
-    float hp;
+    int maxHp;
     int atk;
+    float scale;
+    float colliderX;
+    float colliderY;
+    float offsetX;
+    float offsetY;
 
     public int MonsterNumber
     {
@@ -356,21 +361,46 @@ public class MonsterInfo
     {
         get { return name; }
     }
-    public float Hp
+    public int MaxHp
     {
-        get { return hp; }
+        get { return maxHp; }
     }
     public int Atk
     {
         get { return atk; }
     }
+    public float Scale
+    {
+        get { return scale; }
+    }
+    public float ColliderX
+    {
+        get { return colliderX; }
+    }
+    public float ColliderY
+    {
+        get { return colliderY; }
+    }
+    public float OffsetX
+    {
+        get { return offsetX; }
+    }
+    public float OffsetY
+    {
+        get { return offsetY; }
+    }
 
-    public MonsterInfo(int _monsterNumber, string _name, float _hp, int _atk)
+    public MonsterInfo(int _monsterNumber, string _name, int _maxHp, int _atk, float _scale, float _colliderX, float _colliderY, float _offsetX, float _offsetY)
     {
         monsterNumber = _monsterNumber;
         name = _name;
-        hp = _hp;
+        maxHp = _maxHp;
         atk = _atk;
+        scale = _scale;
+        colliderX = _colliderX;
+        colliderY = _colliderY;
+        offsetX = _offsetX;
+        offsetY = _offsetY;
     }
 }
 

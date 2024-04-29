@@ -10,6 +10,7 @@ public class SpriteManager : Singleton<SpriteManager>
     [SerializeField] Sprite[] skillSprite;
     [SerializeField] Sprite[] characterAttackSprite;
     [SerializeField] Sprite[] shopSprite;
+    [SerializeField] Sprite[] monsterSprite;
 
     public Sprite CharacterSprite(int num)
     {
@@ -29,5 +30,10 @@ public class SpriteManager : Singleton<SpriteManager>
     public Sprite SkillSprite(int num)
     {
         return skillSprite[num];
+    }
+
+    public Sprite MonsterSprite(int num)
+    {
+        return monsterSprite[num];
     }
 }

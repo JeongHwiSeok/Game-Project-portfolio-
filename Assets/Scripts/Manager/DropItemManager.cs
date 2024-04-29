@@ -71,7 +71,7 @@ public class DropItemManager : MonoBehaviour
                     dropItemList.Remove(dropItemList[i]);
                     dropItemList.Remove(obj);
 
-                    int k = int.Parse(obj.name.Substring(4,1));
+                    int k = int.Parse(obj.name.Substring(0,1));
 
                     Vector3 dropPosition = (obj.transform.localPosition + obj2.transform.localPosition) / 2;
 

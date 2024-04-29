@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
+    [SerializeField] Animator animator;
+    [SerializeField] protected SpriteRenderer spriteRenderer;
+    [SerializeField] BoxCollider2D boxCollider2D;
+
     [SerializeField] Vector3 currentPosition;
     [SerializeField] Vector3 previusPosition;
 
     [SerializeField] Vector3 backPosition;
 
-    [SerializeField] protected int maxHp;
-    [SerializeField] protected int hp;
-    protected int atk;
-    protected float speed;
-    protected float knockBack;
-
-    [SerializeField] protected bool firstCheck = false;
+    [SerializeField] protected bool firstCheck;
 
     [SerializeField] protected Vector3 direction;
-    [SerializeField] protected SpriteRenderer spriteRenderer;
-
-    [SerializeField] protected List<GameObject> dropItem;
 
     [SerializeField] Weapon weapon;
     [SerializeField] PlayerManager player;
@@ -50,6 +45,20 @@ public class Monster : MonoBehaviour
 
     [SerializeField] bool effectTrigger;
 
+    protected int maxHp;
+    protected int hp;
+    protected int atk;
+    protected float speed;
+    protected float knockBack;
+
+    private int monsterNumber;
+
+    public int MonsterNumber
+    {
+        set { monsterNumber = value; }
+        get { return monsterNumber; }
+    }
+
     protected virtual void OnEnable()
     {
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
@@ -63,6 +72,13 @@ public class Monster : MonoBehaviour
         timeBack = false;
         menoDebuff = false;
         effectTrigger = true;
+        maxHp = DictionaryManager.instance.MonsterInfoOutput(monsterNumber).MaxHp;
+        hp = maxHp;
+        atk = DictionaryManager.instance.MonsterInfoOutput(monsterNumber).Atk;
+        spriteRenderer.sprite = SpriteManager.instance.MonsterSprite(monsterNumber);
+        animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animators/Monster/"+monsterNumber.ToString());
+        boxCollider2D.offset = new Vector2(DictionaryManager.instance.MonsterInfoOutput(monsterNumber).OffsetX, DictionaryManager.instance.MonsterInfoOutput(monsterNumber).OffsetY);
+        boxCollider2D.size = new Vector2(DictionaryManager.instance.MonsterInfoOutput(monsterNumber).ColliderX, DictionaryManager.instance.MonsterInfoOutput(monsterNumber).ColliderY);
         StartCoroutine(LastPosition());
         StartCoroutine(BackPosition());
     }
@@ -138,7 +154,6 @@ public class Monster : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        hp = maxHp;
         spriteRenderer.flipX = false;
         spriteRenderer.color = new Color(1, 1, 1, 1);
         if (Chickennuggie.instance != null)
@@ -447,31 +462,31 @@ public class Monster : MonoBehaviour
             randomCount = Random.Range(1, 100);
             if(JewalBox.instance != null && randomCount <= 10)
             {
-                drop = Instantiate(dropItem[4], parent);
+                drop = Instantiate(Resources.Load<GameObject>("PreFabs/Object/Item/RedCoin"), parent);
             }
             else if(randomCount <= 95)
             {
-                drop = Instantiate(dropItem[0], parent);
+                drop = Instantiate(Resources.Load<GameObject>("PreFabs/Object/Item/Coin"), parent);
             }
             else
             {
-                drop = Instantiate(dropItem[3], parent);
+                drop = Instantiate(Resources.Load<GameObject>("PreFabs/Object/Item/PickUP"), parent);
             }
         }
         else if(randomCount <= 90)
         {
-            drop = Instantiate(dropItem[1], parent);
+            drop = Instantiate(Resources.Load<GameObject>("PreFabs/Object/Item/"+(monsterNumber/3).ToString()), parent);
         }
         else
         {
-            drop = Instantiate(dropItem[2], parent);
+            drop = Instantiate(Resources.Load<GameObject>("PreFabs/Object/Item/" + ((monsterNumber / 3) + 1).ToString()), parent);
         }
 
         drop.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         
-        if (drop.name != "PickUP-item(Clone)")
+        if (drop.name != "PickUP(Clone)")
         {
-            if (drop.name == "coin(Clone)")
+            if (drop.name == "Coin(Clone)")
             {
                 dropItemManager.coinAdd(drop);
             }

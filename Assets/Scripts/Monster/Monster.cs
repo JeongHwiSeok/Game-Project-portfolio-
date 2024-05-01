@@ -5,7 +5,7 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    [SerializeField] protected SpriteRenderer spriteRenderer;
+    [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] BoxCollider2D boxCollider2D;
 
     [SerializeField] Vector3 currentPosition;
@@ -13,19 +13,19 @@ public class Monster : MonoBehaviour
 
     [SerializeField] Vector3 backPosition;
 
-    [SerializeField] protected bool firstCheck;
+    [SerializeField] bool firstCheck;
 
-    [SerializeField] protected Vector3 direction;
+    [SerializeField] Vector3 direction;
 
     [SerializeField] Weapon weapon;
     [SerializeField] PlayerManager player;
 
-    [SerializeField] protected float timeCheck;
-    [SerializeField] protected float damageTime;
+    [SerializeField] float timeCheck;
+    [SerializeField] float damageTime;
 
-    [SerializeField] protected Transform parent;
+    [SerializeField] Transform parent;
 
-    private DropItemManager dropItemManager;
+    DropItemManager dropItemManager;
 
     [SerializeField] GameObject drop;
 
@@ -51,7 +51,7 @@ public class Monster : MonoBehaviour
     protected float speed;
     protected float knockBack;
 
-    private int monsterNumber;
+    [SerializeField] int monsterNumber;
 
     public int MonsterNumber
     {

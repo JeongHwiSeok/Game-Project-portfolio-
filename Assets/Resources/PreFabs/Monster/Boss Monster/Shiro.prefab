@@ -471,6 +471,7 @@ MonoBehaviour:
   rainDamage: 0
   trickDamage: 0
   menoDebuff: 0
+  invincible: 1
   attack: {fileID: 318792260893788704}
   attackRange: {fileID: 7411077457213420232}
   animators:

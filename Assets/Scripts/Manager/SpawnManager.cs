@@ -177,13 +177,9 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < changeCount; i++)
         {
-            GameObject monster = standByMonsterList[i].gameObject;
-
-            monster.GetComponent<Monster>().MonsterNumber = monsterNumber;
+            standByMonsterList[i].gameObject.GetComponent<Monster>().MonsterNumber = monsterNumber;
         }
 
         standByMonsterList = standByMonsterList.OrderBy(p => p.GetComponent<Monster>().MonsterNumber).ToList();
-        Debug.Log("Test");
-        Debug.Log(standByMonsterList);
     }
 }

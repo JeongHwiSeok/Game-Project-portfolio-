@@ -29,6 +29,7 @@ public class BossSpeaker : BigMonster
         rainSlow = false;
         rainDamage = false;
         trickDamage = false;
+        invincible = true;
         StartCoroutine(LastPosition());
         StartCoroutine(Attack());
     }

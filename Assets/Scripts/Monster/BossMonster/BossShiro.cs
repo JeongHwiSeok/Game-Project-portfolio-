@@ -34,6 +34,7 @@ public class BossShiro : BigMonster
         rainDamage = false;
         trickDamage = false;
         attackFlag = false;
+        invincible = true;
         for (int i = 0; i < 3; i++)
         {
             attackStap[i] = false;
